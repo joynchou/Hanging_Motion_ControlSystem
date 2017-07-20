@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:04:56 PAGE 1   
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE TASK
@@ -34,169 +34,179 @@ line level    source
   24          
   25          //头文件中的结构体定义
   26          /*
-  27            typedef struct //坐标结构体
-  28          {
-  29          
-  30             float x;
-  31             float y;
-  32          
-  33          
-  34          } Coordinate;
-  35          
-  36          typedef struct   //长度结构体
-  37          {  //
-  38          
-  39             float Length;
+  27          
+  28          #define LEFT_STEP_MOTOR   0
+  29          #define RIGHT_STEP_MOTOR  1
+  30          
+  31          #define LEFT_WIRE_LENGTH   0 //左边线长
+  32          #define RIGHT_WIRE_LENGTH  1 //右边线长
+  33          enum State//状态枚举
+  34          {
+  35            STOP,RUNNING
+  36          };
+  37          
+  38            typedef struct //坐标结构体
+  39          {
   40          
-  41          
-  42          } Wire;
-  43          static Wire g_StepMotorWireLen[2];  // 电机当前位置记录结构体
-  44          static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // 电机当前位置记录结构体
-  45          
-  46          //利用上面两个结构体一同再构建一个系统信息结构体
-  47          typedef struct
-  48          {
-  49              Coordinate g_TargetCoordinate;
-  50              Coordinate g_CurrentCoordinate;
-  51              Wire g_StepMotorWireLen[2];
-  52              u8 systemState;
-  53          }Info;
-  54          
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:04:56 PAGE 2   
+  41             float x;
+  42             float y;
+  43          
+  44          
+  45          } Coordinate;
+  46          
+  47          typedef struct   //长度结构体
+  48          {  //
+  49          
+  50             float Length;
+  51          
+  52          
+  53          } Wire;
+  54          static Wire g_StepMotorWireLen[2];  // 电机当前位置记录结构体
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 2   
 
-  55          
-  56           */
-  57          
-  58          static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体
-  59          //************************************
-  60          // Method:    isSyetemRunning
-  61          // FullName:  isSyetemRunning
-  62          // Access:    public 
-  63          // Returns:   bit
-  64          // Qualifier:
-  65          // Parameter: void
-  66          //************************************
-  67          bit isSyetemRunning(void)
-  68          {
-  69   1        return g_MotionSystemInfo.systemState == RUNNING;
-  70   1      }
-  71          //************************************
-  72          // Method:    isSystemStop
-  73          // FullName:  isSystemStop
-  74          // Access:    public 
-  75          // Returns:   bit
-  76          // Qualifier:
-  77          // Parameter: void
-  78          //************************************
-  79          bit isSystemStop(void)
-  80          {
-  81   1        return g_MotionSystemInfo.systemState == STOP;
-  82   1      }
-  83          //************************************
-  84          // Method:    startSystem
-  85          // FullName:  startSystem
-  86          // Access:    public 
-  87          // Returns:   bit
-  88          // Qualifier:
-  89          // Parameter: void
-  90          //************************************
-  91          bit startSystem(void)
-  92          {
-  93   1      
-  94   1      }
-*** WARNING C173 IN LINE 94 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
-  95          //************************************
-  96          // Method:    stopSystem
-  97          // FullName:  stopSystem
-  98          // Access:    public 
-  99          // Returns:   bit
- 100          // Qualifier:
- 101          // Parameter: void
- 102          //************************************
- 103          bit stopSystem(void)
- 104          {
- 105   1        g_MotionSystemInfo.systemState = STOP;
- 106   1      }
-*** WARNING C173 IN LINE 106 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 107          
- 108          //************************************
- 109          // Method:    setTargetCoordinate
- 110          // FullName:  setTargetCoordinate
- 111          // Access:    public 
- 112          // Returns:   bit
- 113          // Qualifier: //设置需要到达的目标坐标
- 114          // Parameter: float x
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:04:56 PAGE 3   
+  55          static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // 电机当前位置记录结构体
+  56          
+  57          //利用上面两个结构体一同再构建一个系统信息结构体
+  58          typedef struct
+  59          {
+  60              Coordinate g_TargetCoordinate;
+  61              Coordinate g_CurrentCoordinate;
+  62              Wire g_StepMotorWireLen[2];
+  63              u8 systemState;
+  64          }Info;
+  65          
+  66          
+  67           */
+  68          
+  69          //************************************
+  70          // Method:    isSyetemRunning
+  71          // FullName:  isSyetemRunning
+  72          // Access:    public 
+  73          // Returns:   bit
+  74          // Qualifier:
+  75          // Parameter: void
+  76          //************************************
+  77          bit isSyetemRunning(void)
+  78          {
+  79   1        return g_MotionSystemInfo.systemState == RUNNING;
+  80   1      }
+  81          //************************************
+  82          // Method:    isSystemStop
+  83          // FullName:  isSystemStop
+  84          // Access:    public 
+  85          // Returns:   bit
+  86          // Qualifier:
+  87          // Parameter: void
+  88          //************************************
+  89          bit isSystemStop(void)
+  90          {
+  91   1        return g_MotionSystemInfo.systemState == STOP;
+  92   1      }
+  93          //************************************
+  94          // Method:    startSystem
+  95          // FullName:  startSystem
+  96          // Access:    public 
+  97          // Returns:   bit
+  98          // Qualifier:
+  99          // Parameter: void
+ 100          //************************************
+ 101          bit startSystem(void)
+ 102          {
+ 103   1      
+ 104   1      }
+*** WARNING C173 IN LINE 104 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 105          //************************************
+ 106          // Method:    stopSystem
+ 107          // FullName:  stopSystem
+ 108          // Access:    public 
+ 109          // Returns:   bit
+ 110          // Qualifier:
+ 111          // Parameter: void
+ 112          //************************************
+ 113          bit stopSystem(void)
+ 114          {
+ 115   1        g_MotionSystemInfo.systemState = STOP;
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 3   
 
- 115          // Parameter: float y
- 116          //************************************
- 117          bit setTargetCoordinate(float x, float y)
- 118          {
- 119   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
- 120   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
- 121   1        setWireLength(LEFT_WIRE_LENGTH);
- 122   1        setWireLength(RIGHT_WIRE_LENGTH);
- 123   1      
- 124   1        return 1;
- 125   1      
- 126   1      }
- 127          //************************************
- 128          // Method:    getCurrentCoordinate
- 129          // FullName:  getCurrentCoordinate
- 130          // Access:    public 
- 131          // Returns:   Coordinate
- 132          // Qualifier: //读取当前坐标，返回一个xy结构体
- 133          // Parameter: u8 motor
- 134          //************************************
- 135          Coordinate getCurrentCoordinate(void)
- 136          {
- 137   1      
- 138   1        return g_MotionSystemInfo.g_CurrentCoordinate;
- 139   1      }
- 140          
- 141          
- 142          ///////////////////！以下为私有函数，外部不能调用！///////////////////////////
- 143          //************************************
- 144          // Method:    setWireLength
- 145          // FullName:  setWireLength
- 146          // Access:    public 
- 147          // Returns:   bit
- 148          // Qualifier: //设置a,b的长度
- 149          // Parameter: u8 wire
- 150          //************************************
- 151          static bit setWireLength(u8 wire)
- 152          {
- 153   1        if (wire)
- 154   1        {
- 155   2          //a的线长计算
- 156   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(  pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)  
+ 116   1      }
+*** WARNING C173 IN LINE 116 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 117          
+ 118          //************************************
+ 119          // Method:    setTargetCoordinate
+ 120          // FullName:  setTargetCoordinate
+ 121          // Access:    public 
+ 122          // Returns:   bit
+ 123          // Qualifier: //设置需要到达的目标坐标
+ 124          // Parameter: float x
+ 125          // Parameter: float y
+ 126          //************************************
+ 127          bit setTargetCoordinate(float x, float y)
+ 128          {
+ 129   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
+ 130   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
+ 131   1        setWireLength(LEFT_WIRE_LENGTH);
+ 132   1        setWireLength(RIGHT_WIRE_LENGTH);
+ 133   1      
+ 134   1        return 1;
+ 135   1      
+ 136   1      }
+ 137          //************************************
+ 138          // Method:    getCurrentCoordinate
+ 139          // FullName:  getCurrentCoordinate
+ 140          // Access:    public 
+ 141          // Returns:   Coordinate
+ 142          // Qualifier: //读取当前坐标，返回一个xy结构体
+ 143          // Parameter: u8 motor
+ 144          //************************************
+ 145          Coordinate getCurrentCoordinate(void)
+ 146          {
+ 147   1      
+ 148   1        return g_MotionSystemInfo.g_CurrentCoordinate;
+ 149   1      }
+ 150          
+ 151          
+ 152          ///////////////////！以下为私有函数，外部不能调用！///////////////////////////
+ 153          //************************************
+ 154          // Method:    setWireLength
+ 155          // FullName:  setWireLength
+ 156          // Access:    public 
+ 157          // Returns:   bit
+ 158          // Qualifier: //设置a,b的长度
+ 159          // Parameter: u8 wire
+ 160          //************************************
+ 161          static bit setWireLength(u8 wire)
+ 162          {
+ 163   1        if (wire)
+ 164   1        {
+ 165   2          //a的线长计算
+ 166   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(  pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)  
              -            
- 157   2                                         +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
- 158   2                                        ) ;
- 159   2        }
- 160   1        else
- 161   1        {
- 162   2          //b的线长计算
- 163   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(    pow(BOARD_WIDTH-g_MotionSystemInfo.g_Target
+ 167   2                                         +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
+ 168   2                                        ) ;
+ 169   2        }
+ 170   1        else
+ 171   1        {
+ 172   2          //b的线长计算
+ 173   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(    pow(BOARD_WIDTH-g_MotionSystemInfo.g_Target
              -Coordinate.x, 2)  
- 164   2                                        + pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
- 165   2                                         );
- 166   2        }
- 167   1      }
-*** WARNING C173 IN LINE 167 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 168          static float getWireLength(u8 wire)
- 169          {
- 170   1        return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
- 171   1      }
- 172          
- 173          
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:04:56 PAGE 4   
+ 174   2                                        + pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 4   
 
- 174          
- 175          
- 176          
- 177          
- 178          
+ 175   2                                         );
+ 176   2        }
+ 177   1      }
+*** WARNING C173 IN LINE 177 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 178          static float getWireLength(u8 wire)
+ 179          {
+ 180   1        return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
+ 181   1      }
+ 182          
+ 183          
+ 184          
+ 185          
+ 186          
+ 187          
+ 188          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
