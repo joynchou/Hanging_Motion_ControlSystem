@@ -1,13 +1,12 @@
-
 /************************************************************
-* ç»„ç»‡åç§°ï¼š
-* æ–‡ä»¶åç§°: K:\å•ç‰‡æœºç›¸å…³\ç”µå­å¤§èµ›ç¨‹åºæ¡†æ¶\SOFTWARE\TASK\TASK.C
-* ä½œè€…:
-* ç‰ˆæœ¬:
-* æ—¥æœŸ:     2017/07/06
-* æè¿°:  æ‚¬æŒ‚è¿åŠ¨æ§åˆ¶ç³»ç»ŸåŸºæœ¬æ§åˆ¶å‡½æ•°
-* å†å²ä¿®æ”¹è®°å½•:
-* <ä½œè€…> <æ—¶é—´> <ç‰ˆæœ¬ > <æè¿°>
+* ×éÖ¯Ãû³Æ£º
+* ÎÄ¼şÃû³Æ: K:\µ¥Æ¬»úÏà¹Ø\µç×Ó´óÈü³ÌĞò¿ò¼Ü\SOFTWARE\TASK\TASK.C
+* ×÷Õß:
+* °æ±¾:
+* ÈÕÆÚ:     2017/07/06
+* ÃèÊö:  Ğü¹ÒÔË¶¯¿ØÖÆÏµÍ³»ù±¾¿ØÖÆº¯Êı
+* ÀúÊ·ĞŞ¸Ä¼ÇÂ¼:
+* <×÷Õß> <Ê±¼ä> <°æ±¾ > <ÃèÊö>
 *
 ***********************************************************/
 
@@ -16,16 +15,20 @@
 #include "setup.h"
 #include "../HARDWARE/BSP/USART1.h"
 #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
+#include "../HARDWARE/DEVICES/MOTOR/STEP_MOTOR/STEP_MOTOR.h"
 #include <math.h>
 
-#define  BOARD_HEIGHT  100.0f	//æ¿å­çš„é«˜åº¦  ï¼Œå•ä½å˜ç±³
-#define  BOARD_WIDTH   50.0f	//æ¿å­çš„å®½åº¦  ï¼Œå•ä½å˜ç±³
-#define  BEARING_DIA   10.0f	//æ—‹è½¬è½´æ‰¿çš„ç›´å¾„ï¼Œå•ä½æ¯«ç±³
+#define  BOARD_HEIGHT  100.0f	//°å×ÓµÄ¸ß¶È
+#define  BOARD_WIDTH   50.0f	//°å×ÓµÄ¿í¶È
 
+#define LEFT_STEP_MOTOR   0
+#define RIGHT_STEP_MOTOR  1
 
-//å¤´æ–‡ä»¶ä¸­çš„ç»“æ„ä½“å®šä¹‰
+#define LEFT_WIRE_LENGTH   0 //×ó±ßÏß³¤
+#define RIGHT_WIRE_LENGTH  1 //ÓÒ±ßÏß³¤
+
 /*
-  typedef struct //åæ ‡ç»“æ„ä½“
+  typedef struct //×ø±ê½á¹¹Ìå
 {
 
    float x;
@@ -34,52 +37,52 @@
 
 } Coordinate;
 
-typedef struct   //é•¿åº¦ç»“æ„ä½“
+typedef struct   //³¤¶È½á¹¹Ìå
 {  //
 
    float Length;
 
 
 } Wire;
-static Wire g_StepMotorWireLen[2];  // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
-static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
+static Wire g_StepMotorWireLen[2];  // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
+static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
 
-//åˆ©ç”¨ä¸Šé¢ä¸¤ä¸ªç»“æ„ä½“ä¸€åŒå†æ„å»ºä¸€ä¸ªç³»ç»Ÿä¿¡æ¯ç»“æ„ä½“
+//ÀûÓÃÉÏÃæÁ½¸ö½á¹¹ÌåÒ»Í¬ÔÙ¹¹½¨Ò»¸öÏµÍ³ĞÅÏ¢½á¹¹Ìå
 typedef struct
 {
 	  Coordinate g_TargetCoordinate;
 	  Coordinate g_CurrentCoordinate;
 	  Wire g_StepMotorWireLen[2];
-	  u8 systemState;
+	  enum State systemState;
 }Info;
 
 
  */
 
-static Info g_MotionSystemInfo; //æ‚¬æŒ‚è¿åŠ¨æ§åˆ¶ç³»ç»Ÿä¿¡æ¯ç»“æ„ä½“
+static Info g_MotionSystemInfo; //Ğü¹ÒÔË¶¯¿ØÖÆÏµÍ³ĞÅÏ¢½á¹¹Ìå
 //************************************
 // Method:    isSyetemRunning
 // FullName:  isSyetemRunning
 // Access:    public 
 // Returns:   bit
-// Qualifier:
+// Qualifier: ÅĞ¶Ï¸ÃÏµÍ³ÊÇ·ñÕıÔÚÔËĞĞ
 // Parameter: void
 //************************************
 bit isSyetemRunning(void)
 {
-  return g_MotionSystemInfo.systemState == RUNNING;
+	
 }
 //************************************
 // Method:    isSystemStop
 // FullName:  isSystemStop
 // Access:    public 
 // Returns:   bit
-// Qualifier:
+// Qualifier: ÅĞ¶Ï¸ÃÏµÍ³ÊÇ·ñ´¦ÓÚ¾²Ö¹×´Ì¬
 // Parameter: void
 //************************************
 bit isSystemStop(void)
 {
-	return g_MotionSystemInfo.systemState == STOP;
+	
 }
 //************************************
 // Method:    startSystem
@@ -89,7 +92,6 @@ bit isSystemStop(void)
 // Qualifier:
 // Parameter: void
 //************************************
-
 bit startSystem(void)
 {
 	open_StepMotor(STEP_MOTOR_1);
@@ -111,12 +113,13 @@ bit stopSystem(void)
 	close_StepMotor(STEP_MOTOR_2);
 	g_MotionSystemInfo.systemState = STOP;
 }
+
 //************************************
 // Method:    setTargetCoordinate
 // FullName:  setTargetCoordinate
 // Access:    public 
 // Returns:   bit
-// Qualifier: //è®¾ç½®éœ€è¦åˆ°è¾¾çš„ç›®æ ‡åæ ‡
+// Qualifier: //ÉèÖÃĞèÒªµ½´ïµÄÄ¿±ê×ø±ê
 // Parameter: float x
 // Parameter: float y
 //************************************
@@ -124,9 +127,6 @@ bit setTargetCoordinate(float x, float y)
 {
 	g_MotionSystemInfo.g_TargetCoordinate.x = x;
 	g_MotionSystemInfo.g_TargetCoordinate.y = y;
-	setWireLength(LEFT_WIRE_LENGTH);
-	setWireLength(RIGHT_WIRE_LENGTH);
-
 	return 1;
 
 }
@@ -135,7 +135,7 @@ bit setTargetCoordinate(float x, float y)
 // FullName:  getCurrentCoordinate
 // Access:    public 
 // Returns:   Coordinate
-// Qualifier: //è¯»å–å½“å‰åæ ‡ï¼Œè¿”å›ä¸€ä¸ªxyç»“æ„ä½“
+// Qualifier: //¶ÁÈ¡µ±Ç°×ø±ê£¬·µ»ØÒ»¸öxy½á¹¹Ìå
 // Parameter: u8 motor
 //************************************
 Coordinate getCurrentCoordinate(void)
@@ -145,41 +145,21 @@ Coordinate getCurrentCoordinate(void)
 }
 
 
-///////////////////ï¼ä»¥ä¸‹ä¸ºç§æœ‰å‡½æ•°ï¼Œå¤–éƒ¨ä¸èƒ½è°ƒç”¨ï¼///////////////////////////
+///////////////////£¡ÒÔÏÂÎªË½ÓĞº¯Êı£¬Íâ²¿²»ÄÜµ÷ÓÃ£¡///////////////////////////
 //************************************
 // Method:    setWireLength
 // FullName:  setWireLength
 // Access:    public 
 // Returns:   bit
-// Qualifier: //è®¾ç½®a,bçš„é•¿åº¦
+// Qualifier: //ÉèÖÃa,bµÄ³¤¶È
 // Parameter: u8 wire
 //************************************
 static bit setWireLength(u8 wire)
 {
-	if (wire)
-	{
-		//açš„çº¿é•¿è®¡ç®—
-		g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(	pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)	            
-																   +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
-															    ) ;
-	}
-	else
-	{
-		//bçš„çº¿é•¿è®¡ç®—
-		g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(	  pow(BOARD_WIDTH-g_MotionSystemInfo.g_TargetCoordinate.x, 2)	
-																	+ pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
-															     );
-	}
+	
 }
 static float getWireLength(u8 wire)
 {
-	return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
+
 }
-
-
-
-
-
-
-
 
