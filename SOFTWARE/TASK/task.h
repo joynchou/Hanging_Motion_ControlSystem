@@ -1,13 +1,13 @@
 
 /************************************************************
-* ç»„ç»‡åç§°ï¼š
-* æ–‡ä»¶åç§°: K:\å•ç‰‡æœºç›¸å…³\ç”µå­å¤§èµ›ç¨‹åºæ¡†æ¶\SOFTWARE\TASK\TASK.H
-* ä½œè€…:     
-* ç‰ˆæœ¬:    
-* æ—¥æœŸ:     2017/07/06
-* æè¿°:
-* å†å²ä¿®æ”¹è®°å½•:
-* <ä½œè€…> <æ—¶é—´> <ç‰ˆæœ¬ > <æè¿°>
+* ×éÖ¯Ãû³Æ£º
+* ÎÄ¼şÃû³Æ: K:\µ¥Æ¬»úÏà¹Ø\µç×Ó´óÈü³ÌĞò¿ò¼Ü\SOFTWARE\TASK\TASK.H
+* ×÷Õß:     
+* °æ±¾:    
+* ÈÕÆÚ:     2017/07/06
+* ÃèÊö:
+* ÀúÊ·ĞŞ¸Ä¼ÇÂ¼:
+* <×÷Õß> <Ê±¼ä> <°æ±¾ > <ÃèÊö>
 * 
 ***********************************************************/
 
@@ -17,16 +17,16 @@
 #define LEFT_STEP_MOTOR   0
 #define RIGHT_STEP_MOTOR  1
 
-#define LEFT_WIRE_LENGTH   0 //å·¦è¾¹çº¿é•¿
-#define RIGHT_WIRE_LENGTH  1 //å³è¾¹çº¿é•¿
-enum State
+#define LEFT_WIRE_LENGTH   0 //×ó±ßÏß³¤
+#define RIGHT_WIRE_LENGTH  1 //ÓÒ±ßÏß³¤
+enum State//×´Ì¬Ã¶¾Ù
 {
 	STOP,RUNNING
 };
 
 //State systemState=STOP;
 
-typedef struct //åæ ‡ç»“æ„ä½“
+typedef struct //×ø±ê½á¹¹Ìå
 {  
 	
    float x;
@@ -35,17 +35,17 @@ typedef struct //åæ ‡ç»“æ„ä½“
 	
 } Coordinate;
 
-typedef struct   //é•¿åº¦ç»“æ„ä½“
+typedef struct   //³¤¶È½á¹¹Ìå
 {  //
 	
    float Length;
 	  
 	
 } Wire;
-static Wire g_StepMotorWireLen[2];  // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
-static Coordinate g_TargetCoordinate, g_CurrentCoordinate; // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
+static Wire g_StepMotorWireLen[2];  // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
+static Coordinate g_TargetCoordinate, g_CurrentCoordinate; // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
 
-//åˆ©ç”¨ä¸Šé¢ä¸¤ä¸ªç»“æ„ä½“ä¸€åŒå†æ„å»ºä¸€ä¸ªç³»ç»Ÿä¿¡æ¯ç»“æ„ä½“
+//ÀûÓÃÉÏÃæÁ½¸ö½á¹¹ÌåÒ»Í¬ÔÙ¹¹½¨Ò»¸öÏµÍ³ĞÅÏ¢½á¹¹Ìå
 typedef struct  
 {
 	  enum State systemState ;
@@ -55,8 +55,9 @@ typedef struct
 	  
 }Info;
 	
+static Info g_MotionSystemInfo; //Ğü¹ÒÔË¶¯¿ØÖÆÏµÍ³ĞÅÏ¢½á¹¹Ìå
 
-
+                                                           
 extern Coordinate getCurrentCoordinate(void);
 extern bit setTargetCoordinate(float x, float y);
 static bit setWireLength(u8 wire);
