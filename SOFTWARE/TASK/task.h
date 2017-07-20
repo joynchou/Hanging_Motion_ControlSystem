@@ -18,7 +18,7 @@
 
 #define LEFT_WIRE_LENGTH   0 //左边线长
 #define RIGHT_WIRE_LENGTH  1 //右边线长
-enum State
+enum State//状态枚举
 {
 	STOP,RUNNING
 };
@@ -54,6 +54,7 @@ typedef struct
 	  
 }Info;
 	
+static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体
 
 
 extern Coordinate getCurrentCoordinate(void);

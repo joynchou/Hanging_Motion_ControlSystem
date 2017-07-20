@@ -24,6 +24,17 @@
 
 //头文件中的结构体定义
 /*
+
+#define LEFT_STEP_MOTOR   0
+#define RIGHT_STEP_MOTOR  1
+
+#define LEFT_WIRE_LENGTH   0 //左边线长
+#define RIGHT_WIRE_LENGTH  1 //右边线长
+enum State//状态枚举
+{
+	STOP,RUNNING
+};
+
   typedef struct //坐标结构体
 {
 
@@ -55,7 +66,6 @@ typedef struct
 
  */
 
-static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体
 //************************************
 // Method:    isSyetemRunning
 // FullName:  isSyetemRunning
@@ -170,7 +180,10 @@ static float getWireLength(u8 wire)
 	return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
 }
 
-
+static bit setStepMotorAngle(void)
+{
+	
+}
 
 
 
