@@ -1,23 +1,32 @@
+
 /************************************************************
-* ×éÖ¯Ãû³Æ£º
-* ÎÄ¼şÃû³Æ: K:\µ¥Æ¬»úÏà¹Ø\µç×Ó´óÈü³ÌĞò¿ò¼Ü\SOFTWARE\TASK\TASK.H
-* ×÷Õß:     
-* °æ±¾:    
-* ÈÕÆÚ:     2017/07/06
-* ÃèÊö:
-* ÀúÊ·ĞŞ¸Ä¼ÇÂ¼:
-* <×÷Õß> <Ê±¼ä> <°æ±¾ > <ÃèÊö>
+* ç»„ç»‡åç§°ï¼š
+* æ–‡ä»¶åç§°: K:\å•ç‰‡æœºç›¸å…³\ç”µå­å¤§èµ›ç¨‹åºæ¡†æ¶\SOFTWARE\TASK\TASK.H
+* ä½œè€…:     
+* ç‰ˆæœ¬:    
+* æ—¥æœŸ:     2017/07/06
+* æè¿°:
+* å†å²ä¿®æ”¹è®°å½•:
+* <ä½œè€…> <æ—¶é—´> <ç‰ˆæœ¬ > <æè¿°>
 * 
 ***********************************************************/
 
 #ifndef _TASK_H_
 #define _TASK_H_
 #include "../HARDWARE/BSP/config.h"
+#define LEFT_STEP_MOTOR   0
+#define RIGHT_STEP_MOTOR  1
+
+#define LEFT_WIRE_LENGTH   0 //å·¦è¾¹çº¿é•¿
+#define RIGHT_WIRE_LENGTH  1 //å³è¾¹çº¿é•¿
 enum State
 {
 	STOP,RUNNING
 };
-typedef struct //×ø±ê½á¹¹Ìå
+
+//State systemState=STOP;
+
+typedef struct //åæ ‡ç»“æ„ä½“
 {  
 	
    float x;
@@ -26,23 +35,24 @@ typedef struct //×ø±ê½á¹¹Ìå
 	
 } Coordinate;
 
-typedef struct   //³¤¶È½á¹¹Ìå
+typedef struct   //é•¿åº¦ç»“æ„ä½“
 {  //
 	
    float Length;
 	  
 	
 } Wire;
-static Wire g_StepMotorWireLen[2];  // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
-static Coordinate g_TargetCoordinate, g_CurrentCoordinate; // µç»úµ±Ç°Î»ÖÃ¼ÇÂ¼½á¹¹Ìå
+static Wire g_StepMotorWireLen[2];  // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
+static Coordinate g_TargetCoordinate, g_CurrentCoordinate; // ç”µæœºå½“å‰ä½ç½®è®°å½•ç»“æ„ä½“
 
-//ÀûÓÃÉÏÃæÁ½¸ö½á¹¹ÌåÒ»Í¬ÔÙ¹¹½¨Ò»¸öÏµÍ³ĞÅÏ¢½á¹¹Ìå
+//åˆ©ç”¨ä¸Šé¢ä¸¤ä¸ªç»“æ„ä½“ä¸€åŒå†æ„å»ºä¸€ä¸ªç³»ç»Ÿä¿¡æ¯ç»“æ„ä½“
 typedef struct  
 {
+	  enum State systemState ;
 	  Coordinate g_TargetCoordinate;
 	  Coordinate g_CurrentCoordinate;
 	  Wire g_StepMotorWireLen[2];
-	  enum State systemState;
+	  
 }Info;
 	
 

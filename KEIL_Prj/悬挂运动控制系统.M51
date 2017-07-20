@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.00                                                        07/20/2017  10:03:44  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.00                                                        07/20/2017  11:54:23  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
@@ -59,7 +59,7 @@ INPUT MODULES INCLUDED:
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDOPTR)
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LMUL)
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ULDIV)
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 2
 
 
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?SLDIV)
@@ -115,73 +115,78 @@ LINK MAP OF MODULE:  悬挂运动控制系统 (ABSTASK)
             XDATA   03AEH     0021H     UNIT         ?XD?_INIT_STR_MOTOR?SERVO
             XDATA   03CFH     001FH     UNIT         ?XD?FIXEDPULSER
             XDATA   03EEH     001CH     UNIT         ?XD?STEP_MOTOR
-            XDATA   040AH     0016H     UNIT         ?XD?TIMER
-            XDATA   0420H     0016H     UNIT         _XDATA_GROUP_
-            XDATA   0436H     0015H     UNIT         ?XD?GETANGLE?ANGLE
-            XDATA   044BH     0015H     UNIT         ?XD?PCA
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 3
+            XDATA   040AH     0018H     UNIT         ?XD?TASK
+            XDATA   0422H     0016H     UNIT         ?XD?TIMER
+            XDATA   0438H     0016H     UNIT         _XDATA_GROUP_
+            XDATA   044EH     0015H     UNIT         ?XD?GETANGLE?ANGLE
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 3
 
 
-            XDATA   0460H     0012H     UNIT         ?XD?DC_MOTOR_CONFIG?MOTOR
-            XDATA   0472H     0012H     UNIT         ?XD?PULSERINIT?FIXEDPULSER
-            XDATA   0484H     0010H     UNIT         ?XD?_FILTER?FILTER
-            XDATA   0494H     000DH     UNIT         ?XD?_PID_CONFIG?PID
-            XDATA   04A1H     000AH     UNIT         ?XD?_FLOAT2BYTE?DATASCOPE_DP
-            XDATA   04ABH     0009H     UNIT         ?XD?_SET_STR_ANGLE?SERVO
-            XDATA   04B4H     0008H     UNIT         ?XD?_STEPMOTOR_INIT?STEP_MOTOR
-            XDATA   04BCH     0008H     UNIT         ?XD?ANGLE
-            XDATA   04C4H     0007H     UNIT         ?XD?_SETPULSE?FIXEDPULSER
-            XDATA   04CBH     0007H     UNIT         ?XD?_EEPROM_READ_N?STC15_EEPROM
-            XDATA   04D2H     0007H     UNIT         ?XD?_EEPROM_WRITE_N?STC15_EEPROM
-            XDATA   04D9H     0006H     UNIT         ?XD?_SENDSCOPEDATA?DATASCOPE_DP
-            XDATA   04DFH     0006H     UNIT         ?XD?_SETSTEPMOTORWITHANGLE?STEP_MOTOR
-            XDATA   04E5H     0005H     UNIT         ?XD?_SETPARAMETERINFERIORLIMIT?PID
-            XDATA   04EAH     0005H     UNIT         ?XD?_SETPARAMETERUPPERLIMIT?PID
-            XDATA   04EFH     0005H     UNIT         ?XD?_SETACTUALPARAMETER?PID
-            XDATA   04F4H     0005H     UNIT         ?XD?_SETKI?PID
-            XDATA   04F9H     0005H     UNIT         ?XD?_SETKP?PID
-            XDATA   04FEH     0005H     UNIT         ?XD?_SETKD?PID
-            XDATA   0503H     0005H     UNIT         ?XD?_SETPARAMETER?PID
-            XDATA   0508H     0005H     UNIT         ?XD?_DATASCOPE_GET_CHANNEL_DATA?DATASCOPE_DP
-            XDATA   050DH     0005H     UNIT         ?XD?_WRITEDATA?STORAGE
-            XDATA   0512H     0005H     UNIT         ?XD?_SETDC_MOTORSPEED?MOTOR
-            XDATA   0517H     0005H     UNIT         ?XD?_LCD_PRINTS?LCD5510_V2
-            XDATA   051CH     0005H     UNIT         ?XD?_LCD_PRINTSL?LCD5510_V2
-            XDATA   0521H     0005H     UNIT         ?XD?_SET_PWM_DUTY?STC15_PWM
-            XDATA   0526H     0004H     UNIT         ?XD?MOTOR
-            XDATA   052AH     0004H     UNIT         ?XD?_HC595_INIT?74HC595
-            XDATA   052EH     0003H     UNIT         ?XD?RELAY
-            XDATA   0531H     0003H     UNIT         ?XD?_LCD1602_WRITE_WORD?LCD1602
-            XDATA   0534H     0003H     UNIT         ?XD?_PCA_INIT?PCA
-            XDATA   0537H     0003H     UNIT         ?XD?_PWMOUTPUT?PCA
-            XDATA   053AH     0002H     UNIT         ?XD?SETUP
-            XDATA   053CH     0002H     UNIT         ?XD?LCD5510_INIT?LCD5510_V2
-            XDATA   053EH     0002H     UNIT         ?XD?_PWM_INILIZE?STC15_PWM
-            XDATA   0540H     0002H     UNIT         ?XD?_SET_PWM_PERIOD?STC15_PWM
-            XDATA   0542H     0001H     UNIT         ?XD?_PID?PID
-            XDATA   0543H     0001H     UNIT         ?XD?_BOARD_LED_PWM?LED
-            XDATA   0544H     0001H     UNIT         ?XD?_OPEN_DC_MOTOR?MOTOR
-            XDATA   0545H     0001H     UNIT         ?XD?_CLOSE_DC_MOTOR?MOTOR
-            XDATA   0546H     0001H     UNIT         ?XD?_OPEN_STR?SERVO
-            XDATA   0547H     0001H     UNIT         ?XD?_CLOSE_STR?SERVO
-            XDATA   0548H     0001H     UNIT         ?XD?_SETSTEPMOTORWITHROUND?STEP_MOTOR
-            XDATA   0549H     0001H     UNIT         ?XD?_SETSTEPMOTORDIVERSION?STEP_MOTOR
-            XDATA   054AH     0001H     UNIT         ?XD?_CLOSE_STEPMOTOR?STEP_MOTOR
-            XDATA   054BH     0001H     UNIT         ?XD?_OPEN_STEPMOTOR?STEP_MOTOR
-            XDATA   054CH     0001H     UNIT         ?XD?_FREESTEPMOTOR?STEP_MOTOR
-            XDATA   054DH     0001H     UNIT         ?XD?_LOCKSTEPMOTOR?STEP_MOTOR
-            XDATA   054EH     0001H     UNIT         ?XD?_LCD1602_WRITE_CHAR?LCD1602
-            XDATA   054FH     0001H     UNIT         ?XD?_LCD1602_WRITE_COM?LCD1602
-            XDATA   0550H     0001H     UNIT         ?XD?_HC595SENDDATA?74HC595
-            XDATA   0551H     0001H     UNIT         ?XD?_OPENPULSER?FIXEDPULSER
-            XDATA   0552H     0001H     UNIT         ?XD?_CLOSEPULSER?FIXEDPULSER
+            XDATA   0463H     0015H     UNIT         ?XD?PCA
+            XDATA   0478H     0012H     UNIT         ?XD?DC_MOTOR_CONFIG?MOTOR
+            XDATA   048AH     0012H     UNIT         ?XD?PULSERINIT?FIXEDPULSER
+            XDATA   049CH     0010H     UNIT         ?XD?_FILTER?FILTER
+            XDATA   04ACH     000DH     UNIT         ?XD?_PID_CONFIG?PID
+            XDATA   04B9H     000AH     UNIT         ?XD?_FLOAT2BYTE?DATASCOPE_DP
+            XDATA   04C3H     0009H     UNIT         ?XD?_SET_STR_ANGLE?SERVO
+            XDATA   04CCH     0008H     UNIT         ?XD?_SETTARGETCOORDINATE?TASK
+            XDATA   04D4H     0008H     UNIT         ?XD?_STEPMOTOR_INIT?STEP_MOTOR
+            XDATA   04DCH     0008H     UNIT         ?XD?ANGLE
+            XDATA   04E4H     0007H     UNIT         ?XD?_SETPULSE?FIXEDPULSER
+            XDATA   04EBH     0007H     UNIT         ?XD?_EEPROM_READ_N?STC15_EEPROM
+            XDATA   04F2H     0007H     UNIT         ?XD?_EEPROM_WRITE_N?STC15_EEPROM
+            XDATA   04F9H     0006H     UNIT         ?XD?_SENDSCOPEDATA?DATASCOPE_DP
+            XDATA   04FFH     0006H     UNIT         ?XD?_SETSTEPMOTORWITHANGLE?STEP_MOTOR
+            XDATA   0505H     0005H     UNIT         ?XD?_SETPARAMETERINFERIORLIMIT?PID
+            XDATA   050AH     0005H     UNIT         ?XD?_SETPARAMETERUPPERLIMIT?PID
+            XDATA   050FH     0005H     UNIT         ?XD?_SETACTUALPARAMETER?PID
+            XDATA   0514H     0005H     UNIT         ?XD?_SETKI?PID
+            XDATA   0519H     0005H     UNIT         ?XD?_SETKP?PID
+            XDATA   051EH     0005H     UNIT         ?XD?_SETKD?PID
+            XDATA   0523H     0005H     UNIT         ?XD?_SETPARAMETER?PID
+            XDATA   0528H     0005H     UNIT         ?XD?_DATASCOPE_GET_CHANNEL_DATA?DATASCOPE_DP
+            XDATA   052DH     0005H     UNIT         ?XD?_WRITEDATA?STORAGE
+            XDATA   0532H     0005H     UNIT         ?XD?_SETDC_MOTORSPEED?MOTOR
+            XDATA   0537H     0005H     UNIT         ?XD?_LCD_PRINTS?LCD5510_V2
+            XDATA   053CH     0005H     UNIT         ?XD?_LCD_PRINTSL?LCD5510_V2
+            XDATA   0541H     0005H     UNIT         ?XD?_SET_PWM_DUTY?STC15_PWM
+            XDATA   0546H     0004H     UNIT         ?XD?MOTOR
+            XDATA   054AH     0004H     UNIT         ?XD?_HC595_INIT?74HC595
+            XDATA   054EH     0003H     UNIT         ?XD?RELAY
+            XDATA   0551H     0003H     UNIT         ?XD?_LCD1602_WRITE_WORD?LCD1602
+            XDATA   0554H     0003H     UNIT         ?XD?_PCA_INIT?PCA
+            XDATA   0557H     0003H     UNIT         ?XD?_PWMOUTPUT?PCA
+            XDATA   055AH     0002H     UNIT         ?XD?SETUP
+            XDATA   055CH     0002H     UNIT         ?XD?LCD5510_INIT?LCD5510_V2
+            XDATA   055EH     0002H     UNIT         ?XD?_PWM_INILIZE?STC15_PWM
+            XDATA   0560H     0002H     UNIT         ?XD?_SET_PWM_PERIOD?STC15_PWM
+            XDATA   0562H     0001H     UNIT         ?XD?_GETCURRENTCOORDINATE?TASK
+            XDATA   0563H     0001H     UNIT         ?XD?_SETWIRELENGTH?TASK
+            XDATA   0564H     0001H     UNIT         ?XD?_GETWIRELENGTH?TASK
+            XDATA   0565H     0001H     UNIT         ?XD?_PID?PID
+            XDATA   0566H     0001H     UNIT         ?XD?_BOARD_LED_PWM?LED
+            XDATA   0567H     0001H     UNIT         ?XD?_OPEN_DC_MOTOR?MOTOR
+            XDATA   0568H     0001H     UNIT         ?XD?_CLOSE_DC_MOTOR?MOTOR
+            XDATA   0569H     0001H     UNIT         ?XD?_OPEN_STR?SERVO
+            XDATA   056AH     0001H     UNIT         ?XD?_CLOSE_STR?SERVO
+            XDATA   056BH     0001H     UNIT         ?XD?_SETSTEPMOTORWITHROUND?STEP_MOTOR
+            XDATA   056CH     0001H     UNIT         ?XD?_SETSTEPMOTORDIVERSION?STEP_MOTOR
+            XDATA   056DH     0001H     UNIT         ?XD?_CLOSE_STEPMOTOR?STEP_MOTOR
+            XDATA   056EH     0001H     UNIT         ?XD?_OPEN_STEPMOTOR?STEP_MOTOR
+            XDATA   056FH     0001H     UNIT         ?XD?_FREESTEPMOTOR?STEP_MOTOR
+            XDATA   0570H     0001H     UNIT         ?XD?_LOCKSTEPMOTOR?STEP_MOTOR
+            XDATA   0571H     0001H     UNIT         ?XD?_LCD1602_WRITE_CHAR?LCD1602
+            XDATA   0572H     0001H     UNIT         ?XD?_LCD1602_WRITE_COM?LCD1602
+            XDATA   0573H     0001H     UNIT         ?XD?_HC595SENDDATA?74HC595
+            XDATA   0574H     0001H     UNIT         ?XD?_OPENPULSER?FIXEDPULSER
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 4
+
+
+            XDATA   0575H     0001H     UNIT         ?XD?_CLOSEPULSER?FIXEDPULSER
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
                     0003H     0008H                  *** GAP ***
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 4
-
-
             CODE    000BH     0003H     ABSOLUTE     
                     000EH     000DH                  *** GAP ***
             CODE    001BH     0003H     ABSOLUTE     
@@ -234,14 +239,14 @@ LINK MAP OF MODULE:  悬挂运动控制系统 (ABSTASK)
             CODE    34CBH     008CH     UNIT         ?C_C51STARTUP
             CODE    3557H     008AH     UNIT         ?PR?TIMER4_INT?TIMER
             CODE    35E1H     0085H     UNIT         ?PR?UART2_INT?USART1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 5
+
+
             CODE    3666H     0085H     UNIT         ?PR?UART3_INT?USART1
             CODE    36EBH     0085H     UNIT         ?PR?UART4_INT?USART1
             CODE    3770H     007FH     UNIT         ?PR?UART1_INT?USART1
             CODE    37EFH     007AH     UNIT         ?PR?GETANGLE?ANGLE
             CODE    3869H     006BH     UNIT         ?PR?DC_MOTOR_CONFIG?MOTOR
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 5
-
-
             CODE    38D4H     0069H     UNIT         ?PR?PULSERINIT?FIXEDPULSER
             CODE    393DH     0061H     UNIT         ?PR?_SET_PWM_PERIOD?STC15_PWM
             CODE    399EH     005EH     UNIT         ?PR?_GET_ADC10BITRESULT?ADC
@@ -294,14 +299,14 @@ LINK MAP OF MODULE:  悬挂运动控制系统 (ABSTASK)
             CODE    4272H     001EH     UNIT         ?PR?_OPEN_DC_MOTOR?MOTOR
             CODE    4290H     001EH     UNIT         ?PR?LCD1602_GPIO_CONFIG?LCD1602
             CODE    42AEH     001DH     UNIT         ?PR?_GETBUTTONSTATE?BUTTON
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 6
+
+
             CODE    42CBH     001DH     UNIT         ?PR?_CLOSE_DC_MOTOR?MOTOR
             CODE    42E8H     001DH     UNIT         ?PR?_OPEN_STEPMOTOR?STEP_MOTOR
             CODE    4305H     001DH     UNIT         ?PR?LCD1602_INIT?LCD1602
             CODE    4322H     001DH     UNIT         ?PR?_ISACTIVETIMER?TIMER
             CODE    433FH     001CH     UNIT         ?PR?_CLOSE_STEPMOTOR?STEP_MOTOR
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 6
-
-
             CODE    435BH     001CH     UNIT         ?PR?_ADC_CONFIG?ANGLE
             CODE    4377H     001CH     UNIT         ?PR?_LCD1602_WRITE_CHAR?LCD1602
             CODE    4393H     001CH     UNIT         ?PR?_LCD1602_WRITE_COM?LCD1602
@@ -350,30 +355,34 @@ LINK MAP OF MODULE:  悬挂运动控制系统 (ABSTASK)
             CODE    46FEH     0009H     UNIT         ?PR?GETMICROS?TIMER
             CODE    4707H     0009H     UNIT         ?PR?GETMILLIS?TIMER
             CODE    4710H     0008H     UNIT         ?PR?TASKSTART?ABSTASK
-            CODE    4718H     0007H     UNIT         ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
-            CODE    471FH     0007H     UNIT         ?PR?_FREESTEPMOTOR?STEP_MOTOR
-            CODE    4726H     0007H     UNIT         ?PR?_LOCKSTEPMOTOR?STEP_MOTOR
-            CODE    472DH     0006H     UNIT         ?PR?_BOARD_LED_PWM?LED
-            CODE    4733H     0006H     UNIT         ?PR?GETSECONDS?TIMER
-            CODE    4739H     0006H     UNIT         ?PR?GETMINUTES?TIMER
-            CODE    473FH     0006H     UNIT         ?PR?GETHOURS?TIMER
-            CODE    4745H     0006H     UNIT         ?PR?GETDAYS?TIMER
-            CODE    474BH     0005H     UNIT         ?PR?OPEN_BOARD_LED?LED
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 7
+            CODE    4718H     0008H     UNIT         ?PR?_SETTARGETCOORDINATE?TASK
+            CODE    4720H     0007H     UNIT         ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
+            CODE    4727H     0007H     UNIT         ?PR?_FREESTEPMOTOR?STEP_MOTOR
+            CODE    472EH     0007H     UNIT         ?PR?_LOCKSTEPMOTOR?STEP_MOTOR
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 7
 
 
-            CODE    4750H     0005H     UNIT         ?PR?CLOSE_BOARD_LED?LED
-            CODE    4755H     0004H     UNIT         ?PR?ADC_INT?ADC
-            CODE    4759H     0003H     UNIT         ?PR?GETBOARD_LED_STATE?LED
-            CODE    475CH     0003H     UNIT         ?PR?_SETPINSTATE?GPIO
-            CODE    475FH     0002H     UNIT         ?RTX?TASKENT?S
-            CODE    4761H     0001H     UNIT         ?PR?TEST?SETUP
-            CODE    4762H     0001H     UNIT         ?PR?MODE1?MODE
-            CODE    4763H     0001H     UNIT         ?PR?MODE2?MODE
-            CODE    4764H     0001H     UNIT         ?PR?MODE3?MODE
-            CODE    4765H     0001H     UNIT         ?PR?MODE4?MODE
-            CODE    4766H     0001H     UNIT         ?PR?MODELAUNCHER?MODE
-            CODE    4767H     0001H     UNIT         ?PR?RELAY_INIT?RELAY
+            CODE    4735H     0006H     UNIT         ?PR?_GETCURRENTCOORDINATE?TASK
+            CODE    473BH     0006H     UNIT         ?PR?_SETWIRELENGTH?TASK
+            CODE    4741H     0006H     UNIT         ?PR?_GETWIRELENGTH?TASK
+            CODE    4747H     0006H     UNIT         ?PR?_BOARD_LED_PWM?LED
+            CODE    474DH     0006H     UNIT         ?PR?GETSECONDS?TIMER
+            CODE    4753H     0006H     UNIT         ?PR?GETMINUTES?TIMER
+            CODE    4759H     0006H     UNIT         ?PR?GETHOURS?TIMER
+            CODE    475FH     0006H     UNIT         ?PR?GETDAYS?TIMER
+            CODE    4765H     0005H     UNIT         ?PR?OPEN_BOARD_LED?LED
+            CODE    476AH     0005H     UNIT         ?PR?CLOSE_BOARD_LED?LED
+            CODE    476FH     0004H     UNIT         ?PR?ADC_INT?ADC
+            CODE    4773H     0003H     UNIT         ?PR?GETBOARD_LED_STATE?LED
+            CODE    4776H     0003H     UNIT         ?PR?_SETPINSTATE?GPIO
+            CODE    4779H     0002H     UNIT         ?RTX?TASKENT?S
+            CODE    477BH     0001H     UNIT         ?PR?TEST?SETUP
+            CODE    477CH     0001H     UNIT         ?PR?MODE1?MODE
+            CODE    477DH     0001H     UNIT         ?PR?MODE2?MODE
+            CODE    477EH     0001H     UNIT         ?PR?MODE3?MODE
+            CODE    477FH     0001H     UNIT         ?PR?MODE4?MODE
+            CODE    4780H     0001H     UNIT         ?PR?MODELAUNCHER?MODE
+            CODE    4781H     0001H     UNIT         ?PR?RELAY_INIT?RELAY
 
 
 
@@ -395,12 +404,12 @@ SEGMENT                                            XDATA_GROUP
   +--> ?PR?_ADC_CONFIG?ANGLE
   +--> ?PR?TEST?SETUP
 
-?PR?_UART1_INIT?SETUP                            0420H    000DH
+?PR?_UART1_INIT?SETUP                            0438H    000DH
   +--> ?PR?_USART_CONFIGURATION?USART1
 
-?PR?_USART_CONFIGURATION?USART1                  042DH    0009H
+?PR?_USART_CONFIGURATION?USART1                  0445H    0009H
 
-?PR?TIMERINIT?TIMER                              0420H    0011H
+?PR?TIMERINIT?TIMER                              0438H    0011H
   +--> ?PR?_TIMER_INILIZE?TIMER
   +--> ?CO?TIMER
   +--> ?PR?_PRINTSTRING1?USART1
@@ -408,22 +417,22 @@ SEGMENT                                            XDATA_GROUP
 ?PR?_PRINTSTRING1?USART1                         -----    -----
   +--> ?PR?_TX1_WRITE2BUFF?USART1
 
-?PR?BOARD_LED_INIT?LED                           0420H    0002H
+?PR?BOARD_LED_INIT?LED                           0438H    0002H
   +--> ?PR?_GPIO_INILIZE?GPIO
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 8
+
+
   +--> ?PR?OPEN_BOARD_LED?LED
   +--> ?PR?_DELAY_MS?DELAY
   +--> ?PR?CLOSE_BOARD_LED?LED
 
-?PR?BUTTON_CONFIG?BUTTON                         0420H    0002H
+?PR?BUTTON_CONFIG?BUTTON                         0438H    0002H
   +--> ?PR?_GPIO_INILIZE?GPIO
 
-?PR?_ADC_CONFIG?ANGLE                            0420H    0006H
+?PR?_ADC_CONFIG?ANGLE                            0438H    0006H
   +--> ?PR?_ADC_INILIZE?ADC
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 8
 
-
-
-?PR?_BLINK?LED                                   0420H    0001H
+?PR?_BLINK?LED                                   0438H    0001H
   +--> ?PR?OPEN_BOARD_LED?LED
   +--> ?PR?_DELAY_MS?DELAY
   +--> ?PR?CLOSE_BOARD_LED?LED
@@ -470,6 +479,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          TASKSTART
   C:4710H         LINE#         13
   C:4710H         LINE#         15
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 9
+
+
   C:4713H         LINE#         16
   -------         ENDPROC       TASKSTART
   -------         ENDMOD        ABSTASK
@@ -479,9 +491,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 9
-
-
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
   D:00C8H         PUBLIC        P5
@@ -492,10 +501,46 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  C:4735H         PUBLIC        _getCurrentCoordinate
   D:00F0H         PUBLIC        B
+  C:4741H         SYMBOL        _getWireLength
   D:00E0H         PUBLIC        ACC
+  C:4718H         PUBLIC        _setTargetCoordinate
+  C:473BH         SYMBOL        _setWireLength
+  X:040AH         SYMBOL        StepMotorWireLen
+  X:0412H         SYMBOL        CurrentCoordinate
+  X:041AH         SYMBOL        TargetCoordinate
   D:00D0H         PUBLIC        PSW
+  -------         PROC          _SETTARGETCOORDINATE
+  X:04CCH         SYMBOL        x
+  X:04D0H         SYMBOL        y
+  C:4718H         LINE#         40
+  C:471EH         LINE#         41
+  C:471EH         LINE#         44
+  C:471FH         LINE#         46
+  -------         ENDPROC       _SETTARGETCOORDINATE
+  -------         PROC          _GETCURRENTCOORDINATE
+  X:0562H         SYMBOL        motor
+  C:4735H         LINE#         55
+  C:473AH         LINE#         56
+  C:473AH         LINE#         59
+  -------         ENDPROC       _GETCURRENTCOORDINATE
+  -------         PROC          _SETWIRELENGTH
+  X:0563H         SYMBOL        wire
+  C:473BH         LINE#         69
+  C:4740H         LINE#         70
+  C:4740H         LINE#         72
+  -------         ENDPROC       _SETWIRELENGTH
+  -------         PROC          _GETWIRELENGTH
+  X:0564H         SYMBOL        wire
+  C:4741H         LINE#         73
+  C:4746H         LINE#         74
+  C:4746H         LINE#         76
+  -------         ENDPROC       _GETWIRELENGTH
   -------         ENDMOD        TASK
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 10
+
 
   -------         MODULE        SETUP
   C:0000H         SYMBOL        _ICE_DUMMY_
@@ -508,7 +553,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00E8H         PUBLIC        P6
   C:3E89H         PUBLIC        _UART1_init
   D:00F8H         PUBLIC        P7
-  X:053AH         PUBLIC        str1
+  X:055AH         PUBLIC        str1
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
@@ -516,13 +561,13 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4254H         PUBLIC        setup
   D:0088H         PUBLIC        TCON
   D:00F0H         PUBLIC        B
-  C:4761H         PUBLIC        test
+  C:477BH         PUBLIC        test
   D:00E0H         PUBLIC        ACC
   D:00D0H         PUBLIC        PSW
   -------         PROC          _UART1_INIT
   D:0004H         SYMBOL        BandRate
   -------         DO            
-  X:0420H         SYMBOL        COMx_InitStructure
+  X:0438H         SYMBOL        COMx_InitStructure
   -------         ENDDO         
   C:3E89H         LINE#         39
   C:3E89H         LINE#         40
@@ -538,12 +583,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3EAAH         LINE#         51
   -------         ENDPROC       _UART1_INIT
   -------         PROC          TEST
-  C:4761H         LINE#         54
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 10
-
-
-  C:4761H         LINE#         55
-  C:4761H         LINE#         57
+  C:477BH         LINE#         54
+  C:477BH         LINE#         55
+  C:477BH         LINE#         57
   -------         ENDPROC       TEST
   -------         PROC          SETUP
   C:4254H         LINE#         58
@@ -557,55 +599,55 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       SETUP
   -------         ENDMOD        SETUP
 
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 11
+
+
   -------         MODULE        MODE
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:4762H         PUBLIC        mode1
-  C:4763H         PUBLIC        mode2
-  C:4764H         PUBLIC        mode3
-  C:4765H         PUBLIC        mode4
-  C:4766H         PUBLIC        modeLauncher
+  C:477CH         PUBLIC        mode1
+  C:477DH         PUBLIC        mode2
+  C:477EH         PUBLIC        mode3
+  C:477FH         PUBLIC        mode4
+  C:4780H         PUBLIC        modeLauncher
   -------         PROC          MODE1
-  C:4762H         LINE#         2
-  C:4762H         LINE#         3
-  C:4762H         LINE#         5
+  C:477CH         LINE#         2
+  C:477CH         LINE#         3
+  C:477CH         LINE#         5
   -------         ENDPROC       MODE1
   -------         PROC          MODE2
-  C:4763H         LINE#         7
-  C:4763H         LINE#         8
-  C:4763H         LINE#         10
+  C:477DH         LINE#         7
+  C:477DH         LINE#         8
+  C:477DH         LINE#         10
   -------         ENDPROC       MODE2
   -------         PROC          MODE3
-  C:4764H         LINE#         13
-  C:4764H         LINE#         14
-  C:4764H         LINE#         16
+  C:477EH         LINE#         13
+  C:477EH         LINE#         14
+  C:477EH         LINE#         16
   -------         ENDPROC       MODE3
   -------         PROC          MODE4
-  C:4765H         LINE#         18
-  C:4765H         LINE#         19
-  C:4765H         LINE#         21
+  C:477FH         LINE#         18
+  C:477FH         LINE#         19
+  C:477FH         LINE#         21
   -------         ENDPROC       MODE4
   -------         PROC          MODELAUNCHER
-  C:4766H         LINE#         22
-  C:4766H         LINE#         23
-  C:4766H         LINE#         25
+  C:4780H         LINE#         22
+  C:4780H         LINE#         23
+  C:4780H         LINE#         25
   -------         ENDPROC       MODELAUNCHER
   -------         ENDMOD        MODE
 
   -------         MODULE        ?RTX51_TINY_KERNAL
-  C:475FH         SEGMENT       ?RTX?TASKENT?S
+  C:4779H         SEGMENT       ?RTX?TASKENT?S
   I:0010H         SEGMENT       ?RTX?TASKSP?S
   I:000EH         SEGMENT       ?RTX?TASKSTATE?S
   B:0020H.7       SEGMENT       ?RTX?BITS
   C:253CH         SEGMENT       ?RTX?CODE
   C:258BH         PUBLIC        ?RTX?SET_ISR
   D:000CH         PUBLIC        ?RTX_CURRENTTASK
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 11
-
-
   D:0007H         PUBLIC        ?RTX_NEXTID
   C:25CEH         PUBLIC        ?RTX_NEXTTASK
   N:00FFH         PUBLIC        ?RTX_RAMTOP
-  C:475FH         PUBLIC        ?RTX_TASKENTRY
+  C:4779H         PUBLIC        ?RTX_TASKENTRY
   C:26ADH         PUBLIC        ?RTX_TASKIDX
   I:0010H         PUBLIC        ?RTX_TASKSP
   I:000EH         PUBLIC        ?RTX_TASKSTATUS
@@ -617,6 +659,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:25E9H         SYMBOL        ?C0007
   C:25EBH         SYMBOL        ?C0009
   C:25F5H         SYMBOL        ?C0011
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 12
+
+
   C:2622H         SYMBOL        ?C0012
   C:2608H         SYMBOL        ?C0013
   C:260DH         SYMBOL        ?C0015
@@ -659,9 +704,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   B:0088H.1       SYMBOL        IE0
   B:0088H.3       SYMBOL        IE1
   N:09C4H         SYMBOL        INT_CLOCK
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 12
-
-
   N:0001H         SYMBOL        INT_REGBANK
   B:0088H.0       SYMBOL        IT0
   B:0088H.2       SYMBOL        IT1
@@ -677,6 +719,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2684H         SYMBOL        MAIN1X
   C:267FH         SYMBOL        MAIN2
   C:2645H         SYMBOL        NOEVENT
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 13
+
+
   C:258BH         SYMBOL        NOROBINTIMEOUT
   C:2582H         SYMBOL        NOTIMEOUT
   C:2580H         SYMBOL        NOWAITTIMEOUT
@@ -719,9 +764,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2550H         LINE#         307
   C:2552H         LINE#         308
   C:2554H         LINE#         309
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 13
-
-
   C:2556H         LINE#         310
   C:2558H         LINE#         311
   C:255AH         LINE#         312
@@ -737,6 +779,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:256CH         LINE#         325
   C:256EH         LINE#         329
   C:2570H         LINE#         330
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 14
+
+
   C:2572H         LINE#         331
   C:2573H         LINE#         332
   C:2574H         LINE#         333
@@ -779,9 +824,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:25B7H         LINE#         424
   C:25B9H         LINE#         426
   C:25BBH         LINE#         427
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 14
-
-
   C:25BCH         LINE#         429
   C:25BDH         LINE#         430
   C:25BFH         LINE#         431
@@ -797,6 +839,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:25CFH         LINE#         462
   C:25D1H         LINE#         463
   C:25D2H         LINE#         464
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 15
+
+
   C:25D3H         LINE#         465
   C:25D5H         LINE#         468
   C:25D7H         LINE#         470
@@ -839,9 +884,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:260FH         LINE#         530
   C:2610H         LINE#         531
   C:2612H         LINE#         535
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 15
-
-
   C:2614H         LINE#         536
   C:2615H         LINE#         537
   C:2616H         LINE#         539
@@ -857,6 +899,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2628H         LINE#         561
   C:262AH         LINE#         562
   C:262BH         LINE#         563
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 16
+
+
   C:262DH         LINE#         564
   C:262FH         LINE#         565
   C:2630H         LINE#         567
@@ -899,9 +944,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:267AH         LINE#         647
   C:267BH         LINE#         648
   C:267DH         LINE#         649
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 16
-
-
   C:267FH         LINE#         650
   C:2681H         LINE#         651
   C:2682H         LINE#         652
@@ -917,6 +959,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2693H         LINE#         662
   C:2694H         LINE#         663
   C:2696H         LINE#         664
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 17
+
+
   C:2697H         LINE#         665
   C:2698H         LINE#         666
   C:269AH         LINE#         668
@@ -959,9 +1004,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   X:028CH         SYMBOL        g_pid_n_info
   C:43CBH         PUBLIC        _getParameter
   C:43E5H         PUBLIC        _getErr
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 17
-
-
   C:444DH         PUBLIC        _getKd
   C:40D6H         PUBLIC        _setParameter
   C:4433H         PUBLIC        _getKi
@@ -972,11 +1014,14 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:40B5H         PUBLIC        _setKd
   -------         PROC          _PID_CONFIG
   D:0003H         SYMBOL        PID_N
-  X:0495H         SYMBOL        kp
-  X:0499H         SYMBOL        ki
-  X:049DH         SYMBOL        kd
+  X:04ADH         SYMBOL        kp
+  X:04B1H         SYMBOL        ki
+  X:04B5H         SYMBOL        kd
   C:2A55H         LINE#         49
   C:2A57H         LINE#         50
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 18
+
+
   C:2A57H         LINE#         51
   C:2A6CH         LINE#         52
   C:2A81H         LINE#         53
@@ -1003,7 +1048,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4636H         LINE#         88
   -------         ENDPROC       _CLOSEPID
   -------         PROC          _PID
-  X:0542H         SYMBOL        PID_N
+  X:0565H         SYMBOL        PID_N
   C:1E2BH         LINE#         97
   C:1E30H         LINE#         98
   C:1E30H         LINE#         101
@@ -1018,52 +1063,52 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _PID
   -------         PROC          _SETPARAMETERINFERIORLIMIT
   D:0003H         SYMBOL        PID_N
-  X:04E6H         SYMBOL        value
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 18
-
-
+  X:0506H         SYMBOL        value
   C:4010H         LINE#         142
   C:4012H         LINE#         143
   C:4012H         LINE#         144
   -------         ENDPROC       _SETPARAMETERINFERIORLIMIT
   -------         PROC          _SETPARAMETERUPPERLIMIT
   D:0003H         SYMBOL        PID_N
-  X:04EBH         SYMBOL        value
+  X:050BH         SYMBOL        value
   C:4031H         LINE#         156
   C:4033H         LINE#         157
   C:4033H         LINE#         158
   -------         ENDPROC       _SETPARAMETERUPPERLIMIT
   -------         PROC          _SETACTUALPARAMETER
   D:0003H         SYMBOL        PID_N
-  X:04F0H         SYMBOL        value
+  X:0510H         SYMBOL        value
   C:4052H         LINE#         171
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 19
+
+
   C:4054H         LINE#         172
   C:4054H         LINE#         173
   -------         ENDPROC       _SETACTUALPARAMETER
   -------         PROC          _SETKI
   D:0003H         SYMBOL        PID_N
-  X:04F5H         SYMBOL        value
+  X:0515H         SYMBOL        value
   C:4073H         LINE#         186
   C:4075H         LINE#         187
   C:4075H         LINE#         188
   -------         ENDPROC       _SETKI
   -------         PROC          _SETKP
   D:0003H         SYMBOL        PID_N
-  X:04FAH         SYMBOL        value
+  X:051AH         SYMBOL        value
   C:4094H         LINE#         200
   C:4096H         LINE#         201
   C:4096H         LINE#         202
   -------         ENDPROC       _SETKP
   -------         PROC          _SETKD
   D:0003H         SYMBOL        PID_N
-  X:04FFH         SYMBOL        value
+  X:051FH         SYMBOL        value
   C:40B5H         LINE#         214
   C:40B7H         LINE#         215
   C:40B7H         LINE#         216
   -------         ENDPROC       _SETKD
   -------         PROC          _SETPARAMETER
   D:0003H         SYMBOL        PID_N
-  X:0504H         SYMBOL        value
+  X:0524H         SYMBOL        value
   C:40D6H         LINE#         228
   C:40D8H         LINE#         229
   C:40D8H         LINE#         230
@@ -1079,9 +1124,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0007H         SYMBOL        PID_N
   C:43E5H         LINE#         255
   C:43E5H         LINE#         256
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 19
-
-
   C:43E5H         LINE#         257
   C:43FEH         LINE#         258
   -------         ENDPROC       _GETERR
@@ -1097,6 +1139,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4419H         LINE#         280
   C:4419H         LINE#         281
   C:4419H         LINE#         282
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 20
+
+
   C:4432H         LINE#         283
   -------         ENDPROC       _GETKP
   -------         PROC          _GETKI
@@ -1139,9 +1184,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 20
-
-
   C:27EBH         PUBLIC        _filter
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
@@ -1153,14 +1195,17 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D0H         PUBLIC        PSW
   -------         PROC          _FILTER
   D:0001H         SYMBOL        ary
-  X:0487H         SYMBOL        num
-  X:0488H         SYMBOL        MaxValue
-  X:048AH         SYMBOL        MinValue
+  X:049FH         SYMBOL        num
+  X:04A0H         SYMBOL        MaxValue
+  X:04A2H         SYMBOL        MinValue
   -------         DO            
-  X:048CH         SYMBOL        angleDataloopTemp2
-  X:048EH         SYMBOL        finalData
-  X:0490H         SYMBOL        maxValue
-  X:0492H         SYMBOL        minValue
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 21
+
+
+  X:04A4H         SYMBOL        angleDataloopTemp2
+  X:04A6H         SYMBOL        finalData
+  X:04A8H         SYMBOL        maxValue
+  X:04AAH         SYMBOL        minValue
   -------         ENDDO         
   C:27EBH         LINE#         2
   C:27F0H         LINE#         3
@@ -1199,9 +1244,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   X:0384H         PUBLIC        DataScope_OutPut_Buffer
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 21
-
-
   D:00D8H         PUBLIC        CCON
   C:3DF2H         PUBLIC        _sendScopeData
   D:0098H         PUBLIC        SCON
@@ -1214,10 +1256,13 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D0H         PUBLIC        PSW
   -------         PROC          _FLOAT2BYTE
   D:0001H         SYMBOL        target
-  X:04A4H         SYMBOL        buf
-  X:04A7H         SYMBOL        beg
+  X:04BCH         SYMBOL        buf
+  X:04BFH         SYMBOL        beg
   -------         DO            
-  X:04A8H         SYMBOL        point
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 22
+
+
+  X:04C0H         SYMBOL        point
   -------         ENDDO         
   C:2FC4H         LINE#         26
   C:2FC4H         LINE#         27
@@ -1229,9 +1274,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _FLOAT2BYTE
   -------         PROC          _SENDSCOPEDATA
   D:0004H         SYMBOL        Data
-  X:04DDH         SYMBOL        channel
+  X:04FDH         SYMBOL        channel
   -------         DO            
-  X:04DEH         SYMBOL        a
+  X:04FEH         SYMBOL        a
   -------         ENDDO         
   C:3DF2H         LINE#         43
   C:3DF2H         LINE#         44
@@ -1243,8 +1288,8 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3E2AH         LINE#         54
   -------         ENDPROC       _SENDSCOPEDATA
   -------         PROC          _DATASCOPE_GET_CHANNEL_DATA
-  X:0508H         SYMBOL        Data
-  X:050CH         SYMBOL        Channel
+  X:0528H         SYMBOL        Data
+  X:052CH         SYMBOL        Channel
   C:2921H         LINE#         60
   C:2927H         LINE#         61
   C:2927H         LINE#         62
@@ -1259,9 +1304,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2986H         LINE#         73
   C:2986H         LINE#         74
   C:299AH         LINE#         75
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 22
-
-
   C:299DH         LINE#         76
   C:299DH         LINE#         77
   C:29B1H         LINE#         78
@@ -1277,6 +1319,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:29F7H         LINE#         88
   C:29F7H         LINE#         89
   C:2A0BH         LINE#         90
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 23
+
+
   C:2A0DH         LINE#         91
   C:2A0DH         LINE#         92
   C:2A21H         LINE#         93
@@ -1319,9 +1364,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3180H         LINE#         132
   C:3183H         LINE#         133
   C:3183H         LINE#         134
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 23
-
-
   C:3183H         LINE#         135
   C:3189H         LINE#         136
   C:318CH         LINE#         137
@@ -1337,6 +1379,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:319EH         LINE#         147
   C:31A4H         LINE#         148
   C:31A7H         LINE#         149
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 24
+
+
   C:31A7H         LINE#         150
   C:31A7H         LINE#         151
   C:31ADH         LINE#         152
@@ -1372,16 +1417,13 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00E0H         PUBLIC        ACC
   D:00D0H         PUBLIC        PSW
   -------         PROC          _WRITEDATA
-  X:050DH         SYMBOL        add
-  X:050FH         SYMBOL        Data
+  X:052DH         SYMBOL        add
+  X:052FH         SYMBOL        Data
   C:45F0H         LINE#         3
   C:4601H         LINE#         4
   C:4601H         LINE#         6
   -------         ENDPROC       _WRITEDATA
   -------         ENDMOD        STORAGE
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 24
-
-
 
   -------         MODULE        BUTTON
   C:0000H         SYMBOL        _ICE_DUMMY_
@@ -1397,6 +1439,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
   C:3A54H         PUBLIC        buttonScan
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 25
+
+
   B:0020H.0       SYMBOL        BUTTON1_bit
   B:0020H.1       SYMBOL        BUTTON2_bit
   B:0020H.2       SYMBOL        BUTTON3_bit
@@ -1415,7 +1460,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D0H         PUBLIC        PSW
   -------         PROC          BUTTON_CONFIG
   -------         DO            
-  X:0420H         SYMBOL        GPIO_InitStructure
+  X:0438H         SYMBOL        GPIO_InitStructure
   -------         ENDDO         
   C:41D8H         LINE#         25
   C:41D8H         LINE#         26
@@ -1439,9 +1484,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:46E9H         LINE#         49
   -------         ENDPROC       _DIGITALREAD
   -------         PROC          _GETBUTTONSTATE
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 25
-
-
   D:0007H         SYMBOL        BUTTON_data
   C:42AEH         LINE#         61
   C:42AEH         LINE#         62
@@ -1457,6 +1499,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:42C5H         LINE#         72
   C:42C8H         LINE#         73
   C:42C8H         LINE#         74
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 26
+
+
   C:42C8H         LINE#         75
   C:42CAH         LINE#         76
   C:42CAH         LINE#         77
@@ -1499,9 +1544,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3AA2H         LINE#         134
   C:3AA2H         LINE#         135
   C:3AA5H         LINE#         136
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 26
-
-
   C:3AA5H         LINE#         140
   C:3AA7H         LINE#         142
   C:3AA7H         LINE#         143
@@ -1517,6 +1559,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 27
+
+
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
   D:00C8H         PUBLIC        P5
@@ -1527,20 +1572,20 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3FEEH         PUBLIC        _blink
   C:3EB5H         PUBLIC        Board_LED_Init
   D:00B8H         PUBLIC        IP
-  C:4750H         PUBLIC        close_Board_LED
+  C:476AH         PUBLIC        close_Board_LED
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:474BH         PUBLIC        open_Board_LED
+  C:4765H         PUBLIC        open_Board_LED
   B:00C8H.5       PUBLIC        P55
   D:00F0H         PUBLIC        B
   D:00E0H         PUBLIC        ACC
-  C:4759H         PUBLIC        getBoard_LED_State
-  C:472DH         PUBLIC        _Board_LED_PWM
+  C:4773H         PUBLIC        getBoard_LED_State
+  C:4747H         PUBLIC        _Board_LED_PWM
   D:00D0H         PUBLIC        PSW
   -------         PROC          BOARD_LED_INIT
   -------         DO            
-  X:0420H         SYMBOL        GPIO_InitStructure
+  X:0438H         SYMBOL        GPIO_InitStructure
   -------         ENDDO         
   C:3EB5H         LINE#         8
   C:3EB5H         LINE#         9
@@ -1555,28 +1600,28 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3EDCH         LINE#         19
   -------         ENDPROC       BOARD_LED_INIT
   -------         PROC          OPEN_BOARD_LED
-  C:474BH         LINE#         20
-  C:474BH         LINE#         21
-  C:474BH         LINE#         22
-  C:474DH         LINE#         23
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 27
-
-
-  C:474FH         LINE#         24
+  C:4765H         LINE#         20
+  C:4765H         LINE#         21
+  C:4765H         LINE#         22
+  C:4767H         LINE#         23
+  C:4769H         LINE#         24
   -------         ENDPROC       OPEN_BOARD_LED
   -------         PROC          CLOSE_BOARD_LED
-  C:4750H         LINE#         25
-  C:4750H         LINE#         26
-  C:4750H         LINE#         27
-  C:4752H         LINE#         28
-  C:4754H         LINE#         30
+  C:476AH         LINE#         25
+  C:476AH         LINE#         26
+  C:476AH         LINE#         27
+  C:476CH         LINE#         28
+  C:476EH         LINE#         30
   -------         ENDPROC       CLOSE_BOARD_LED
   -------         PROC          _BLINK
-  X:0420H         SYMBOL        time
+  X:0438H         SYMBOL        time
   C:3FEEH         LINE#         31
   C:3FF3H         LINE#         32
   C:3FF3H         LINE#         33
   C:3FFDH         LINE#         34
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 28
+
+
   C:3FFDH         LINE#         35
   C:4000H         LINE#         36
   C:4005H         LINE#         37
@@ -1585,19 +1630,19 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:400FH         LINE#         41
   -------         ENDPROC       _BLINK
   -------         PROC          GETBOARD_LED_STATE
-  C:4759H         LINE#         42
-  C:4759H         LINE#         43
-  C:4759H         LINE#         44
-  C:475BH         LINE#         45
+  C:4773H         LINE#         42
+  C:4773H         LINE#         43
+  C:4773H         LINE#         44
+  C:4775H         LINE#         45
   -------         ENDPROC       GETBOARD_LED_STATE
   -------         PROC          _BOARD_LED_PWM
-  X:0543H         SYMBOL        luminance
-  C:472DH         LINE#         46
-  C:4732H         LINE#         47
-  C:4732H         LINE#         48
-  C:4732H         LINE#         49
-  C:4732H         LINE#         52
-  C:4732H         LINE#         54
+  X:0566H         SYMBOL        luminance
+  C:4747H         LINE#         46
+  C:474CH         LINE#         47
+  C:474CH         LINE#         48
+  C:474CH         LINE#         49
+  C:474CH         LINE#         52
+  C:474CH         LINE#         54
   -------         ENDPROC       _BOARD_LED_PWM
   -------         ENDMOD        LED
 
@@ -1619,24 +1664,24 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   B:00A0H.2       PUBLIC        P22
   D:0098H         PUBLIC        SCON
   B:00A0H.3       PUBLIC        P23
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 28
-
-
   D:0088H         PUBLIC        TCON
   C:3439H         PUBLIC        _setDC_MotorSpeed
   D:00F0H         PUBLIC        B
-  X:0526H         SYMBOL        g_DC_Motor
+  X:0546H         SYMBOL        g_DC_Motor
   C:467BH         PUBLIC        _getDC_MotorState
   D:00E0H         PUBLIC        ACC
   C:3869H         PUBLIC        DC_MOTOR_config
   C:42CBH         PUBLIC        _close_DC_Motor
   D:00D0H         PUBLIC        PSW
   -------         PROC          _SETDC_MOTORSPEED
-  X:0512H         SYMBOL        motor
-  X:0513H         SYMBOL        speed
+  X:0532H         SYMBOL        motor
+  X:0533H         SYMBOL        speed
   C:3439H         LINE#         38
   C:343EH         LINE#         39
   C:343EH         LINE#         41
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 29
+
+
   C:3459H         LINE#         42
   C:3459H         LINE#         43
   C:3463H         LINE#         44
@@ -1649,7 +1694,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:34CAH         LINE#         54
   -------         ENDPROC       _SETDC_MOTORSPEED
   -------         PROC          _OPEN_DC_MOTOR
-  X:0544H         SYMBOL        motor
+  X:0567H         SYMBOL        motor
   C:4272H         LINE#         55
   C:4277H         LINE#         56
   C:4277H         LINE#         57
@@ -1657,7 +1702,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:428FH         LINE#         59
   -------         ENDPROC       _OPEN_DC_MOTOR
   -------         PROC          _CLOSE_DC_MOTOR
-  X:0545H         SYMBOL        motor
+  X:0568H         SYMBOL        motor
   C:42CBH         LINE#         60
   C:42D0H         LINE#         61
   C:42D0H         LINE#         62
@@ -1673,15 +1718,12 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _GETDC_MOTORSTATE
   -------         PROC          DC_MOTOR_CONFIG
   -------         DO            
-  X:0460H         SYMBOL        GPIO_InitStructure
-  X:0462H         SYMBOL        PWM_InitStructure
+  X:0478H         SYMBOL        GPIO_InitStructure
+  X:047AH         SYMBOL        PWM_InitStructure
   -------         ENDDO         
   C:3869H         LINE#         80
   C:3869H         LINE#         81
   C:3869H         LINE#         85
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 29
-
-
   C:386EH         LINE#         88
   C:3872H         LINE#         89
   C:387DH         LINE#         93
@@ -1697,6 +1739,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:38A4H         LINE#         105
   C:38A6H         LINE#         106
   C:38A8H         LINE#         107
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 30
+
+
   C:38AAH         LINE#         108
   C:38ACH         LINE#         109
   C:38AEH         LINE#         110
@@ -1739,9 +1784,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:41F7H         PUBLIC        _close_STR
   D:00D0H         PUBLIC        PSW
   -------         PROC          _INIT_STR_MOTOR
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 30
-
-
   X:03AEH         SYMBOL        MOTOR
   X:03AFH         SYMBOL        pl
   X:03B3H         SYMBOL        ph
@@ -1757,6 +1799,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:200FH         LINE#         48
   C:2013H         LINE#         49
   C:201EH         LINE#         54
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 31
+
+
   C:2020H         LINE#         56
   C:2023H         LINE#         57
   C:2028H         LINE#         58
@@ -1788,10 +1833,10 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:21D8H         LINE#         85
   -------         ENDPROC       _INIT_STR_MOTOR
   -------         PROC          _SET_STR_ANGLE
-  X:04ABH         SYMBOL        MOTOR
-  X:04ACH         SYMBOL        angle
+  X:04C3H         SYMBOL        MOTOR
+  X:04C4H         SYMBOL        angle
   -------         DO            
-  X:04B0H         SYMBOL        str_duty
+  X:04C8H         SYMBOL        str_duty
   -------         ENDDO         
   C:2B86H         LINE#         96
   C:2B8BH         LINE#         97
@@ -1799,9 +1844,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2BACH         LINE#         100
   C:2C29H         LINE#         110
   C:2C29H         LINE#         111
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 31
-
-
   C:2C52H         LINE#         112
   C:2C6EH         LINE#         113
   C:2C6EH         LINE#         114
@@ -1814,16 +1856,19 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:44B4H         LINE#         128
   -------         ENDPROC       _READ_STR_ANGLE
   -------         PROC          _OPEN_STR
-  X:0546H         SYMBOL        MOTOR
+  X:0569H         SYMBOL        MOTOR
   C:4118H         LINE#         129
   C:411DH         LINE#         130
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 32
+
+
   C:411DH         LINE#         131
   C:4120H         LINE#         132
   C:4136H         LINE#         133
   C:4137H         LINE#         134
   -------         ENDPROC       _OPEN_STR
   -------         PROC          _CLOSE_STR
-  X:0547H         SYMBOL        MOTOR
+  X:056AH         SYMBOL        MOTOR
   C:41F7H         LINE#         135
   C:41FCH         LINE#         136
   C:41FCH         LINE#         137
@@ -1852,22 +1897,19 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3E2BH         PUBLIC        _setStepMotorWithRound
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:4718H         PUBLIC        _setStepMotorDiversion
+  C:4720H         PUBLIC        _setStepMotorDiversion
   D:00F0H         PUBLIC        B
   D:00E0H         PUBLIC        ACC
   C:42E8H         PUBLIC        _open_StepMotor
   C:3AABH         PUBLIC        _stepMotor_Init
-  C:471FH         PUBLIC        _freeStepMotor
-  C:4726H         PUBLIC        _lockStepMotor
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 32
-
-
+  C:4727H         PUBLIC        _freeStepMotor
+  C:472EH         PUBLIC        _lockStepMotor
   C:4637H         PUBLIC        _getStepMotorState
   D:00D0H         PUBLIC        PSW
   -------         PROC          _SETSTEPMOTORWITHANGLE
-  X:04DFH         SYMBOL        motor
-  X:04E0H         SYMBOL        angle
-  X:04E4H         SYMBOL        speed
+  X:04FFH         SYMBOL        motor
+  X:0500H         SYMBOL        angle
+  X:0504H         SYMBOL        speed
   C:3301H         LINE#         44
   C:3306H         LINE#         45
   C:3306H         LINE#         46
@@ -1877,7 +1919,10 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _SETSTEPMOTORWITHROUND
   D:0007H         SYMBOL        motor
   D:0004H         SYMBOL        round
-  X:0548H         SYMBOL        speed
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 33
+
+
+  X:056BH         SYMBOL        speed
   C:3E2BH         LINE#         60
   C:3E30H         LINE#         61
   C:3E30H         LINE#         62
@@ -1892,14 +1937,14 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4647H         LINE#         76
   -------         ENDPROC       _GETSTEPMOTORSTATE
   -------         PROC          _SETSTEPMOTORDIVERSION
-  X:0549H         SYMBOL        motor
-  C:4718H         LINE#         77
-  C:471DH         LINE#         78
-  C:471DH         LINE#         80
-  C:471EH         LINE#         81
+  X:056CH         SYMBOL        motor
+  C:4720H         LINE#         77
+  C:4725H         LINE#         78
+  C:4725H         LINE#         80
+  C:4726H         LINE#         81
   -------         ENDPROC       _SETSTEPMOTORDIVERSION
   -------         PROC          _CLOSE_STEPMOTOR
-  X:054AH         SYMBOL        motor
+  X:056DH         SYMBOL        motor
   C:433FH         LINE#         90
   C:4344H         LINE#         91
   C:4344H         LINE#         92
@@ -1907,7 +1952,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:435AH         LINE#         95
   -------         ENDPROC       _CLOSE_STEPMOTOR
   -------         PROC          _OPEN_STEPMOTOR
-  X:054BH         SYMBOL        motor
+  X:056EH         SYMBOL        motor
   C:42E8H         LINE#         104
   C:42EDH         LINE#         105
   C:42EDH         LINE#         106
@@ -1915,28 +1960,28 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4304H         LINE#         108
   -------         ENDPROC       _OPEN_STEPMOTOR
   -------         PROC          _FREESTEPMOTOR
-  X:054CH         SYMBOL        motor
-  C:471FH         LINE#         109
-  C:4724H         LINE#         110
-  C:4724H         LINE#         112
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 33
-
-
-  C:4725H         LINE#         113
+  X:056FH         SYMBOL        motor
+  C:4727H         LINE#         109
+  C:472CH         LINE#         110
+  C:472CH         LINE#         112
+  C:472DH         LINE#         113
   -------         ENDPROC       _FREESTEPMOTOR
   -------         PROC          _LOCKSTEPMOTOR
-  X:054DH         SYMBOL        motor
-  C:4726H         LINE#         114
-  C:472BH         LINE#         115
-  C:472BH         LINE#         117
-  C:472CH         LINE#         118
+  X:0570H         SYMBOL        motor
+  C:472EH         LINE#         114
+  C:4733H         LINE#         115
+  C:4733H         LINE#         117
+  C:4734H         LINE#         118
   -------         ENDPROC       _LOCKSTEPMOTOR
   -------         PROC          _STEPMOTOR_INIT
   D:0003H         SYMBOL        motor
-  X:04B5H         SYMBOL        div
-  X:04B9H         SYMBOL        driverDiv
-  X:04BAH         SYMBOL        maxPeriod
+  X:04D5H         SYMBOL        div
+  X:04D9H         SYMBOL        driverDiv
+  X:04DAH         SYMBOL        maxPeriod
   C:3AABH         LINE#         129
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 34
+
+
   C:3AADH         LINE#         130
   C:3AADH         LINE#         131
   C:3ACCH         LINE#         132
@@ -1957,9 +2002,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
   C:46AAH         PUBLIC        _unSetRelay
-  C:4767H         PUBLIC        relay_Init
+  C:4781H         PUBLIC        relay_Init
   D:00B8H         PUBLIC        IP
-  X:052EH         PUBLIC        relay
+  X:054EH         PUBLIC        relay
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
@@ -1979,17 +2024,14 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0007H         SYMBOL        RELAY
   C:46AAH         LINE#         15
   C:46AAH         LINE#         16
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 34
-
-
   C:46AAH         LINE#         17
   C:46B6H         LINE#         18
   C:46B7H         LINE#         19
   -------         ENDPROC       _UNSETRELAY
   -------         PROC          RELAY_INIT
-  C:4767H         LINE#         20
-  C:4767H         LINE#         21
-  C:4767H         LINE#         23
+  C:4781H         LINE#         20
+  C:4781H         LINE#         21
+  C:4781H         LINE#         23
   -------         ENDPROC       RELAY_INIT
   -------         ENDMOD        RELAY
 
@@ -1997,6 +2039,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 35
+
+
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
@@ -2017,7 +2062,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0007H         SYMBOL        pin
   D:0005H         SYMBOL        speed
   -------         DO            
-  X:0420H         SYMBOL        ADC_InitStructure
+  X:0438H         SYMBOL        ADC_InitStructure
   -------         ENDDO         
   C:435BH         LINE#         27
   C:435BH         LINE#         28
@@ -2032,16 +2077,13 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          GETANGLE
   B:0021H.1       SYMBOL        whichAngle
   -------         DO            
-  X:0436H         SYMBOL        angleData
-  X:044AH         SYMBOL        angleDataloopTemp1
-  X:04BCH         SYMBOL        presentAngle
-  X:04C0H         SYMBOL        lastAngle
+  X:044EH         SYMBOL        angleData
+  X:0462H         SYMBOL        angleDataloopTemp1
+  X:04DCH         SYMBOL        presentAngle
+  X:04E0H         SYMBOL        lastAngle
   -------         ENDDO         
   C:37EFH         LINE#         53
   C:37EFH         LINE#         54
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 35
-
-
   C:37EFH         LINE#         56
   C:37F4H         LINE#         58
   C:37F7H         LINE#         59
@@ -2057,6 +2099,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:385AH         LINE#         72
   C:3868H         LINE#         73
   C:3868H         LINE#         74
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 36
+
+
   -------         ENDPROC       GETANGLE
   -------         ENDMOD        ANGLE
 
@@ -2092,22 +2137,19 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4393H         SYMBOL        _LCD1602_write_com
   D:00D0H         PUBLIC        PSW
   -------         PROC          _LCD1602_WRITE_CHAR
-  X:054EH         SYMBOL        dat
+  X:0571H         SYMBOL        dat
   C:4377H         LINE#         18
   C:437CH         LINE#         19
   C:437CH         LINE#         20
   C:437EH         LINE#         21
   C:4383H         LINE#         22
   C:4389H         LINE#         23
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 36
-
-
   C:438BH         LINE#         24
   C:4390H         LINE#         25
   C:4392H         LINE#         26
   -------         ENDPROC       _LCD1602_WRITE_CHAR
   -------         PROC          _LCD1602_WRITE_WORD
-  X:0531H         SYMBOL        s
+  X:0551H         SYMBOL        s
   C:3E5AH         LINE#         31
   C:3E65H         LINE#         32
   C:3E65H         LINE#         33
@@ -2117,6 +2159,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3E86H         LINE#         37
   C:3E88H         LINE#         38
   -------         ENDPROC       _LCD1602_WRITE_WORD
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 37
+
+
   -------         PROC          LCD1602_INIT
   C:4305H         LINE#         40
   C:4305H         LINE#         41
@@ -2130,7 +2175,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:431DH         LINE#         51
   -------         ENDPROC       LCD1602_INIT
   -------         PROC          _LCD1602_WRITE_COM
-  X:054FH         SYMBOL        com
+  X:0572H         SYMBOL        com
   C:4393H         LINE#         59
   C:4398H         LINE#         60
   C:4398H         LINE#         61
@@ -2159,9 +2204,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDMOD        LCD1602
 
   -------         MODULE        74HC595
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 37
-
-
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
@@ -2177,15 +2219,18 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:451DH         PUBLIC        _HC595_Init
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 38
+
+
   C:4648H         PUBLIC        _HC595SendData
   D:00F0H         PUBLIC        B
   D:00E0H         PUBLIC        ACC
   D:00D0H         PUBLIC        PSW
   -------         PROC          _HC595_INIT
   D:0006H         SYMBOL        pin1
-  X:052AH         SYMBOL        pin2
+  X:054AH         SYMBOL        pin2
   -------         DO            
-  X:052CH         SYMBOL        HC595_Pin
+  X:054CH         SYMBOL        HC595_Pin
   -------         ENDDO         
   C:451DH         LINE#         16
   C:4525H         LINE#         17
@@ -2194,7 +2239,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:452BH         LINE#         21
   -------         ENDPROC       _HC595_INIT
   -------         PROC          _HC595SENDDATA
-  X:0550H         SYMBOL        SendVal
+  X:0573H         SYMBOL        SendVal
   -------         DO            
   D:0007H         SYMBOL        i
   -------         ENDDO         
@@ -2219,9 +2264,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 38
-
-
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
   D:00C8H         PUBLIC        P5
@@ -2237,6 +2279,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:40F7H         PUBLIC        LCD_clr_scr
   D:00D8H         PUBLIC        CCON
   B:00C8H.4       PUBLIC        LCD_RST
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 39
+
+
   C:4592H         PUBLIC        _LCD_clr_row
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
@@ -2279,9 +2324,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:40F7H         LINE#         168
   C:40FEH         LINE#         169
   C:4103H         LINE#         171
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 39
-
-
   C:4117H         LINE#         172
   -------         ENDPROC       LCD_CLR_SCR
   -------         PROC          _LCD_CLR_ROW
@@ -2297,6 +2339,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _LCD_CLR_ROW
   -------         PROC          _LCD_POS_BYTE
   D:0007H         SYMBOL        x
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 40
+
+
   D:0004H         SYMBOL        y
   C:457EH         LINE#         192
   C:4580H         LINE#         193
@@ -2323,25 +2368,22 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3DB6H         LINE#         214
   -------         ENDPROC       _LCD_PRINTC
   -------         PROC          _LCD_PRINTS
-  X:0517H         SYMBOL        x
-  X:0518H         SYMBOL        y
-  X:0519H         SYMBOL        s_dat
+  X:0537H         SYMBOL        x
+  X:0538H         SYMBOL        y
+  X:0539H         SYMBOL        s_dat
   C:3DB7H         LINE#         221
   C:3DC8H         LINE#         222
   C:3DC8H         LINE#         223
   C:3DF1H         LINE#         224
   -------         ENDPROC       _LCD_PRINTS
   -------         PROC          _LCD_PRINTSL
-  X:051CH         SYMBOL        x
-  X:051DH         SYMBOL        y
-  X:051EH         SYMBOL        s_dat
+  X:053CH         SYMBOL        x
+  X:053DH         SYMBOL        y
+  X:053EH         SYMBOL        s_dat
   C:3B52H         LINE#         231
   C:3B63H         LINE#         232
   C:3B63H         LINE#         233
   C:3B74H         LINE#         234
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 40
-
-
   C:3B74H         LINE#         235
   C:3B7AH         LINE#         236
   C:3B84H         LINE#         237
@@ -2351,12 +2393,15 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _LCD_PRINTSL
   -------         PROC          LCD5510_INIT
   -------         DO            
-  X:053CH         SYMBOL        GPIO_InitStructure
+  X:055CH         SYMBOL        GPIO_InitStructure
   -------         ENDDO         
   C:3CB9H         LINE#         263
   C:3CB9H         LINE#         264
   C:3CB9H         LINE#         266
   C:3CBEH         LINE#         267
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 41
+
+
   C:3CC1H         LINE#         268
   C:3CCBH         LINE#         269
   C:3CCFH         LINE#         272
@@ -2399,9 +2444,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0088H         PUBLIC        TCON
   B:0090H.7       PUBLIC        P17
   C:2DABH         SYMBOL        PWM_Routine
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 41
-
-
   D:00F0H         PUBLIC        B
   C:4602H         PUBLIC        _getPulserState
   D:00E0H         PUBLIC        ACC
@@ -2409,19 +2451,22 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   X:03E7H         SYMBOL        g_pulser
   D:00D0H         PUBLIC        PSW
   -------         PROC          _SETPULSE
-  X:04C4H         SYMBOL        pulser_num
-  X:04C5H         SYMBOL        Hz
-  X:04C7H         SYMBOL        count
+  X:04E4H         SYMBOL        pulser_num
+  X:04E5H         SYMBOL        Hz
+  X:04E7H         SYMBOL        count
   C:39FCH         LINE#         29
   C:3A07H         LINE#         30
   C:3A07H         LINE#         31
   C:3A14H         LINE#         32
   C:3A33H         LINE#         33
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 42
+
+
   C:3A52H         LINE#         35
   C:3A53H         LINE#         36
   -------         ENDPROC       _SETPULSE
   -------         PROC          _OPENPULSER
-  X:0551H         SYMBOL        pulser_num
+  X:0574H         SYMBOL        pulser_num
   C:4158H         LINE#         37
   C:415DH         LINE#         38
   C:415DH         LINE#         39
@@ -2430,7 +2475,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4177H         LINE#         43
   -------         ENDPROC       _OPENPULSER
   -------         PROC          _CLOSEPULSER
-  X:0552H         SYMBOL        pulser_num
+  X:0575H         SYMBOL        pulser_num
   C:4178H         LINE#         44
   C:417DH         LINE#         45
   C:417DH         LINE#         47
@@ -2447,8 +2492,8 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _GETPULSERSTATE
   -------         PROC          PULSERINIT
   -------         DO            
-  X:0472H         SYMBOL        GPIO_InitStructure
-  X:0474H         SYMBOL        PWM_InitStructure
+  X:048AH         SYMBOL        GPIO_InitStructure
+  X:048CH         SYMBOL        PWM_InitStructure
   -------         ENDDO         
   C:38D4H         LINE#         59
   C:38D4H         LINE#         60
@@ -2459,9 +2504,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:38EAH         LINE#         80
   C:38F9H         LINE#         82
   C:38FCH         LINE#         83
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 42
-
-
   C:3901H         LINE#         84
   C:3903H         LINE#         85
   C:3905H         LINE#         86
@@ -2477,6 +2519,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:391FH         LINE#         96
   C:3922H         LINE#         97
   C:3925H         LINE#         98
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 43
+
+
   C:3928H         LINE#         101
   C:3933H         LINE#         103
   C:3936H         LINE#         104
@@ -2519,9 +2564,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2E4AH         LINE#         153
   C:2E4AH         LINE#         155
   C:2E4AH         LINE#         157
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 43
-
-
   C:2E4AH         LINE#         159
   -------         ENDPROC       PWM_ROUTINE
   -------         ENDMOD        FIXEDPULSER
@@ -2537,6 +2579,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 44
+
+
   B:00A8H.5       PUBLIC        EADC
   D:00A8H         PUBLIC        IE
   D:00BDH         PUBLIC        ADC_RES
@@ -2553,7 +2598,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00BEH         PUBLIC        ADC_RESL
   D:0097H         PUBLIC        PCON2
   C:399EH         PUBLIC        _Get_ADC10bitResult
-  C:4755H         PUBLIC        ADC_int
+  C:476FH         PUBLIC        ADC_int
   D:00D0H         PUBLIC        PSW
   -------         PROC          _ADC_INILIZE
   D:0001H         SYMBOL        ADCx
@@ -2579,9 +2624,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3B3DH         LINE#         43
   C:3B3DH         LINE#         44
   C:3B3FH         LINE#         45
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 44
-
-
   C:3B41H         LINE#         47
   C:3B41H         LINE#         48
   C:3B43H         LINE#         49
@@ -2597,6 +2639,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _ADC_POWERCONTROL
   D:0007H         SYMBOL        pwr
   C:46D4H         LINE#         66
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 45
+
+
   C:46D4H         LINE#         67
   C:46D4H         LINE#         68
   C:46D8H         LINE#         69
@@ -2639,17 +2684,14 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:39EDH         LINE#         110
   C:39EDH         LINE#         111
   C:39F2H         LINE#         112
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 45
-
-
   C:39F2H         LINE#         113
   C:39F7H         LINE#         114
   C:39FBH         LINE#         115
   -------         ENDPROC       _GET_ADC10BITRESULT
   -------         PROC          ADC_INT
-  C:4755H         LINE#         123
-  C:4755H         LINE#         125
-  C:4758H         LINE#         126
+  C:476FH         LINE#         123
+  C:476FH         LINE#         125
+  C:4772H         LINE#         126
   -------         ENDPROC       ADC_INT
   -------         ENDMOD        ADC
 
@@ -2657,6 +2699,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 46
+
+
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
@@ -2699,9 +2744,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0080H         PUBLIC        P0
   D:00B2H         PUBLIC        P3M0
   D:0095H         PUBLIC        P2M1
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 46
-
-
   D:0090H         PUBLIC        P1
   D:00B4H         PUBLIC        P4M0
   D:00B1H         PUBLIC        P3M1
@@ -2717,21 +2759,24 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 47
+
+
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00F0H         PUBLIC        B
   D:00E0H         PUBLIC        ACC
   C:21D9H         PUBLIC        _GPIO_Inilize
   D:00D0H         PUBLIC        PSW
-  C:475CH         PUBLIC        _setPinState
+  C:4776H         PUBLIC        _setPinState
   D:0094H         PUBLIC        P0M0
   -------         PROC          _SETPINSTATE
   D:0007H         SYMBOL        Pin
   B:0021H.2       SYMBOL        State
-  C:475CH         LINE#         18
-  C:475CH         LINE#         19
-  C:475CH         LINE#         20
-  C:475EH         LINE#         23
+  C:4776H         LINE#         18
+  C:4776H         LINE#         19
+  C:4776H         LINE#         20
+  C:4778H         LINE#         23
   -------         ENDPROC       _SETPINSTATE
   -------         PROC          _GPIO_INILIZE
   D:0007H         SYMBOL        GPIO
@@ -2759,9 +2804,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2210H         LINE#         51
   C:2217H         LINE#         52
   C:2217H         LINE#         53
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 47
-
-
   C:2221H         LINE#         54
   C:2221H         LINE#         55
   C:2225H         LINE#         56
@@ -2777,6 +2819,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2248H         LINE#         66
   C:224CH         LINE#         67
   C:224CH         LINE#         68
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 48
+
+
   C:2257H         LINE#         69
   C:2257H         LINE#         70
   C:225DH         LINE#         71
@@ -2819,9 +2864,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:22E7H         LINE#         108
   C:22EDH         LINE#         109
   C:22EDH         LINE#         110
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 48
-
-
   C:22F7H         LINE#         111
   C:22F7H         LINE#         112
   C:22FDH         LINE#         113
@@ -2837,6 +2879,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2320H         LINE#         123
   C:2324H         LINE#         124
   C:2324H         LINE#         125
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 49
+
+
   C:232FH         LINE#         126
   C:232FH         LINE#         127
   C:2335H         LINE#         128
@@ -2879,17 +2924,14 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 49
-
-
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
   D:00F9H         PUBLIC        CH
-  X:044BH         PUBLIC        PCA0_mode
-  X:044CH         PUBLIC        PCA1_mode
+  X:0463H         PUBLIC        PCA0_mode
+  X:0464H         PUBLIC        PCA1_mode
   D:00A8H         PUBLIC        IE
-  X:044DH         PUBLIC        PCA2_mode
+  X:0465H         PUBLIC        PCA2_mode
   D:00E9H         PUBLIC        CL
   D:00FAH         PUBLIC        CCAP0H
   D:00FBH         PUBLIC        CCAP1H
@@ -2897,6 +2939,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   B:00D8H.6       PUBLIC        CR
   D:00EAH         PUBLIC        CCAP0L
   D:00EBH         PUBLIC        CCAP1L
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 50
+
+
   D:00DAH         PUBLIC        CCAPM0
   D:00ECH         PUBLIC        CCAP2L
   D:00DBH         PUBLIC        CCAPM1
@@ -2918,30 +2963,27 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00E0H         PUBLIC        ACC
   C:26AEH         PUBLIC        _pwmOutPut
   C:239DH         PUBLIC        _PCA_Init
-  X:044EH         PUBLIC        PWM0_low
-  X:0450H         PUBLIC        PWM1_low
+  X:0466H         PUBLIC        PWM0_low
+  X:0468H         PUBLIC        PWM1_low
   D:00F2H         PUBLIC        PCA_PWM0
-  X:0452H         PUBLIC        PWM2_low
+  X:046AH         PUBLIC        PWM2_low
   D:00F3H         PUBLIC        PCA_PWM1
   D:00F4H         PUBLIC        PCA_PWM2
-  X:0454H         PUBLIC        PCA_Timer0
-  X:0456H         PUBLIC        PCA_Timer1
-  X:0458H         PUBLIC        PCA_Timer2
+  X:046CH         PUBLIC        PCA_Timer0
+  X:046EH         PUBLIC        PCA_Timer1
+  X:0470H         PUBLIC        PCA_Timer2
   D:00A2H         PUBLIC        AUXR1
   C:31BCH         PUBLIC        PCA_Handler
   D:00D0H         PUBLIC        PSW
-  X:045AH         PUBLIC        CCAP0_tmp
-  X:045CH         PUBLIC        CCAP1_tmp
+  X:0472H         PUBLIC        CCAP0_tmp
+  X:0474H         PUBLIC        CCAP1_tmp
   B:00D8H.0       PUBLIC        CCF0
-  X:045EH         PUBLIC        CCAP2_tmp
+  X:0476H         PUBLIC        CCAP2_tmp
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _PWMN_UPDATE
   D:0007H         SYMBOL        PCA_id
   D:0004H         SYMBOL        high
   C:2F16H         LINE#         34
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 50
-
-
   C:2F16H         LINE#         35
   C:2F16H         LINE#         36
   C:2F19H         LINE#         37
@@ -2957,6 +2999,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2F35H         LINE#         47
   C:2F3DH         LINE#         48
   C:2F4BH         LINE#         49
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 51
+
+
   C:2F4BH         LINE#         50
   C:2F4DH         LINE#         51
   C:2F52H         LINE#         52
@@ -2992,16 +3037,13 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _PWMN_UPDATE
   -------         PROC          _PCA_INIT
   D:0005H         SYMBOL        PCA_id
-  X:0534H         SYMBOL        PCAx
+  X:0554H         SYMBOL        PCAx
   C:239DH         LINE#         106
   C:23AAH         LINE#         107
   C:23AAH         LINE#         108
   C:23B3H         LINE#         109
   C:23B3H         LINE#         111
   C:23B3H         LINE#         112
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 51
-
-
   C:23B8H         LINE#         113
   C:23B8H         LINE#         114
   C:23BAH         LINE#         115
@@ -3017,6 +3059,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:23FFH         LINE#         126
   C:2401H         LINE#         127
   C:2401H         LINE#         128
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 52
+
+
   C:2404H         LINE#         130
   C:2404H         LINE#         131
   C:241CH         LINE#         132
@@ -3059,11 +3104,8 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:253BH         LINE#         169
   -------         ENDPROC       _PCA_INIT
   -------         PROC          _PWMOUTPUT
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 52
-
-
-  X:0537H         SYMBOL        PCA_id
-  X:0538H         SYMBOL        T
+  X:0557H         SYMBOL        PCA_id
+  X:0558H         SYMBOL        T
   D:0002H         SYMBOL        duty
   C:26AEH         LINE#         170
   C:26BBH         LINE#         171
@@ -3077,6 +3119,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:26D3H         LINE#         179
   C:26D3H         LINE#         180
   C:26D7H         LINE#         181
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 53
+
+
   C:26D7H         LINE#         182
   C:26D9H         LINE#         183
   C:26F7H         LINE#         184
@@ -3119,9 +3164,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:31CBH         LINE#         227
   C:31CEH         LINE#         228
   C:31CEH         LINE#         229
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 53
-
-
   C:31D0H         LINE#         230
   C:31D3H         LINE#         231
   C:31D3H         LINE#         232
@@ -3137,6 +3179,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:31FBH         LINE#         243
   C:31FDH         LINE#         244
   C:3200H         LINE#         245
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 54
+
+
   C:3200H         LINE#         246
   C:3203H         LINE#         247
   C:3205H         LINE#         249
@@ -3179,9 +3224,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00F5H         PUBLIC        PWMCR
   D:00BAH         PUBLIC        P_SW2
   D:00A8H         PUBLIC        IE
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 54
-
-
   D:00F7H         PUBLIC        PWMFDCR
   D:00B8H         PUBLIC        IP
   C:3FA4H         PUBLIC        _close_PWM_N
@@ -3197,16 +3239,19 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00F1H         PUBLIC        PWMCFG
   D:00E0H         PUBLIC        ACC
   C:4614H         PUBLIC        _get_PWM_N_state
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 55
+
+
   C:2C9CH         PUBLIC        _set_PWM_duty
   C:454FH         SYMBOL        _PWM_SET_PERIOD
   C:44CFH         PUBLIC        _get_PWM_N_duty
   D:00D0H         PUBLIC        PSW
   C:466AH         PUBLIC        _getPWM_DIV
   -------         PROC          _PWM_INILIZE
-  X:053EH         SYMBOL        PWM_N
+  X:055EH         SYMBOL        PWM_N
   D:0001H         SYMBOL        PWMx
   -------         DO            
-  X:053FH         SYMBOL        i
+  X:055FH         SYMBOL        i
   -------         ENDDO         
   C:1600H         LINE#         44
   C:1605H         LINE#         45
@@ -3239,9 +3284,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:16B9H         LINE#         75
   C:16BBH         LINE#         77
   C:16BBH         LINE#         78
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 55
-
-
   C:16BEH         LINE#         79
   C:16BEH         LINE#         80
   C:16C7H         LINE#         81
@@ -3257,6 +3299,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:16FCH         LINE#         93
   C:16FCH         LINE#         94
   C:16FFH         LINE#         95
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 56
+
+
   C:16FFH         LINE#         96
   C:1708H         LINE#         97
   C:1708H         LINE#         98
@@ -3299,9 +3344,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1795H         LINE#         142
   C:1795H         LINE#         143
   C:17A0H         LINE#         144
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 56
-
-
   C:17A0H         LINE#         145
   C:17A4H         LINE#         146
   C:17A6H         LINE#         148
@@ -3317,6 +3359,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:17C0H         LINE#         159
   C:17CCH         LINE#         160
   C:17CCH         LINE#         161
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 57
+
+
   C:17D0H         LINE#         162
   C:17D2H         LINE#         164
   C:17D2H         LINE#         165
@@ -3359,9 +3404,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1835H         LINE#         206
   C:1838H         LINE#         208
   C:1838H         LINE#         209
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 57
-
-
   C:1838H         LINE#         210
   C:1838H         LINE#         211
   C:1838H         LINE#         212
@@ -3377,6 +3419,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1850H         LINE#         223
   C:185CH         LINE#         224
   C:185CH         LINE#         225
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 58
+
+
   C:1860H         LINE#         226
   C:1862H         LINE#         228
   C:1862H         LINE#         229
@@ -3419,9 +3464,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:18C9H         LINE#         270
   C:18CBH         LINE#         272
   C:18CBH         LINE#         273
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 58
-
-
   C:18CFH         LINE#         274
   C:18CFH         LINE#         275
   C:18DBH         LINE#         276
@@ -3437,6 +3479,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:18E1H         LINE#         287
   C:18ECH         LINE#         288
   C:18ECH         LINE#         289
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 59
+
+
   C:18F0H         LINE#         290
   C:18F2H         LINE#         292
   C:18F2H         LINE#         293
@@ -3479,9 +3524,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1957H         LINE#         334
   C:1959H         LINE#         336
   C:1959H         LINE#         337
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 59
-
-
   C:195DH         LINE#         338
   C:195DH         LINE#         339
   C:1969H         LINE#         340
@@ -3497,6 +3539,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1985H         LINE#         352
   C:1985H         LINE#         353
   C:1989H         LINE#         354
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 60
+
+
   C:1989H         LINE#         355
   C:1989H         LINE#         356
   C:1989H         LINE#         357
@@ -3527,7 +3572,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDPROC       _GET_PWM_N_DUTY
   -------         PROC          _SET_PWM_PERIOD
   D:0003H         SYMBOL        PWM_N
-  X:0540H         SYMBOL        Hz
+  X:0560H         SYMBOL        Hz
   C:393DH         LINE#         407
   C:3947H         LINE#         408
   C:3947H         LINE#         409
@@ -3538,11 +3583,8 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:399DH         LINE#         416
   -------         ENDPROC       _SET_PWM_PERIOD
   -------         PROC          _SET_PWM_DUTY
-  X:0521H         SYMBOL        PWM_N
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 60
-
-
-  X:0522H         SYMBOL        duty
+  X:0541H         SYMBOL        PWM_N
+  X:0542H         SYMBOL        duty
   C:2C9CH         LINE#         431
   C:2CA1H         LINE#         432
   C:2CA1H         LINE#         433
@@ -3557,6 +3599,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:2D0EH         LINE#         442
   C:2D11H         LINE#         443
   C:2DA7H         LINE#         444
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 61
+
+
   C:2DAAH         LINE#         445
   -------         ENDPROC       _SET_PWM_DUTY
   -------         PROC          _SETPWM_DIV
@@ -3599,9 +3644,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3EEDH         LINE#         480
   C:3EFEH         LINE#         481
   C:3F01H         LINE#         482
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 61
-
-
   C:3F04H         LINE#         485
   -------         ENDPROC       _OPEN_PWM_N
   -------         PROC          _CLOSE_PWM_N
@@ -3617,6 +3659,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _GET_PWM_N_STATE
   D:0007H         SYMBOL        PWM_N
   C:4614H         LINE#         494
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 62
+
+
   C:4614H         LINE#         495
   C:4614H         LINE#         497
   C:4625H         LINE#         498
@@ -3659,9 +3704,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:33DEH         LINE#         551
   C:33E0H         LINE#         552
   C:33E0H         LINE#         553
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 62
-
-
   C:33E0H         LINE#         554
   C:33E5H         LINE#         555
   C:33EAH         LINE#         556
@@ -3677,6 +3719,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:340AH         LINE#         566
   C:340AH         LINE#         567
   C:340AH         LINE#         568
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 63
+
+
   C:340FH         LINE#         569
   C:3414H         LINE#         570
   C:3419H         LINE#         571
@@ -3711,32 +3756,32 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   B:00A8H.7       PUBLIC        EA
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
-  X:040AH         SYMBOL        minutes
-  X:040BH         SYMBOL        millis
+  X:0422H         SYMBOL        minutes
+  X:0423H         SYMBOL        millis
   D:00A8H         PUBLIC        IE
   C:4198H         PUBLIC        _restartTimer
-  X:040DH         SYMBOL        micros
-  C:4733H         PUBLIC        getSeconds
+  X:0425H         SYMBOL        micros
+  C:474DH         PUBLIC        getSeconds
   D:00B8H         PUBLIC        IP
   C:44E9H         PUBLIC        _getTimerout
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 63
-
-
   D:00D8H         PUBLIC        CCON
-  C:4739H         PUBLIC        getMinutes
+  C:4753H         PUBLIC        getMinutes
   C:4707H         PUBLIC        getMillis
-  X:040FH         SYMBOL        days
+  X:0427H         SYMBOL        days
   C:46FEH         PUBLIC        getMicros
-  X:0410H         SYMBOL        hours
+  X:0428H         SYMBOL        hours
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
   C:4216H         PUBLIC        _isExpiredTimer
-  X:0411H         PUBLIC        Timer1_state
+  X:0429H         PUBLIC        Timer1_state
   C:3FC9H         PUBLIC        _setTimeout
-  X:0412H         PUBLIC        Timer2_state
+  X:042AH         PUBLIC        Timer2_state
   C:306EH         PUBLIC        timerInit
   C:1BFEH         SYMBOL        _Timer_Inilize
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 64
+
+
   D:00AFH         PUBLIC        IE2
   C:4235H         PUBLIC        _isStopped
   D:00F0H         PUBLIC        B
@@ -3749,9 +3794,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:46B8H         PUBLIC        _onRestartTimer
   C:4536H         PUBLIC        _stopTimer
   D:008DH         PUBLIC        TH1
-  X:0413H         SYMBOL        Timer1_temp
+  X:042BH         SYMBOL        Timer1_temp
   D:00D6H         PUBLIC        TH2
-  X:0415H         SYMBOL        Timer2_temp
+  X:042DH         SYMBOL        Timer2_temp
   D:00D4H         PUBLIC        TH3
   D:00D2H         PUBLIC        TH4
   D:008AH         PUBLIC        TL0
@@ -3760,28 +3805,25 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D5H         PUBLIC        TL3
   B:00B8H.1       PUBLIC        PT0
   D:00D3H         PUBLIC        TL4
-  C:4745H         PUBLIC        getDays
+  C:475FH         PUBLIC        getDays
   B:00B8H.3       PUBLIC        PT1
-  C:473FH         PUBLIC        getHours
+  C:4759H         PUBLIC        getHours
   B:0088H.4       PUBLIC        TR0
   C:4503H         PUBLIC        _getTimerHertz
   B:0088H.6       PUBLIC        TR1
   D:00D1H         PUBLIC        T4T3M
-  X:0417H         PUBLIC        timer1_struct
-  X:041BH         PUBLIC        timer2_struct
+  X:042FH         PUBLIC        timer1_struct
+  X:0433H         PUBLIC        timer2_struct
   C:43AFH         PUBLIC        _setTimerHertz
-  X:041FH         SYMBOL        seconds
+  X:0437H         SYMBOL        seconds
   D:008FH         PUBLIC        INT_CLKO
   D:00D0H         PUBLIC        PSW
   -------         PROC          TIMERINIT
   -------         DO            
-  X:0420H         SYMBOL        TIM_InitStructure1
-  X:0428H         SYMBOL        TIM_InitStructure2
-  X:0430H         SYMBOL        Error_Code
+  X:0438H         SYMBOL        TIM_InitStructure1
+  X:0440H         SYMBOL        TIM_InitStructure2
+  X:0448H         SYMBOL        Error_Code
   -------         ENDDO         
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 64
-
-
   C:306EH         LINE#         74
   C:306EH         LINE#         75
   C:306EH         LINE#         78
@@ -3797,6 +3839,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3096H         LINE#         92
   C:3099H         LINE#         93
   C:309CH         LINE#         94
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 65
+
+
   C:309EH         LINE#         95
   C:30A3H         LINE#         96
   C:30ADH         LINE#         99
@@ -3839,9 +3884,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0004H         SYMBOL        time
   C:3FC9H         LINE#         153
   C:3FC9H         LINE#         154
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 65
-
-
   C:3FC9H         LINE#         155
   C:3FD3H         LINE#         156
   C:3FD3H         LINE#         157
@@ -3857,6 +3899,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3FEDH         LINE#         168
   C:3FEDH         LINE#         169
   C:3FEDH         LINE#         170
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 66
+
+
   C:3FEDH         LINE#         171
   C:3FEDH         LINE#         172
   -------         ENDPROC       _SETTIMEOUT
@@ -3899,9 +3944,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:43CAH         LINE#         225
   C:43CAH         LINE#         227
   C:43CAH         LINE#         230
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 66
-
-
   -------         ENDPROC       _SETTIMERHERTZ
   -------         PROC          _GETTIMERHERTZ
   D:0007H         SYMBOL        whichTimer
@@ -3917,6 +3959,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4510H         LINE#         241
   C:4510H         LINE#         242
   C:4510H         LINE#         243
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 67
+
+
   C:4510H         LINE#         244
   C:4519H         LINE#         245
   C:4519H         LINE#         246
@@ -3959,9 +4004,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:4334H         LINE#         299
   C:4334H         LINE#         300
   C:433EH         LINE#         302
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 67
-
-
   C:433EH         LINE#         303
   C:433EH         LINE#         304
   C:433EH         LINE#         305
@@ -3977,6 +4019,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:421EH         LINE#         321
   C:4229H         LINE#         322
   C:4229H         LINE#         323
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 68
+
+
   C:4229H         LINE#         324
   C:4229H         LINE#         325
   C:4234H         LINE#         326
@@ -4019,9 +4064,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:41AFH         LINE#         378
   C:41AFH         LINE#         379
   C:41AFH         LINE#         380
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 68
-
-
   C:41B2H         LINE#         381
   C:41B7H         LINE#         382
   C:41B7H         LINE#         383
@@ -4037,6 +4079,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:46BAH         LINE#         402
   C:46BAH         LINE#         403
   C:46BFH         LINE#         404
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 69
+
+
   C:46BFH         LINE#         405
   C:46C2H         LINE#         406
   C:46C4H         LINE#         407
@@ -4058,31 +4103,28 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:470FH         LINE#         426
   -------         ENDPROC       GETMILLIS
   -------         PROC          GETSECONDS
-  C:4733H         LINE#         427
-  C:4733H         LINE#         428
-  C:4733H         LINE#         429
-  C:4738H         LINE#         430
+  C:474DH         LINE#         427
+  C:474DH         LINE#         428
+  C:474DH         LINE#         429
+  C:4752H         LINE#         430
   -------         ENDPROC       GETSECONDS
   -------         PROC          GETMINUTES
-  C:4739H         LINE#         431
-  C:4739H         LINE#         432
-  C:4739H         LINE#         433
-  C:473EH         LINE#         434
+  C:4753H         LINE#         431
+  C:4753H         LINE#         432
+  C:4753H         LINE#         433
+  C:4758H         LINE#         434
   -------         ENDPROC       GETMINUTES
   -------         PROC          GETHOURS
-  C:473FH         LINE#         435
-  C:473FH         LINE#         436
-  C:473FH         LINE#         437
-  C:4744H         LINE#         438
+  C:4759H         LINE#         435
+  C:4759H         LINE#         436
+  C:4759H         LINE#         437
+  C:475EH         LINE#         438
   -------         ENDPROC       GETHOURS
   -------         PROC          GETDAYS
-  C:4745H         LINE#         439
-  C:4745H         LINE#         440
-  C:4745H         LINE#         441
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 69
-
-
-  C:474AH         LINE#         442
+  C:475FH         LINE#         439
+  C:475FH         LINE#         440
+  C:475FH         LINE#         441
+  C:4764H         LINE#         442
   -------         ENDPROC       GETDAYS
   -------         PROC          TIMER1_ISR
   C:3C2EH         LINE#         446
@@ -4097,6 +4139,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          TIMER3_INT
   C:3BE6H         LINE#         462
   C:3BF7H         LINE#         464
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 70
+
+
   C:3C10H         LINE#         465
   C:3C10H         LINE#         466
   C:3C13H         LINE#         467
@@ -4139,9 +4184,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _TIMER_INILIZE
   D:0005H         SYMBOL        TIM
   D:0001H         SYMBOL        TIMx
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 70
-
-
   C:1BFEH         LINE#         523
   C:1C00H         LINE#         524
   C:1C00H         LINE#         525
@@ -4157,6 +4199,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1C27H         LINE#         536
   C:1C32H         LINE#         537
   C:1C3DH         LINE#         538
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 71
+
+
   C:1C40H         LINE#         539
   C:1C4CH         LINE#         540
   C:1C53H         LINE#         541
@@ -4199,9 +4244,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1D4BH         LINE#         583
   C:1D53H         LINE#         584
   C:1D5FH         LINE#         585
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 71
-
-
   C:1D62H         LINE#         586
   C:1D62H         LINE#         588
   C:1D67H         LINE#         589
@@ -4217,6 +4259,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1DB8H         LINE#         600
   C:1DC4H         LINE#         601
   C:1DC7H         LINE#         602
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 72
+
+
   C:1DC7H         LINE#         604
   C:1DCCH         LINE#         605
   C:1DCCH         LINE#         606
@@ -4259,9 +4304,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   X:001CH         PUBLIC        RX1_Buffer
   X:009CH         PUBLIC        RX2_Buffer
   B:0098H.0       PUBLIC        RI
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 72
-
-
   C:3770H         PUBLIC        UART1_int
   X:011CH         PUBLIC        RX3_Buffer
   X:0138H         PUBLIC        TX1_Buffer
@@ -4277,6 +4319,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00D8H         PUBLIC        CCON
   D:0099H         PUBLIC        SBUF
   D:0087H         PUBLIC        PCON
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 73
+
+
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
@@ -4316,14 +4361,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:008FH         PUBLIC        INT_CLKO
   D:00D0H         PUBLIC        PSW
   -------         PROC          _USART_CONFIGURATION
-  X:042DH         SYMBOL        UARTx
-  X:042EH         SYMBOL        COMx
+  X:0445H         SYMBOL        UARTx
+  X:0446H         SYMBOL        COMx
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 73
-
-
-  X:0431H         SYMBOL        i
-  X:0432H         SYMBOL        j
+  X:0449H         SYMBOL        i
+  X:044AH         SYMBOL        j
   -------         ENDDO         
   C:0F20H         LINE#         25
   C:0F30H         LINE#         26
@@ -4337,6 +4379,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:0F45H         LINE#         37
   C:0F47H         LINE#         38
   C:0F49H         LINE#         39
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 74
+
+
   C:0F6BH         LINE#         40
   C:0F8EH         LINE#         42
   C:0FA4H         LINE#         43
@@ -4379,9 +4424,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:10BDH         LINE#         80
   C:10BDH         LINE#         81
   C:10CBH         LINE#         82
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 74
-
-
   C:10CEH         LINE#         83
   C:10D0H         LINE#         84
   C:10D4H         LINE#         85
@@ -4397,6 +4439,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:112CH         LINE#         95
   C:112FH         LINE#         96
   C:1132H         LINE#         97
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 75
+
+
   C:1132H         LINE#         99
   C:113DH         LINE#         100
   C:113DH         LINE#         101
@@ -4439,9 +4484,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:12A8H         LINE#         140
   C:12AAH         LINE#         141
   C:12ACH         LINE#         142
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 75
-
-
   C:12AEH         LINE#         143
   C:12B0H         LINE#         144
   C:12B2H         LINE#         145
@@ -4457,6 +4499,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1382H         LINE#         155
   C:1398H         LINE#         156
   C:1398H         LINE#         157
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 76
+
+
   C:139BH         LINE#         158
   C:139EH         LINE#         159
   C:13A1H         LINE#         160
@@ -4499,9 +4544,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1465H         LINE#         199
   C:1487H         LINE#         200
   C:14AAH         LINE#         202
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 76
-
-
   C:14C5H         LINE#         203
   C:14C5H         LINE#         204
   C:14C8H         LINE#         205
@@ -4517,6 +4559,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:1554H         LINE#         215
   C:1557H         LINE#         216
   C:156CH         LINE#         217
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 77
+
+
   C:1575H         LINE#         218
   C:1578H         LINE#         219
   C:157BH         LINE#         220
@@ -4559,9 +4604,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3FA3H         LINE#         260
   -------         ENDPROC       _TX1_WRITE2BUFF
   -------         PROC          _TX2_WRITE2BUFF
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 77
-
-
   D:0007H         SYMBOL        dat
   C:3F05H         LINE#         262
   C:3F05H         LINE#         263
@@ -4577,6 +4619,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _TX3_WRITE2BUFF
   D:0007H         SYMBOL        dat
   C:3F2DH         LINE#         274
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 78
+
+
   C:3F2DH         LINE#         275
   C:3F2DH         LINE#         276
   C:3F3CH         LINE#         277
@@ -4619,9 +4664,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _PRINTSTRING3
   D:0001H         SYMBOL        puts
   C:45B8H         LINE#         310
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 78
-
-
   C:45B8H         LINE#         311
   C:45B8H         LINE#         312
   C:45CAH         LINE#         313
@@ -4637,6 +4679,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3770H         LINE#         325
   C:377FH         LINE#         327
   C:3782H         LINE#         328
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 79
+
+
   C:3782H         LINE#         329
   C:3784H         LINE#         330
   C:378AH         LINE#         331
@@ -4679,9 +4724,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3652H         LINE#         371
   C:3654H         LINE#         372
   C:3659H         LINE#         373
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 79
-
-
   C:3659H         LINE#         375
   -------         ENDPROC       UART2_INT
   -------         PROC          UART3_INT
@@ -4697,6 +4739,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:36A8H         LINE#         389
   C:36A8H         LINE#         390
   C:36A8H         LINE#         392
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 80
+
+
   C:36ADH         LINE#         393
   C:36ADH         LINE#         394
   C:36B0H         LINE#         395
@@ -4739,9 +4784,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 80
-
-
   D:00B0H         PUBLIC        P3
   C:46C6H         PUBLIC        DisableEEPROM
   D:00C0H         PUBLIC        P4
@@ -4757,6 +4799,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   D:00C5H         PUBLIC        ISP_CMD
   D:00D8H         PUBLIC        CCON
   C:3D3BH         PUBLIC        _EEPROM_write_n
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 81
+
+
   D:00C3H         PUBLIC        ISP_ADDRH
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
@@ -4779,7 +4824,7 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         PROC          _EEPROM_READ_N
   D:0004H         SYMBOL        EE_address
   D:0001H         SYMBOL        DataAddress
-  X:04D0H         SYMBOL        number
+  X:04F0H         SYMBOL        number
   C:3CFCH         LINE#         49
   C:3D00H         LINE#         50
   C:3D00H         LINE#         51
@@ -4799,9 +4844,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:3D3AH         LINE#         69
   -------         ENDPROC       _EEPROM_READ_N
   -------         PROC          _EEPROM_SECTORERASE
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 81
-
-
   D:0004H         SYMBOL        EE_address
   C:41B8H         LINE#         80
   C:41BCH         LINE#         81
@@ -4817,9 +4859,12 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:41D7H         LINE#         93
   -------         ENDPROC       _EEPROM_SECTORERASE
   -------         PROC          _EEPROM_WRITE_N
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 82
+
+
   D:0004H         SYMBOL        EE_address
   D:0001H         SYMBOL        DataAddress
-  X:04D7H         SYMBOL        number
+  X:04F7H         SYMBOL        number
   C:3D3BH         LINE#         104
   C:3D3FH         LINE#         105
   C:3D3FH         LINE#         106
@@ -4859,9 +4904,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDMOD        ?C?FPCMP
 
   -------         MODULE        ?C?FCAST
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 82
-
-
   C:0B15H         PUBLIC        ?C?FCASTC
   C:0B10H         PUBLIC        ?C?FCASTI
   C:0B0BH         PUBLIC        ?C?FCASTL
@@ -4877,6 +4919,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 
   -------         MODULE        ?C?CLDOPTR
   C:0BE3H         PUBLIC        ?C?CLDOPTR
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 83
+
+
   -------         ENDMOD        ?C?CLDOPTR
 
   -------         MODULE        ?C?CSTPTR
@@ -4919,9 +4964,6 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   C:0E16H         PUBLIC        ?C?LNEG
   -------         ENDMOD        ?C?LNEG
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 83
-
-
   -------         MODULE        ?C?ULCMP
   C:0E24H         PUBLIC        ?C?ULCMP
   -------         ENDMOD        ?C?ULCMP
@@ -4937,6 +4979,9 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         MODULE        ?C?LLDIXDATA
   C:0E81H         PUBLIC        ?C?LLDIXDATA
   C:0E78H         PUBLIC        ?C?LLDIXDATA1
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 84
+
+
   C:0E7AH         PUBLIC        ?C?LLDIXDATA8
   -------         ENDMOD        ?C?LLDIXDATA
 
@@ -4965,6 +5010,18 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
   -------         ENDMOD        ?C?LLDCODE0
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETTARGETCOORDINATE?TASK
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETCURRENTCOORDINATE?TASK
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETWIRELENGTH?TASK
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETWIRELENGTH?TASK
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?MODE1?MODE
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -4979,11 +5036,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?MODELAUNCHER?MODE
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 84
-
-
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PID_CONFIG?PID
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 85
+
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_OPENPID?PID
@@ -5039,11 +5096,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GETINTEGRAL?PID
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 85
-
-
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SENDSCOPEDATA?DATASCOPE_DP
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 86
+
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_WRITEDATA?STORAGE
@@ -5099,11 +5156,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 86
-
-
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_CLOSE_STEPMOTOR?STEP_MOTOR
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 87
+
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_OPEN_STEPMOTOR?STEP_MOTOR
@@ -5159,11 +5216,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_ADC_POWERCONTROL?ADC
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 87
-
-
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SETPINSTATE?GPIO
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 88
+
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PWMN_UPDATE?PCA
@@ -5219,11 +5276,11 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?GETMILLIS?TIMER
 
-BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  10:03:44  PAGE 88
-
-
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?GETSECONDS?TIMER
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      07/20/2017  11:54:23  PAGE 89
+
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?GETMINUTES?TIMER
@@ -5253,8 +5310,8 @@ SYMBOL TABLE OF MODULE:  悬挂运动控制系统 (ABSTASK)
     SEGMENT: ?PR?_EEPROM_WRITE_N?STC15_EEPROM
 
 ******************************************************************************
-* RESTRICTED VERSION WITH FFFFH BYTE CODE SIZE LIMIT; USED: 3796H BYTE (21%) *
+* RESTRICTED VERSION WITH FFFFH BYTE CODE SIZE LIMIT; USED: 37B0H BYTE (21%) *
 ******************************************************************************
 
-Program Size: data=19.3 xdata=1363 code=16268
-LINK/LOCATE RUN COMPLETE.  91 WARNING(S),  0 ERROR(S)
+Program Size: data=19.3 xdata=1398 code=16294
+LINK/LOCATE RUN COMPLETE.  95 WARNING(S),  0 ERROR(S)
