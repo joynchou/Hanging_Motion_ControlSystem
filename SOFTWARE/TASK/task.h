@@ -1,3 +1,4 @@
+
 /************************************************************
 * 组织名称：
 * 文件名称: K:\单片机相关\电子大赛程序框架\SOFTWARE\TASK\TASK.H
@@ -56,7 +57,7 @@ typedef struct
 	
 static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体
 
-
+                                                           
 extern Coordinate getCurrentCoordinate(void);
 extern bit setTargetCoordinate(float x, float y);
 static bit setWireLength(u8 wire);

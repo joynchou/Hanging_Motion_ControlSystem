@@ -74,9 +74,13 @@ PWM7 :P1.7 -> P0.6
 	PWM_InitTypeDef  PWM_InitStructure;
 	GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_OUT_PP
 
+	GPIO_InitStructure.Pin = GPIO_Pin_6;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
+	GPIO_Inilize(GPIO_P1, &GPIO_InitStructure);  //初始化
 	GPIO_InitStructure.Pin = GPIO_Pin_7;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
 	GPIO_Inilize(GPIO_P1, &GPIO_InitStructure);  //初始化
+	P16 = 1;
 	P17 = 1;
+	set_PWM_duty(PWM_6, PWM_DEFAULT_DUTY); //使用默认0.5的占空比
 	set_PWM_duty(PWM_7, PWM_DEFAULT_DUTY); //使用默认0.5的占空比
 
 	PWM_UNLOCK;
@@ -97,10 +101,11 @@ PWM7 :P1.7 -> P0.6
 	PWM_InitStructure.PWM_T2x_EN = ENABLE;          //ENABLE=使能第二翻转中断
 	PWM_InitStructure.PWM_EN = DISABLE;                //ENABLE=PWM使能 在其他PWM参数设置好后最后设置 如果被关闭后在打开，则PWM计数器重新从0计数
 
-//	PWM_Inilize(PWM_6, &PWM_InitStructure);
+	PWM_Inilize(PWM_6, &PWM_InitStructure);
 	PWM_Inilize(PWM_7, &PWM_InitStructure);
 
 	PWM_LOCK;
+	setPWM_DIV(PWM_6, 16);
 	setPWM_DIV(PWM_7, 16);
 }
 

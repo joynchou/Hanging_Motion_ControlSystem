@@ -61,8 +61,9 @@ void setup(void)
 	UART1_init(115200L);
   timerInit();
 	Board_LED_Init();
-	Button_config();
-	ADC_config(ADC_P10, ADC_540T);
+	//Button_config();
+	stepMotor_Init(STEP_MOTOR_1,1.8f,16,2000);//初始化一号步进电机
+	stepMotor_Init(STEP_MOTOR_2,1.8f,16,2000);//初始化二号步进电机
   test();
 
 }
