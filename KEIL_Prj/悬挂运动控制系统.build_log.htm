@@ -11,7 +11,24 @@ Build target '悬挂运动控制系统'
 compiling absTask.c...
 ../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
 ../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(40): warning C280: 'x': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(40): warning C280: 'y': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(59): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(55): warning C280: 'motor': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(69): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(76): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(73): warning C280: 'wire': unreferenced local variable
 linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETTARGETCOORDINATE?TASK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETCURRENTCOORDINATE?TASK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETWIRELENGTH?TASK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETWIRELENGTH?TASK
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?MODE1?MODE
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -194,52 +211,204 @@ linking...
     SEGMENT: ?PR?_EEPROM_SECTORERASE?STC15_EEPROM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_EEPROM_WRITE_N?STC15_EEPROM
-Program Size: data=19.3 xdata=1363 code=16268
+Program Size: data=19.3 xdata=1398 code=16294
 creating hex file from "悬挂运动控制系统"...
-"悬挂运动控制系统" - 0 Error(s), 93 Warning(s).
-</pre>
-</body>
-</html>
-D SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ONRESTARTTIMER?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETMICROS?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETMILLIS?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETSECONDS?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETMINUTES?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETHOURS?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETDAYS?TIMER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PRINTSTRING2?USART1
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PRINTSTRING3?USART1
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PRINTSTRING4?USART1
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_READ_N?STC15_EEPROM
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_SECTORERASE?STC15_EEPROM
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_WRITE_N?STC15_EEPROM
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?GETANGLE?ANGLE
-    CALLER1: ?PR?TASK8?ABSTASK
-    CALLER2: ?PR?TASK9?ABSTASK
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?_FILTER?FILTER
-    CALLER1: ?PR?TASK8?ABSTASK
-    CALLER2: ?PR?TASK9?ABSTASK
-Program Size: data=46.4 xdata=1534 code=16983
-creating hex file from "悬挂运动控制系统"...
-"悬挂运动控制系统" - 0 Error(s), 106 Warning(s).
-compiling setup.c...
-..\SOFTWARE\TASK\SETUP.C(55): warning C280: 'j': unreferenced local variable
-..\SOFTWARE\TASK\SETUP.C(55): warning C280: 'k': unreferenced local variable
-..\SOFTWARE\TASK\setup.c - 0 Error(s), 2 Warning(s).
-compiling setup.c...
-..\SOFTWARE\TASK\setup.c - 0 Error(s), 0 Warning(s).
+"悬挂运动控制系统" - 0 Error(s), 105 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(58): error C236: '_getCurrentCoordinate': different length of parameter lists
+..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(67): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(80): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(77): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(84): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(81): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(83): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(80): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(87): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(84): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(73): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(86): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(83): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(90): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(87): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(74): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(87): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(84): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(91): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(88): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(65): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(78): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(75): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(79): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(43): error C200: left side of '.' requires struct/union
+..\SOFTWARE\TASK\TASK.C(60): error C202: 'TargetCoordinate': undefined identifier
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(65): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(69): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(73): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(77): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(122): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(119): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(126): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(123): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 8 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(69): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(93): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(105): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(150): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(147): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(154): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(151): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 7 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(52): error C230: 'systemState': unknown struct/union/enum tag
+..\SOFTWARE\TASK\TASK.H(52): error C141: syntax error near ';'
+..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near '}'
+..\SOFTWARE\TASK\TASK.C(58): error C129: missing ';' before 'g_MotionSystemInfo'
+..\SOFTWARE\TASK\task.c - 4 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(52): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(52): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(25): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(26): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(69): error C204: 'systemState': undefined member
+..\SOFTWARE\TASK\TASK.C(81): error C204: 'systemState': undefined member
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(81): error C204: 'systemState': undefined member
+..\SOFTWARE\TASK\task.c - 1 Error(s), 1 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 8 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(69): error C204: 'systemState': undefined member
+..\SOFTWARE\TASK\TASK.C(80): error C231: 'isSystemStop': redefinition
+..\SOFTWARE\TASK\TASK.C(82): error C231: 'isSystemStop': redefinition
+..\SOFTWARE\TASK\task.c - 3 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(46): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(46): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(80): error C231: 'isSystemStop': redefinition
+..\SOFTWARE\TASK\TASK.C(82): error C231: 'isSystemStop': redefinition
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 7 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
+..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
+..\SOFTWARE\TASK\task.c - 0 Error(s), 6 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
+..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
+..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
+..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
+..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(164): warning C173: missing return-expression
+..\SOFTWARE\TASK\task.c - 0 Error(s), 3 Warning(s).
+compiling task.c...
+..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
+..\SOFTWARE\TASK\TASK.C(167): warning C173: missing return-expression
+..\SOFTWARE\TASK\task.c - 0 Error(s), 3 Warning(s).
