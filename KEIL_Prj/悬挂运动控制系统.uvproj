@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>电子大赛程序框架</TargetName>
+      <TargetName>悬挂运动控制系统</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <TargetOption>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>电子大赛程序框架</OutputName>
+          <OutputName>悬挂运动控制系统</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -588,6 +588,11 @@
               <FileName>74HC595.C</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\DEVICES\COMMON_DEVICES\74H\74HC595.C</FilePath>
+            </File>
+            <File>
+              <FileName>LCD5510_V2.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\DEVICES\DISPLAY\LCD5110\LCD5510_V2.C</FilePath>
             </File>
           </Files>
         </Group>

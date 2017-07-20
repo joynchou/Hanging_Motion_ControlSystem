@@ -26,5 +26,5 @@
 ".\timer.obj",
 ".\USART1.obj",
 ".\stc15_eeprom.obj" 
-TO "电子大赛程序框架" Rtx51Tiny 
+TO "悬挂运动控制系统" Rtx51Tiny 
 RAMSIZE(256) 

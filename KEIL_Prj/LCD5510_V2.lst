@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 1   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 10:02:38 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE LCD5510_V2
@@ -62,7 +62,7 @@ line level    source
   52          {0x00,0x3E,0x41,0x41,0x41,0x3E},//O(47)
   53          {0x00,0x7F,0x09,0x09,0x09,0x06},//P(48)
   54          {0x00,0x3E,0x41,0x51,0x21,0x5E},//Q(49)
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 2   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 10:02:38 PAGE 2   
 
   55          {0x00,0x7F,0x09,0x19,0x29,0x46},//R(50)
   56          {0x00,0x46,0x49,0x49,0x49,0x31},//S(51)
@@ -126,7 +126,7 @@ line level    source
  114   1        
  115   1        LCD_CS = 0;     //使能
  116   1        LCD_DC = dat_cmd; //1-数据  //0-指令
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 3   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 10:02:38 PAGE 3   
 
  117   1      
  118   1        for(i = 8; i; i--)  //8位数据, 先高后低
@@ -190,7 +190,7 @@ line level    source
  176          //显示清行
  177          //num:  0 - 5
  178          void LCD_clr_row(unsigned char num)
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 4   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 10:02:38 PAGE 4   
 
  179          {
  180   1        unsigned char i;
@@ -254,7 +254,7 @@ line level    source
  238   2          if(y == 6)  {y = 0;}
  239   2        }
  240   1      }
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 5   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 10:02:38 PAGE 5   
 
  241          
  242          

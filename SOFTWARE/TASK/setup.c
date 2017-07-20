@@ -52,36 +52,17 @@ void    UART1_init(unsigned long BandRate)
 	// PrintString1("STC15w4k58s4's UART1 is open \r\n");   //´®¿Ú²âÊÔ
 }
 void test(void)//Æ÷¼þ²âÊÔ
-{    unsigned char i, j, k;
-	unsigned char LCD_contrast = 0xc8;
-
-
-//	stepMotor_Init (STEP_MOTOR_6,1.8f,1,2000);
-//	setStepMotorWithRound(STEP_MOTOR_6,5,5);   
-//   open_StepMotor(STEP_MOTOR_6);
-   LCD5510_Init();
-	while(*str1)
-	{
-		LCD_prints(0, 0, str1++); 
-		delay_ms(250); i++;
-		LCD_clr_row(0);
-	}
-	str1 -= i;
-	LCD_printsl(0, 0, str1);
-
-	delay_ms(200); 
-	LCD_clr_scr();		//ÇåÆÁ
+{   
 
 }
 void setup(void)
 {
+	
 	UART1_init(115200L);
-	// timerInit();
+  timerInit();
 	Board_LED_Init();
 	Button_config();
 	ADC_config(ADC_P10, ADC_540T);
-	//LCD1602_Init();
-	EA = 1;
   test();
 
 }
