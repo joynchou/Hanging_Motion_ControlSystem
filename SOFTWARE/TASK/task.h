@@ -55,7 +55,7 @@ typedef struct
 	  
 }Info;
 	
-static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体
+static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体 	
 
                                                            
 extern Coordinate getCurrentCoordinate(void);

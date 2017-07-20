@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 1   
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE TASK
@@ -8,209 +8,214 @@ COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\SOFTWARE\TASK\task.c LARGE BR
 
 line level    source
 
-   1          /************************************************************
-   2          * 组织名称：
-   3          * 文件名称: K:\单片机相关\电子大赛程序框架\SOFTWARE\TASK\TASK.C
-   4          * 作者:
-   5          * 版本:
-   6          * 日期:     2017/07/06
-   7          * 描述:  悬挂运动控制系统基本控制函数
-   8          * 历史修改记录:
-   9          * <作者> <时间> <版本 > <描述>
-  10          *
-  11          ***********************************************************/
-  12          
-  13          #include "task.h"
-  14          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
-  15          #include "setup.h"
-  16          #include "../HARDWARE/BSP/USART1.h"
-  17          #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
-  18          #include <math.h>
-  19          
-  20          #define  BOARD_HEIGHT  100.0f //板子的高度  ，单位厘米
-  21          #define  BOARD_WIDTH   50.0f  //板子的宽度  ，单位厘米
-  22          #define  BEARING_DIA   10.0f  //旋转轴承的直径，单位毫米
-  23          
+   1          
+   2          /************************************************************
+   3          * 组织名称：
+   4          * 文件名称: K:\单片机相关\电子大赛程序框架\SOFTWARE\TASK\TASK.C
+   5          * 作者:
+   6          * 版本:
+   7          * 日期:     2017/07/06
+   8          * 描述:  悬挂运动控制系统基本控制函数
+   9          * 历史修改记录:
+  10          * <作者> <时间> <版本 > <描述>
+  11          *
+  12          ***********************************************************/
+  13          
+  14          #include "task.h"
+  15          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
+  16          #include "setup.h"
+  17          #include "../HARDWARE/BSP/USART1.h"
+  18          #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
+  19          #include <math.h>
+  20          
+  21          #define  BOARD_HEIGHT  100.0f //板子的高度  ，单位厘米
+  22          #define  BOARD_WIDTH   50.0f  //板子的宽度  ，单位厘米
+  23          #define  BEARING_DIA   10.0f  //旋转轴承的直径，单位毫米
   24          
-  25          //头文件中的结构体定义
-  26          /*
-  27          
-  28          #define LEFT_STEP_MOTOR   0
-  29          #define RIGHT_STEP_MOTOR  1
-  30          
-  31          #define LEFT_WIRE_LENGTH   0 //左边线长
-  32          #define RIGHT_WIRE_LENGTH  1 //右边线长
-  33          enum State//状态枚举
-  34          {
-  35            STOP,RUNNING
-  36          };
-  37          
-  38            typedef struct //坐标结构体
-  39          {
-  40          
-  41             float x;
-  42             float y;
-  43          
+  25          
+  26          //头文件中的结构体定义
+  27          /*
+  28          
+  29          #define LEFT_STEP_MOTOR   0
+  30          #define RIGHT_STEP_MOTOR  1
+  31          
+  32          #define LEFT_WIRE_LENGTH   0 //左边线长
+  33          #define RIGHT_WIRE_LENGTH  1 //右边线长
+  34          enum State//状态枚举
+  35          {
+  36            STOP,RUNNING
+  37          };
+  38          
+  39            typedef struct //坐标结构体
+  40          {
+  41          
+  42             float x;
+  43             float y;
   44          
-  45          } Coordinate;
-  46          
-  47          typedef struct   //长度结构体
-  48          {  //
-  49          
-  50             float Length;
-  51          
+  45          
+  46          } Coordinate;
+  47          
+  48          typedef struct   //长度结构体
+  49          {  //
+  50          
+  51             float Length;
   52          
-  53          } Wire;
-  54          static Wire g_StepMotorWireLen[2];  // 电机当前位置记录结构体
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 2   
+  53          
+  54          } Wire;
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 2   
 
-  55          static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // 电机当前位置记录结构体
-  56          
-  57          //利用上面两个结构体一同再构建一个系统信息结构体
-  58          typedef struct
-  59          {
-  60              Coordinate g_TargetCoordinate;
-  61              Coordinate g_CurrentCoordinate;
-  62              Wire g_StepMotorWireLen[2];
-  63              u8 systemState;
-  64          }Info;
-  65          
+  55          static Wire g_StepMotorWireLen[2];  // 电机当前位置记录结构体
+  56          static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // 电机当前位置记录结构体
+  57          
+  58          //利用上面两个结构体一同再构建一个系统信息结构体
+  59          typedef struct
+  60          {
+  61              Coordinate g_TargetCoordinate;
+  62              Coordinate g_CurrentCoordinate;
+  63              Wire g_StepMotorWireLen[2];
+  64              u8 systemState;
+  65          }Info;
   66          
-  67           */
-  68          
-  69          //************************************
-  70          // Method:    isSyetemRunning
-  71          // FullName:  isSyetemRunning
-  72          // Access:    public 
-  73          // Returns:   bit
-  74          // Qualifier:
-  75          // Parameter: void
-  76          //************************************
-  77          bit isSyetemRunning(void)
-  78          {
-  79   1        return g_MotionSystemInfo.systemState == RUNNING;
-  80   1      }
-  81          //************************************
-  82          // Method:    isSystemStop
-  83          // FullName:  isSystemStop
-  84          // Access:    public 
-  85          // Returns:   bit
-  86          // Qualifier:
-  87          // Parameter: void
-  88          //************************************
-  89          bit isSystemStop(void)
-  90          {
-  91   1        return g_MotionSystemInfo.systemState == STOP;
-  92   1      }
-  93          //************************************
-  94          // Method:    startSystem
-  95          // FullName:  startSystem
-  96          // Access:    public 
-  97          // Returns:   bit
-  98          // Qualifier:
-  99          // Parameter: void
- 100          //************************************
- 101          bit startSystem(void)
- 102          {
- 103   1      
- 104   1      }
-*** WARNING C173 IN LINE 104 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 105          //************************************
- 106          // Method:    stopSystem
- 107          // FullName:  stopSystem
- 108          // Access:    public 
- 109          // Returns:   bit
- 110          // Qualifier:
- 111          // Parameter: void
- 112          //************************************
- 113          bit stopSystem(void)
- 114          {
- 115   1        g_MotionSystemInfo.systemState = STOP;
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 3   
+  67          
+  68           */
+  69          
+  70          //************************************
+  71          // Method:    isSyetemRunning
+  72          // FullName:  isSyetemRunning
+  73          // Access:    public 
+  74          // Returns:   bit
+  75          // Qualifier:
+  76          // Parameter: void
+  77          //************************************
+  78          bit isSyetemRunning(void)
+  79          {
+  80   1        return g_MotionSystemInfo.systemState == RUNNING;
+  81   1      }
+  82          //************************************
+  83          // Method:    isSystemStop
+  84          // FullName:  isSystemStop
+  85          // Access:    public 
+  86          // Returns:   bit
+  87          // Qualifier:
+  88          // Parameter: void
+  89          //************************************
+  90          bit isSystemStop(void)
+  91          {
+  92   1        return g_MotionSystemInfo.systemState == STOP;
+  93   1      }
+  94          //************************************
+  95          // Method:    startSystem
+  96          // FullName:  startSystem
+  97          // Access:    public 
+  98          // Returns:   bit
+  99          // Qualifier:
+ 100          // Parameter: void
+ 101          //************************************
+ 102          bit startSystem(void)
+ 103          {
+ 104   1      
+ 105   1      }
+*** WARNING C173 IN LINE 105 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 106          //************************************
+ 107          // Method:    stopSystem
+ 108          // FullName:  stopSystem
+ 109          // Access:    public 
+ 110          // Returns:   bit
+ 111          // Qualifier:
+ 112          // Parameter: void
+ 113          //************************************
+ 114          bit stopSystem(void)
+ 115          {
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 3   
 
- 116   1      }
-*** WARNING C173 IN LINE 116 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 117          
- 118          //************************************
- 119          // Method:    setTargetCoordinate
- 120          // FullName:  setTargetCoordinate
- 121          // Access:    public 
- 122          // Returns:   bit
- 123          // Qualifier: //设置需要到达的目标坐标
- 124          // Parameter: float x
- 125          // Parameter: float y
- 126          //************************************
- 127          bit setTargetCoordinate(float x, float y)
- 128          {
- 129   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
- 130   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
- 131   1        setWireLength(LEFT_WIRE_LENGTH);
- 132   1        setWireLength(RIGHT_WIRE_LENGTH);
- 133   1      
- 134   1        return 1;
- 135   1      
- 136   1      }
- 137          //************************************
- 138          // Method:    getCurrentCoordinate
- 139          // FullName:  getCurrentCoordinate
- 140          // Access:    public 
- 141          // Returns:   Coordinate
- 142          // Qualifier: //读取当前坐标，返回一个xy结构体
- 143          // Parameter: u8 motor
- 144          //************************************
- 145          Coordinate getCurrentCoordinate(void)
- 146          {
- 147   1      
- 148   1        return g_MotionSystemInfo.g_CurrentCoordinate;
- 149   1      }
- 150          
+ 116   1        g_MotionSystemInfo.systemState = STOP;
+ 117   1      }
+*** WARNING C173 IN LINE 117 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 118          
+ 119          //************************************
+ 120          // Method:    setTargetCoordinate
+ 121          // FullName:  setTargetCoordinate
+ 122          // Access:    public 
+ 123          // Returns:   bit
+ 124          // Qualifier: //设置需要到达的目标坐标
+ 125          // Parameter: float x
+ 126          // Parameter: float y
+ 127          //************************************
+ 128          bit setTargetCoordinate(float x, float y)
+ 129          {
+ 130   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
+ 131   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
+ 132   1        setWireLength(LEFT_WIRE_LENGTH);
+ 133   1        setWireLength(RIGHT_WIRE_LENGTH);
+ 134   1      
+ 135   1        return 1;
+ 136   1      
+ 137   1      }
+ 138          //************************************
+ 139          // Method:    getCurrentCoordinate
+ 140          // FullName:  getCurrentCoordinate
+ 141          // Access:    public 
+ 142          // Returns:   Coordinate
+ 143          // Qualifier: //读取当前坐标，返回一个xy结构体
+ 144          // Parameter: u8 motor
+ 145          //************************************
+ 146          Coordinate getCurrentCoordinate(void)
+ 147          {
+ 148   1      
+ 149   1        return g_MotionSystemInfo.g_CurrentCoordinate;
+ 150   1      }
  151          
- 152          ///////////////////！以下为私有函数，外部不能调用！///////////////////////////
- 153          //************************************
- 154          // Method:    setWireLength
- 155          // FullName:  setWireLength
- 156          // Access:    public 
- 157          // Returns:   bit
- 158          // Qualifier: //设置a,b的长度
- 159          // Parameter: u8 wire
- 160          //************************************
- 161          static bit setWireLength(u8 wire)
- 162          {
- 163   1        if (wire)
- 164   1        {
- 165   2          //a的线长计算
- 166   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(  pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)  
+ 152          
+ 153          ///////////////////！以下为私有函数，外部不能调用！///////////////////////////
+ 154          //************************************
+ 155          // Method:    setWireLength
+ 156          // FullName:  setWireLength
+ 157          // Access:    public 
+ 158          // Returns:   bit
+ 159          // Qualifier: //设置a,b的长度
+ 160          // Parameter: u8 wire
+ 161          //************************************
+ 162          static bit setWireLength(u8 wire)
+ 163          {
+ 164   1        if (wire)
+ 165   1        {
+ 166   2          //a的线长计算
+ 167   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(  pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)  
              -            
- 167   2                                         +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
- 168   2                                        ) ;
- 169   2        }
- 170   1        else
- 171   1        {
- 172   2          //b的线长计算
- 173   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(    pow(BOARD_WIDTH-g_MotionSystemInfo.g_Target
+ 168   2                                         +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
+ 169   2                                        ) ;
+ 170   2        }
+ 171   1        else
+ 172   1        {
+ 173   2          //b的线长计算
+ 174   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(    pow(BOARD_WIDTH-g_MotionSystemInfo.g_Target
              -Coordinate.x, 2)  
- 174   2                                        + pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 16:12:43 PAGE 4   
+C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 4   
 
- 175   2                                         );
- 176   2        }
- 177   1      }
-*** WARNING C173 IN LINE 177 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 178          static float getWireLength(u8 wire)
- 179          {
- 180   1        return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
- 181   1      }
- 182          
+ 175   2                                        + pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
+ 176   2                                         );
+ 177   2        }
+ 178   1      }
+*** WARNING C173 IN LINE 178 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
+ 179          static float getWireLength(u8 wire)
+ 180          {
+ 181   1        return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
+ 182   1      }
  183          
- 184          
- 185          
- 186          
- 187          
+ 184          static bit setStepMotorAngle(void)
+ 185          {
+ 186   1        
+ 187   1      }
+*** WARNING C173 IN LINE 187 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
  188          
+ 189          
+ 190          
+ 191          
+ 192          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    341    ----
+   CODE SIZE        =    342    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     49       9
    PDATA SIZE       =   ----    ----
@@ -220,4 +225,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  4 WARNING(S),  0 ERROR(S)
