@@ -453,6 +453,9 @@ sbit PX0    = IP^0; //外部中断0优先级设定位
 #define     Timer1_Load_us(n)   TH1=(65536-MainFosc_KHZ*(n)/1000)/256,TL1=(65536-MainFosc_KHZ*(n)/1000)%256
 #define     Timer2_Load_us(n)   TH2=(65536-MainFosc_KHZ*(n)/1000)/256,TL2=(65536-MainFosc_KHZ*(n)/1000)%256
 
+#define     Timer3_Load_hz_12(n)      TH3 = (u8)(   ((65536UL - ((MAIN_Fosc/12) / n))/2) >> 8),TL3 = (u8)((65536UL - ((MAIN_Fosc/12) / n))/2 )
+#define     Timer4_Load_hz_12(n)      TH4 = (u8)(   ((65536UL - ((MAIN_Fosc/12) / n))/2) >> 8),TL4 = (u8)((65536UL - ((MAIN_Fosc/12) / n))/2 )
+
 #define     Timer3_Run()							T4T3M  |=  (1<<3) 
 #define     Timer3_Stop()							T4T3M  &= ~(1<<3) 
 #define     Timer4_Run()							T4T3M  |=  (1<<7) 

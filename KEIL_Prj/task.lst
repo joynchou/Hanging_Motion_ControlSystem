@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 1   
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE TASK
@@ -8,216 +8,399 @@ COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\SOFTWARE\TASK\task.c LARGE BR
 
 line level    source
 
-   1          
-   2          /************************************************************
-   3          * ��֯���ƣ�
-   4          * �ļ�����: K:\��Ƭ�����\���Ӵ���������\SOFTWARE\TASK\TASK.C
-   5          * ����:
-   6          * �汾:
-   7          * ����:     2017/07/06
-   8          * ����:  �����˶�����ϵͳ�������ƺ���
-   9          * ��ʷ�޸ļ�¼:
-  10          * <����> <ʱ��> <�汾 > <����>
-  11          *
-  12          ***********************************************************/
-  13          
-  14          #include "task.h"
-  15          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
-  16          #include "setup.h"
-  17          #include "../HARDWARE/BSP/USART1.h"
-  18          #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
+   1          /************************************************************
+   2          * 组织名称：
+   3          * 文件名称: K:\单片机相关\电子大赛程序框架\SOFTWARE\TASK\TASK.C
+   4          * 作者:
+   5          * 版本:
+   6          * 日期:     2017/07/06
+   7          * 描述:  悬挂运动控制系统基本控制函数 ,初始化之后，设置好xy轴坐标，再调用s
+             -tartSystem函数，既可以开始
+   8          * 历史修改记录:
+   9          * <作者> <时间> <版本 > <描述>
+  10          *
+  11          ***********************************************************/
+  12          
+  13          #include "task.h"
+  14          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
+  15          #include "setup.h"
+  16          #include "../HARDWARE/BSP/USART1.h"
+  17          #include "../../HARDWARE/COMMON_HARDWARE/fixedPulser.h"
+  18          #include "../../HARDWARE/BSP/delay.h"
   19          #include <math.h>
-  20          
-  21          #define  BOARD_HEIGHT  100.0f //���ӵĸ߶�  ����λ����
-  22          #define  BOARD_WIDTH   50.0f  //���ӵĿ���  ����λ����
-  23          #define  BEARING_DIA   10.0f  //��ת��е�ֱ������λ����
-  24          
-  25          
-  26          //ͷ�ļ��еĽṹ�嶨��
-  27          /*
-  28          
-  29          #define LEFT_STEP_MOTOR   0
-  30          #define RIGHT_STEP_MOTOR  1
+  20          #include <stdlib.h>
+  21          #include <stdio.h>
+  22          #include "../HARDWARE/BSP/stc15_pwm.h"
+  23          
+  24          #define  BOARD_HEIGHT  52.5f  //板子的高度  ，单位厘米
+  25          #define  BOARD_WIDTH   30 //板子的宽度  ，单位厘米
+  26          #define  BEARING_DIA   4.05f  //旋转轴承的直径，单位厘米
+  27          #define  PI  3.1415f   //pi的值
+  28          #define  ACCURACY  0.1f //精度定义  每次步进的脉冲数
+  29          #define  MOVING_SPEED  1300   //系统移动速度定义
+  30          
   31          
-  32          #define LEFT_WIRE_LENGTH   0 //����߳�
-  33          #define RIGHT_WIRE_LENGTH  1 //�ұ��߳�
-  34          enum State//״̬ö��
-  35          {
-  36            STOP,RUNNING
-  37          };
-  38          
-  39            typedef struct //����ṹ��
-  40          {
-  41          
-  42             float x;
-  43             float y;
-  44          
-  45          
-  46          } Coordinate;
-  47          
-  48          typedef struct   //���Ƚṹ��
-  49          {  //
-  50          
-  51             float Length;
-  52          
-  53          
-  54          } Wire;
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 2   
+  32          
+  33          
+  34          //************************************
+  35          // Method:    isSyetemRunning
+  36          // FullName:  isSyetemRunning
+  37          // Access:    public 
+  38          // Returns:   bit
+  39          // Qualifier: 返回当前系统是否正在移动
+  40          // Parameter: void
+  41          //************************************
+  42          enum State getSystemState(void)
+  43          {
+  44   1        return g_MotionSystemInfo.systemState;
+  45   1      }
+  46          void setSystemState(enum State state)
+  47          {
+  48   1        g_MotionSystemInfo.systemState = state;
+  49   1      }
+  50          //bit isSyetemRunning(void)
+  51          //{
+  52          //  return g_MotionSystemInfo.systemState == WORKING;
+  53          //}
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 2   
 
-  55          static Wire g_StepMotorWireLen[2];  // �����ǰλ�ü�¼�ṹ��
-  56          static Coordinate g_TargetCoordinate,g_CurrentCoordinate; // �����ǰλ�ü�¼�ṹ��
-  57          
-  58          //�������������ṹ��һͬ�ٹ���һ��ϵͳ��Ϣ�ṹ��
-  59          typedef struct
-  60          {
-  61              Coordinate g_TargetCoordinate;
-  62              Coordinate g_CurrentCoordinate;
-  63              Wire g_StepMotorWireLen[2];
-  64              u8 systemState;
-  65          }Info;
-  66          
-  67          
-  68           */
-  69          
-  70          //************************************
-  71          // Method:    isSyetemRunning
-  72          // FullName:  isSyetemRunning
-  73          // Access:    public 
-  74          // Returns:   bit
-  75          // Qualifier:
-  76          // Parameter: void
-  77          //************************************
-  78          bit isSyetemRunning(void)
-  79          {
-  80   1        return g_MotionSystemInfo.systemState == RUNNING;
-  81   1      }
-  82          //************************************
-  83          // Method:    isSystemStop
-  84          // FullName:  isSystemStop
-  85          // Access:    public 
-  86          // Returns:   bit
-  87          // Qualifier:
-  88          // Parameter: void
+  54          //************************************
+  55          // Method:    isSystemStop
+  56          // FullName:  isSystemStop
+  57          // Access:    public 
+  58          // Returns:   bit
+  59          // Qualifier: 返回当前系统是否已经停止移动
+  60          // Parameter: void
+  61          //************************************
+  62          //bit isSystemStop(void)
+  63          //{
+  64          //  return g_MotionSystemInfo.systemState == STOP;
+  65          //}
+  66          //************************************
+  67          // Method:    startSystem
+  68          // FullName:  startSystem
+  69          // Access:    public 
+  70          // Returns:   bit
+  71          // Qualifier: 在设置好目标坐标后调用此函数悬挂系统开始执行
+  72          // Parameter: void
+  73          //************************************
+  74          bit startSystem(void)
+  75          {
+  76   1        g_MotionSystemInfo.systemState = WORKING;
+  77   1        //设置步进电机脉冲次数
+  78   1        setStepMotorDis();
+  79   1        //开启步进电机
+  80   1        open_StepMotor(LEFT_STEP_MOTOR);
+  81   1        open_StepMotor(RIGHT_STEP_MOTOR);
+  82   1      
+  83   1        //更新坐标
+  84   1        g_MotionSystemInfo.g_CurrentCoordinate.x = g_MotionSystemInfo.g_TargetCoordinate.x;
+  85   1        g_MotionSystemInfo.g_CurrentCoordinate.y = g_MotionSystemInfo.g_TargetCoordinate.y;
+  86   1      
+  87   1        return 1;
+  88   1      }
   89          //************************************
-  90          bit isSystemStop(void)
-  91          {
-  92   1        return g_MotionSystemInfo.systemState == STOP;
-  93   1      }
-  94          //************************************
-  95          // Method:    startSystem
-  96          // FullName:  startSystem
-  97          // Access:    public 
-  98          // Returns:   bit
-  99          // Qualifier:
- 100          // Parameter: void
- 101          //************************************
- 102          bit startSystem(void)
- 103          {
- 104   1      
- 105   1      }
-*** WARNING C173 IN LINE 105 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 106          //************************************
- 107          // Method:    stopSystem
- 108          // FullName:  stopSystem
- 109          // Access:    public 
- 110          // Returns:   bit
- 111          // Qualifier:
- 112          // Parameter: void
- 113          //************************************
- 114          bit stopSystem(void)
- 115          {
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 3   
+  90          // Method:    stopSystem
+  91          // FullName:  stopSystem
+  92          // Access:    public 
+  93          // Returns:   bit
+  94          // Qualifier: 强行关闭悬挂系统的运动
+  95          // Parameter: void
+  96          //************************************
+  97          bit stopSystem(void)
+  98          {
+  99   1        close_StepMotor(LEFT_STEP_MOTOR);
+ 100   1        close_StepMotor(RIGHT_STEP_MOTOR);
+ 101   1        g_MotionSystemInfo.systemState = STOP;
+ 102   1        return 1;
+ 103   1      }
+ 104          bit setCurrentCoordinate(float x, float y)
+ 105          {
+ 106   1        g_MotionSystemInfo.g_CurrentCoordinate.x = x;
+ 107   1        g_MotionSystemInfo.g_CurrentCoordinate.y = y;
+ 108   1        return 1;
+ 109   1      }
+ 110          //************************************
+ 111          // Method:    setTargetCoordinate
+ 112          // FullName:  setTargetCoordinate
+ 113          // Access:    public 
+ 114          // Returns:   bit
+ 115          // Qualifier: //设置需要到达的目标坐标
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 3   
 
- 116   1        g_MotionSystemInfo.systemState = STOP;
- 117   1      }
-*** WARNING C173 IN LINE 117 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 118          
- 119          //************************************
- 120          // Method:    setTargetCoordinate
- 121          // FullName:  setTargetCoordinate
- 122          // Access:    public 
- 123          // Returns:   bit
- 124          // Qualifier: //������Ҫ�����Ŀ������
- 125          // Parameter: float x
- 126          // Parameter: float y
+ 116          // Parameter: float x
+ 117          // Parameter: float y
+ 118          //************************************
+ 119          bit setTargetCoordinate(float x, float y)
+ 120          {
+ 121   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
+ 122   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
+ 123   1      
+ 124   1        return 1;
+ 125   1      
+ 126   1      }
  127          //************************************
- 128          bit setTargetCoordinate(float x, float y)
- 129          {
- 130   1        g_MotionSystemInfo.g_TargetCoordinate.x = x;
- 131   1        g_MotionSystemInfo.g_TargetCoordinate.y = y;
- 132   1        setWireLength(LEFT_WIRE_LENGTH);
- 133   1        setWireLength(RIGHT_WIRE_LENGTH);
- 134   1      
- 135   1        return 1;
- 136   1      
- 137   1      }
- 138          //************************************
- 139          // Method:    getCurrentCoordinate
- 140          // FullName:  getCurrentCoordinate
- 141          // Access:    public 
- 142          // Returns:   Coordinate
- 143          // Qualifier: //��ȡ��ǰ���꣬����һ��xy�ṹ��
- 144          // Parameter: u8 motor
- 145          //************************************
- 146          Coordinate getCurrentCoordinate(void)
- 147          {
- 148   1      
- 149   1        return g_MotionSystemInfo.g_CurrentCoordinate;
- 150   1      }
- 151          
- 152          
- 153          ///////////////////������Ϊ˽�к������ⲿ���ܵ��ã�///////////////////////////
- 154          //************************************
- 155          // Method:    setWireLength
- 156          // FullName:  setWireLength
- 157          // Access:    public 
- 158          // Returns:   bit
- 159          // Qualifier: //����a,b�ĳ���
- 160          // Parameter: u8 wire
- 161          //************************************
- 162          static bit setWireLength(u8 wire)
- 163          {
- 164   1        if (wire)
- 165   1        {
- 166   2          //a���߳�����
- 167   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length=sqrt(  pow(g_MotionSystemInfo.g_TargetCoordinate.x,2)  
-             -            
- 168   2                                         +pow(BOARD_HEIGHT- g_MotionSystemInfo.g_TargetCoordinate.y,2)
- 169   2                                        ) ;
- 170   2        }
- 171   1        else
- 172   1        {
- 173   2          //b���߳�����
- 174   2          g_MotionSystemInfo.g_StepMotorWireLen[wire].Length = sqrt(    pow(BOARD_WIDTH-g_MotionSystemInfo.g_Target
-             -Coordinate.x, 2)  
-C51 COMPILER V8.05a   TASK                                                                 07/20/2017 17:01:22 PAGE 4   
+ 128          // Method:    getCurrentCoordinate
+ 129          // FullName:  getCurrentCoordinate
+ 130          // Access:    public 
+ 131          // Returns:   Coordinate
+ 132          // Qualifier: //读取当前坐标，返回一个xy结构体
+ 133          // Parameter: u8 motor
+ 134          //************************************
+ 135          Coordinate getCurrentCoordinate(void)
+ 136          {
+ 137   1      
+ 138   1        return g_MotionSystemInfo.g_CurrentCoordinate;
+ 139   1      }
+ 140          
+ 141          void MotionSystem_Init(void)
+ 142          {
+ 143   1      
+ 144   1        stepMotor_Init(LEFT_STEP_MOTOR, 1.8f, 16, 1000, 3.9f);
+ 145   1        stepMotor_Init(RIGHT_STEP_MOTOR, 1.8f, 16, 1000, 3.9f);
+ 146   1      
+ 147   1      }
+ 148          
+ 149          ///////////////////！以下为私有函数，外部不能调用！///////////////////////////
+ 150          //根据输入的xy轴数据计算两边相应的线长 ，单位cm
+ 151          static float getWireLength(u8 wire, float x, float y)
+ 152          {
+ 153   1        float Length = 0;
+ 154   1        if (wire == LEFT_WIRE_LENGTH)
+ 155   1        {
+ 156   2          //左边的线长计算
+ 157   2          Length = sqrt
+ 158   2            (
+ 159   2              pow(x, 2) //单位，cm
+ 160   2              + pow(BOARD_HEIGHT - y, 2)
+ 161   2              );
+ 162   2        }
+ 163   1        else
+ 164   1        {
+ 165   2          //右边的线长计算
+ 166   2          Length = sqrt
+ 167   2            (
+ 168   2              pow(BOARD_WIDTH - x, 2)
+ 169   2              + pow(BOARD_HEIGHT - y, 2)
+ 170   2              );
+ 171   2        }
+ 172   1        return Length;
+ 173   1      
+ 174   1      }
+ 175          //计算两点的距离公式
+ 176          static double twoPointDistance(float x1, float y1, float x2, float y2)
+ 177          {
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 4   
 
- 175   2                                        + pow(BOARD_HEIGHT - g_MotionSystemInfo.g_TargetCoordinate.y, 2)
- 176   2                                         );
- 177   2        }
- 178   1      }
-*** WARNING C173 IN LINE 178 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 179          static float getWireLength(u8 wire)
- 180          {
- 181   1        return g_MotionSystemInfo.g_StepMotorWireLen[wire].Length;
- 182   1      }
- 183          
- 184          static bit setStepMotorAngle(void)
- 185          {
- 186   1        
- 187   1      }
-*** WARNING C173 IN LINE 187 OF ..\SOFTWARE\TASK\TASK.C: missing return-expression
- 188          
- 189          
- 190          
- 191          
- 192          
+ 178   1        return sqrt((double)((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)));
+ 179   1      }
+ 180          //旋转指定长度脉冲发生器需要产生的脉冲数,设细分值为16 ，步进电机的步进角�
+             -��1.8
+ 181          static u16 getPulserCount(float distance)
+ 182          {
+ 183   1        return (u16)((distance * 360 * 16) / (PI*BEARING_DIA*1.8f));
+ 184   1      }
+ 185          //设置电机旋转距离，从而改变线长度,并开启脉冲发生器
+ 186          //此函数适合使用微分的办法来画出需要的形状，如直线或者圆之类的，但不适�
+             -�将dx dy设置的太大，否则会有很大的误差
+ 187          //其中一个原因是软件模拟的脉冲发生器的固有误差
+ 188          //所以此方法很适合用微分来减小误差
+ 189          static bit setStepMotorDis(void)
+ 190          {
+ 191   1        u8 str[50];
+ 192   1        int a = 0;
+ 193   1        u32 rightMotorPulse, leftMotorPulse;//左右电机需要产生的总脉冲数
+ 194   1        float D_leftWireLength;//左边线的dL(微分)
+ 195   1        float D_rightWireLength;//右边线的dL
+ 196   1        float currentLeftWireLength;//当前坐标下的左线长
+ 197   1        float currentRightWireLength;//当前坐标下的右线长
+ 198   1        float targetLeftWireLength;//目标坐标下的左线长
+ 199   1        float targetRightWireLength;//目标坐标下的右线长
+ 200   1        float K;//两个电机的速度比，左电机比右电机 
+ 201   1        u16 rightStepMotorSpeed;//右电机的速度
+ 202   1        u16 leftStepMotorSpeed;//左电机的速度
+ 203   1        float distance;//当前坐标和目标坐标的距离
+ 204   1      
+ 205   1        /*  如果要使用定时器时分复用的方法则需要用到这些变量
+ 206   1        float sum;
+ 207   1        u16 loop;
+ 208   1        float leftMotorOneStepPulse;//单步脉冲数
+ 209   1        float rightMotorOneStepPulse;
+ 210   1        */
+ 211   1        //计算当前线长
+ 212   1        currentLeftWireLength = getWireLength(LEFT_WIRE_LENGTH, g_MotionSystemInfo.g_CurrentCoordinate.x, g_Motio
+             -nSystemInfo.g_CurrentCoordinate.y);
+ 213   1        currentRightWireLength = getWireLength(RIGHT_WIRE_LENGTH, g_MotionSystemInfo.g_CurrentCoordinate.x, g_Mot
+             -ionSystemInfo.g_CurrentCoordinate.y);
+ 214   1        sprintf(str, "currentLeftWireLength is %f\r\n", currentLeftWireLength);
+ 215   1        //PrintString1(str);
+ 216   1        sprintf(str, "currentRightWireLength is %f\r\n", currentRightWireLength);
+ 217   1        //PrintString1(str);
+ 218   1      
+ 219   1      
+ 220   1      
+ 221   1      
+ 222   1        //计算目标线长
+ 223   1        targetLeftWireLength = getWireLength(LEFT_WIRE_LENGTH, g_MotionSystemInfo.g_TargetCoordinate.x, g_MotionS
+             -ystemInfo.g_TargetCoordinate.y);
+ 224   1        targetRightWireLength = getWireLength(RIGHT_WIRE_LENGTH, g_MotionSystemInfo.g_TargetCoordinate.x, g_Motio
+             -nSystemInfo.g_TargetCoordinate.y);
+ 225   1        sprintf(str, "targetLeftWireLength is %f\r\n", targetLeftWireLength);
+ 226   1        //PrintString1(str);
+ 227   1        sprintf(str, "targetRightWireLength is %f\r\n", targetRightWireLength);
+ 228   1        //PrintString1(str);
+ 229   1      
+ 230   1      
+ 231   1      
+ 232   1      
+ 233   1        //计算微分值
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 5   
+
+ 234   1        D_leftWireLength = fabs(targetLeftWireLength - currentLeftWireLength);
+ 235   1        D_rightWireLength = fabs(targetRightWireLength - currentRightWireLength);
+ 236   1        sprintf(str, "D_leftWireLength is %f\r\n", D_leftWireLength);
+ 237   1        //PrintString1(str);
+ 238   1        sprintf(str, "D_rightWireLength is %f\r\n", D_rightWireLength);
+ 239   1        //PrintString1(str);
+ 240   1      
+ 241   1      
+ 242   1      
+ 243   1      
+ 244   1      
+ 245   1        //判断左电机的正反转
+ 246   1        if (targetLeftWireLength >= currentLeftWireLength)//如果目标坐标的左线长大于当前坐标的�
+             -�线长
+ 247   1        {
+ 248   2          setStepMotorDiversion(LEFT_STEP_MOTOR, CCW);//逆时针旋转
+ 249   2      
+ 250   2        }
+ 251   1        else
+ 252   1        {
+ 253   2          setStepMotorDiversion(LEFT_STEP_MOTOR, CW);
+ 254   2      
+ 255   2        }
+ 256   1        //判断右电机的正反转
+ 257   1        if (targetRightWireLength >= currentRightWireLength)//如果目标坐标的左线长大于当前坐标的
+             -左线长
+ 258   1        {
+ 259   2          setStepMotorDiversion(RIGHT_STEP_MOTOR, CW);//顺时针旋转
+ 260   2      
+ 261   2        }
+ 262   1        else
+ 263   1        {
+ 264   2          setStepMotorDiversion(RIGHT_STEP_MOTOR, CCW);
+ 265   2      
+ 266   2        }
+ 267   1      
+ 268   1      
+ 269   1        //左电机需要产生的总脉冲数
+ 270   1        leftMotorPulse = getPulserCount(D_leftWireLength);
+ 271   1        //右电机需要产生的总脉冲数
+ 272   1        rightMotorPulse = getPulserCount(D_rightWireLength);
+ 273   1      
+ 274   1        distance = twoPointDistance
+ 275   1          (
+ 276   1            g_MotionSystemInfo.g_TargetCoordinate.x,
+ 277   1            g_MotionSystemInfo.g_TargetCoordinate.y,
+ 278   1            g_MotionSystemInfo.g_CurrentCoordinate.x,
+ 279   1            g_MotionSystemInfo.g_CurrentCoordinate.y
+ 280   1            )
+ 281   1          ;
+ 282   1        //  sprintf
+ 283   1        //    (
+ 284   1        //      str, "Cur(%f,%f)to Tar(%f,%f) distance is %f \r\n",
+ 285   1        //      g_MotionSystemInfo.g_CurrentCoordinate.x,
+ 286   1        //      g_MotionSystemInfo.g_CurrentCoordinate.y,
+ 287   1        //      g_MotionSystemInfo.g_TargetCoordinate.x,
+ 288   1        //      g_MotionSystemInfo.g_TargetCoordinate.y,
+ 289   1        //      distance
+ 290   1        //      )
+ 291   1        //    ;
+ 292   1          //PrintString1(str);
+ 293   1      
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 6   
+
+ 294   1        K = (float)rightMotorPulse / leftMotorPulse;//右电机和左电机路程之比
+ 295   1        sprintf(str, "leftmotorPulse is %d\r\n", leftMotorPulse);
+ 296   1        //PrintString1(str);
+ 297   1        sprintf(str, "rightmotorPulse is %d\r\n", rightMotorPulse);
+ 298   1        //PrintString1(str);
+ 299   1        sprintf(str, "K is %f\r\n", K);
+ 300   1        PrintString1(str);
+ 301   1      
+ 302   1        //根据已经定好的左电机速度计算出右电机相应的速度
+ 303   1        rightStepMotorSpeed = (u16)(MOVING_SPEED * K);
+ 304   1        //防止右电机速度超出最大速度，如果超出，则将设定速度附给右电机，左电机�
+             -��度减小，左电机和右电机的速度比还是不变
+ 305   1        if (rightStepMotorSpeed >= MOVING_SPEED)
+ 306   1        {
+ 307   2          rightStepMotorSpeed = MOVING_SPEED;
+ 308   2          leftStepMotorSpeed = rightStepMotorSpeed / K;
+ 309   2        }
+ 310   1        else//否则还是使左电机赋值
+ 311   1        {
+ 312   2          leftStepMotorSpeed = MOVING_SPEED;
+ 313   2        }
+ 314   1        sprintf(str, "rightStepmotorSpeed is %d \r\n", rightStepMotorSpeed);
+ 315   1        PrintString1(str);
+ 316   1        sprintf(str, "leftStepmotorSpeed is %d \r\n", leftStepMotorSpeed);
+ 317   1        PrintString1(str);
+ 318   1        //通过直接算出需要的脉冲数来驱动步进电机
+ 319   1        setStepMotorWithPulse(LEFT_STEP_MOTOR, leftMotorPulse, leftStepMotorSpeed);
+ 320   1        setStepMotorWithPulse(RIGHT_STEP_MOTOR, rightMotorPulse, rightStepMotorSpeed);
+ 321   1      
+ 322   1      
+ 323   1        /*如果只有一个pwm信号发生器可以用以下的办法 ,两个步进电机分别使用一个定�
+             -�器
+ 324   1        //计算两个坐标的距离
+ 325   1        distance = twoPointDistance(g_MotionSystemInfo.g_TargetCoordinate.x, g_MotionSystemInfo.g_TargetCoordinat
+             -e.y, g_MotionSystemInfo.g_CurrentCoordinate.x, g_MotionSystemInfo.g_CurrentCoordinate.y);
+ 326   1        sum = (distance / ACCURACY);//最终需要让电机运动的次数
+ 327   1         //printf("sum is %f\n", sum);
+ 328   1        loop = (u16)(sum);
+ 329   1        leftMotorOneStepPulse = 0.5f + leftMotorPulse / sum;//左电机单步的脉冲次数
+ 330   1        rightMotorOneStepPulse = 0.5f + rightMotorPulse / sum;//右电机单步的脉冲次数
+ 331   1        while(loop--)
+ 332   1        {
+ 333   1          setPulse(LEFT_STEP_MOTOR, MOVING_SPEED, (u32)(leftMotorOneStepPulse));
+ 334   1          openPulser(LEFT_STEP_MOTOR);
+ 335   1          delay_ms((leftMotorOneStepPulse * 1000) / MOVING_SPEED);    //等待此步执行完成,delay的公式  (
+             -1/hz) *ACCuracy
+ 336   1        close_PWM_ALL();
+ 337   1      
+ 338   1          setPulse(RIGHT_STEP_MOTOR, rightStepMotorSpeed, (u32)(rightMotorOneStepPulse));
+ 339   1          openPulser(RIGHT_STEP_MOTOR);
+ 340   1          delay_ms((rightMotorOneStepPulse * 1000) / rightStepMotorSpeed);    //等待此步执行完成,delay的�
+             -��式  (1/hz) *ACCuracy
+ 341   1        close_PWM_ALL();
+ 342   1      
+ 343   1        }
+ 344   1      
+ 345   1         */
+ 346   1      
+ 347   1        return 1;
+ 348   1      }
+ 349          
+ 350          
+C51 COMPILER V8.05a   TASK                                                                 07/27/2017 22:14:19 PAGE 7   
+
+ 351          
+ 352          
+ 353          
+ 354          
+ 355          
+ 356          
+ 357          
+ 358          
+ 359          
+ 360          
+ 361          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    342    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     49       9
+   CODE SIZE        =   1942    ----
+   CONSTANT SIZE    =    285    ----
+   XDATA SIZE       =     57     145
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
@@ -225,4 +408,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  4 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

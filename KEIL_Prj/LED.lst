@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   LED                                                                  07/20/2017 10:02:37 PAGE 1   
+C51 COMPILER V8.05a   LED                                                                  07/27/2017 17:39:03 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE LED
@@ -12,20 +12,20 @@ line level    source
    2          #include "../../BSP/STC15_PWM.h"
    3          #include "../../BSP/delay.h"
    4          #include "../../BSP/GPIO.h"
-   5          
-   6          
-   7          static bit Board_LED_State=OFF;
-   8          bit Board_LED_Init(void)
-   9          {
-  10   1          GPIO_InitTypeDef    GPIO_InitStructure;     //结构定义
-  11   1          GPIO_InitStructure.Pin  = 5;      //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
-  12   1          GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_
+   5          #include "../../BSP/USART1.h"
+   6          #include <stdlib.h>
+   7          #include <stdio.h>
+   8          
+   9          
+  10          static bit Board_LED_State=OFF;
+  11          bit Board_LED_Init(void)
+  12          {
+  13   1          GPIO_InitTypeDef    GPIO_InitStructure;     //结构定义
+  14   1          GPIO_InitStructure.Pin  = 5;      //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
+  15   1          GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_
              -OD,GPIO_OUT_PP
-  13   1          GPIO_Inilize(GPIO_P5,&GPIO_InitStructure);  //初始化
-  14   1          open_Board_LED();
-  15   1          delay_ms(200);
-  16   1          close_Board_LED();
-  17   1          delay_ms(200);
+  16   1          GPIO_Inilize(GPIO_P5,&GPIO_InitStructure);  //初始化
+  17   1        PrintString1("borad led was initialized  \r\n");
   18   1         return 1;
   19   1      }
   20          void open_Board_LED(void)
@@ -62,15 +62,15 @@ line level    source
   51   2             
   52   2           }
   53   1        
-C51 COMPILER V8.05a   LED                                                                  07/20/2017 10:02:37 PAGE 2   
+C51 COMPILER V8.05a   LED                                                                  07/27/2017 17:39:03 PAGE 2   
 
   54   1      }
 *** WARNING C280 IN LINE 46 OF ..\HARDWARE\DEVICES\LED\LED.C: 'luminance': unreferenced local variable
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     93    ----
-   CONSTANT SIZE    =   ----    ----
+   CODE SIZE        =     86    ----
+   CONSTANT SIZE    =     30    ----
    XDATA SIZE       =   ----       4
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----

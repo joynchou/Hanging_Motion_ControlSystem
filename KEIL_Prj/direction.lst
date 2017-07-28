@@ -1,0 +1,49 @@
+C51 COMPILER V8.05a   DIRECTION                                                            07/28/2017 09:23:29 PAGE 1   
+
+
+C51 COMPILER V8.05a, COMPILATION OF MODULE DIRECTION
+OBJECT MODULE PLACED IN .\direction.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\SOFTWARE\TASK\direction.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\dir
+                    -ection.lst) TABS(2) OBJECT(.\direction.obj)
+
+line level    source
+
+   1          #include "direction.h"
+   2          #include "TASK.h"
+   3          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
+   4          #include "setup.h"
+   5          #include "../HARDWARE/BSP/USART1.h"
+   6          #include "../../HARDWARE/COMMON_HARDWARE/fixedPulser.h"
+   7          #include "../../HARDWARE/BSP/delay.h"
+   8          #include <math.h>
+   9          #include <stdlib.h>
+  10          #include <stdio.h>
+  11          #include "../HARDWARE/BSP/stc15_pwm.h"
+  12          #include "../HARDWARE/BSP/GPIO.h"
+  13          
+  14          
+  15          //寻线系统初始化
+  16          void TrackingSystem_Init(void)
+  17          {
+  18   1        GPIO_InitTypeDef photogateGPIO;
+  19   1        photogateGPIO.Mode = GPIO_PullUp;
+  20   1        photogateGPIO.Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2;
+  21   1        GPIO_Inilize(GPIO_P5, &photogateGPIO);
+  22   1        photogateGPIO.Pin = GPIO_Pin_0 ;
+  23   1        GPIO_Inilize(GPIO_P4, &photogateGPIO);
+  24   1      
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     36    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     57       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -4,31 +4,21 @@
 <h1>礦ision Build Log</h1>
 <h2>Project:</h2>
 K:\单片机相关\Hanging_Motion_ControlSystem\KEIL_Prj\悬挂运动控制系统.uvproj
-Project File Date:  07/20/2017
+Project File Date:  07/27/2017
 
 <h2>Output:</h2>
 Build target '悬挂运动控制系统'
-compiling absTask.c...
-../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
-../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(40): warning C280: 'x': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(40): warning C280: 'y': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(59): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(55): warning C280: 'motor': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(69): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(76): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(73): warning C280: 'wire': unreferenced local variable
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETTARGETCOORDINATE?TASK
+    SEGMENT: ?PR?DRAWLOOPSRTLINE?ABSTASK
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETCURRENTCOORDINATE?TASK
+    SEGMENT: ?PR?DRAWLOOPRECTANGLE?ABSTASK
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETWIRELENGTH?TASK
+    SEGMENT: ?PR?DRAWLINE?ABSTASK
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETWIRELENGTH?TASK
+    SEGMENT: ?PR?STOPSYSTEM?TASK
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEST?SETUP
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?MODE1?MODE
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -40,47 +30,13 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?MODELAUNCHER?MODE
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PID_CONFIG?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_OPENPID?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_CLOSEPID?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PID?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETPARAMETERINFERIORLIMIT?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETPARAMETERUPPERLIMIT?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETACTUALPARAMETER?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETKI?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETKP?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETKD?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETPARAMETER?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETPARAMETER?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETERR?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETERRLAST?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETKP?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETKI?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETKD?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETOUTPUT?PID
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETINTEGRAL?PID
+    SEGMENT: ?PR?_FILTER?FILTER
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SENDSCOPEDATA?DATASCOPE_DP
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_WRITEDATA?STORAGE
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BUTTON_CONFIG?BUTTON
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GETBUTTONSTATE?BUTTON
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -90,57 +46,13 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_BOARD_LED_PWM?LED
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETDC_MOTORSPEED?MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_OPEN_DC_MOTOR?MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_CLOSE_DC_MOTOR?MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETDC_MOTORSTATE?MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?DC_MOTOR_CONFIG?MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_INIT_STR_MOTOR?SERVO
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SET_STR_ANGLE?SERVO
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_READ_STR_ANGLE?SERVO
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_OPEN_STR?SERVO
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_CLOSE_STR?SERVO
+    SEGMENT: ?PR?_SETSTEPMOTORWITHDISTANCE?STEP_MOTOR
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SETSTEPMOTORWITHROUND?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETSTEPMOTORSTATE?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_CLOSE_STEPMOTOR?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_OPEN_STEPMOTOR?STEP_MOTOR
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_FREESTEPMOTOR?STEP_MOTOR
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_LOCKSTEPMOTOR?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_STEPMOTOR_INIT?STEP_MOTOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_SETRELAY?RELAY
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_UNSETRELAY?RELAY
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?RELAY_INIT?RELAY
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?GETANGLE?ANGLE
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_LCD1602_WRITE_WORD?LCD1602
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?LCD1602_INIT?LCD1602
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_HC595_INIT?74HC595
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_HC595SENDDATA?74HC595
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_LCD_CLR_ROW?LCD5510_V2
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -150,21 +62,17 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?LCD5510_INIT?LCD5510_V2
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_GETPULSERSTATE?FIXEDPULSER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ADC_POWERCONTROL?ADC
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SETPINSTATE?GPIO
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PWMN_UPDATE?PCA
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PCA_INIT?PCA
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_PWMOUTPUT?PCA
+    SEGMENT: ?PR?_SET_PWM_PERIOD?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GET_PWM_PERIOD?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SET_PWM_DUTY?STC15_PWM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GET_PWM_N_DUTY?STC15_PWM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETPWM_DIV?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GETPWM_DIV?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -172,7 +80,13 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?CLOSE_PWM_ALL?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_OPEN_PWM_N?STC15_PWM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_CLOSE_PWM_N?STC15_PWM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GET_PWM_N_STATE?STC15_PWM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PWM_INILIZE?STC15_PWM
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SETTIMEOUT?TIMER
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -205,210 +119,170 @@ linking...
     SEGMENT: ?PR?_PRINTSTRING3?USART1
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PRINTSTRING4?USART1
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_READ_N?STC15_EEPROM
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_SECTORERASE?STC15_EEPROM
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_EEPROM_WRITE_N?STC15_EEPROM
-Program Size: data=19.3 xdata=1398 code=16294
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?PRINTF?PRINTF
+    CALLER1: ?PR?TASKSTART?ABSTASK
+    CALLER2: ?PR?SYSTEMTEST?ABSTASK
+Program Size: data=54.2 xdata=1452 code=19474
 creating hex file from "悬挂运动控制系统"...
-"悬挂运动控制系统" - 0 Error(s), 105 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(58): error C236: '_getCurrentCoordinate': different length of parameter lists
-..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(67): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(80): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(77): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(84): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(81): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(83): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(80): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(87): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(84): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(73): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(86): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(83): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(90): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(87): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(74): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(87): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(84): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(91): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(88): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(72): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(85): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(82): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(89): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(86): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(65): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(78): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(75): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(79): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 5 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(43): error C200: left side of '.' requires struct/union
-..\SOFTWARE\TASK\TASK.C(60): error C202: 'TargetCoordinate': undefined identifier
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(65): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(69): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(73): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(77): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(122): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(119): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(126): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(123): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 8 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(69): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(93): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(105): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(150): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(147): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(154): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(151): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 7 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(52): error C230: 'systemState': unknown struct/union/enum tag
-..\SOFTWARE\TASK\TASK.H(52): error C141: syntax error near ';'
-..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near '}'
-..\SOFTWARE\TASK\TASK.C(58): error C129: missing ';' before 'g_MotionSystemInfo'
-..\SOFTWARE\TASK\task.c - 4 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(52): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(52): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(25): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(26): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 1 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(69): error C204: 'systemState': undefined member
-..\SOFTWARE\TASK\TASK.C(81): error C204: 'systemState': undefined member
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(81): error C204: 'systemState': undefined member
-..\SOFTWARE\TASK\task.c - 1 Error(s), 1 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(70): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 8 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(69): error C204: 'systemState': undefined member
-..\SOFTWARE\TASK\TASK.C(80): error C231: 'isSystemStop': redefinition
-..\SOFTWARE\TASK\TASK.C(82): error C231: 'isSystemStop': redefinition
-..\SOFTWARE\TASK\task.c - 3 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(53): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(53): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(46): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(46): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(80): error C231: 'isSystemStop': redefinition
-..\SOFTWARE\TASK\TASK.C(82): error C231: 'isSystemStop': redefinition
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(82): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 7 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.H(50): error C141: syntax error near 'State'
-..\SOFTWARE\TASK\TASK.H(50): error C129: missing ';' before 'systemState'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 0 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(151): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(148): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\TASK.C(155): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(152): warning C280: 'wire': unreferenced local variable
-..\SOFTWARE\TASK\task.c - 0 Error(s), 6 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
-..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
-..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(156): error C141: syntax error near '}'
-..\SOFTWARE\TASK\TASK.C(163): error C141: syntax error near '}'
-..\SOFTWARE\TASK\task.c - 2 Error(s), 2 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(164): warning C173: missing return-expression
-..\SOFTWARE\TASK\task.c - 0 Error(s), 3 Warning(s).
-compiling task.c...
-..\SOFTWARE\TASK\TASK.C(94): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(106): warning C173: missing return-expression
-..\SOFTWARE\TASK\TASK.C(167): warning C173: missing return-expression
-..\SOFTWARE\TASK\task.c - 0 Error(s), 3 Warning(s).
+"悬挂运动控制系统" - 0 Error(s), 56 Warning(s).
+compiling direction.c...
+..\SOFTWARE\TASK\DIRECTION.C(6): error C202: 'GPIO_InitTypeDef': undefined identifier
+..\SOFTWARE\TASK\DIRECTION.C(6): error C141: syntax error near 'photogateGPIO'
+..\SOFTWARE\TASK\DIRECTION.C(9): error C202: 'GPIO_P5': undefined identifier
+..\SOFTWARE\TASK\DIRECTION.C(11): error C202: 'GPIO_P4': undefined identifier
+..\SOFTWARE\TASK\direction.c - 4 Error(s), 0 Warning(s).
+compiling direction.c...
+..\SOFTWARE\TASK\DIRECTION.C(16): error C202: 'GPIO_InitTypeDef': undefined identifier
+..\SOFTWARE\TASK\DIRECTION.C(16): error C141: syntax error near 'photogateGPIO'
+..\SOFTWARE\TASK\DIRECTION.C(19): error C202: 'GPIO_P5': undefined identifier
+..\SOFTWARE\TASK\DIRECTION.C(21): error C202: 'GPIO_P4': undefined identifier
+..\SOFTWARE\TASK\direction.c - 4 Error(s), 0 Warning(s).
+compiling direction.c...
+..\SOFTWARE\TASK\direction.c - 0 Error(s), 0 Warning(s).
+compiling STEP_MOTOR.C...
+..\HARDWARE\DEVICES\MOTOR\STEP_MOTOR\STEP_MOTOR.C(227): warning C280: 'initInfo': unreferenced local variable
+..\HARDWARE\DEVICES\MOTOR\STEP_MOTOR\STEP_MOTOR.C - 0 Error(s), 1 Warning(s).
+compiling STEP_MOTOR.C...
+..\HARDWARE\DEVICES\MOTOR\STEP_MOTOR\STEP_MOTOR.C - 0 Error(s), 0 Warning(s).
+compiling STEP_MOTOR.C...
+..\HARDWARE\DEVICES\MOTOR\STEP_MOTOR\STEP_MOTOR.C - 0 Error(s), 0 Warning(s).
+ENT: ?PR?_TWOPOINTDISTANCE?TASK
+    CALLER1: ?PR?DRAWSRTLINE?ABSTASK
+    CALLER2: ?PR?DRAWRECTANGLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETSTEPMOTORWITHPULSE?STEP_MOTOR
+    CALLER1: ?PR?DRAWSRTLINE?ABSTASK
+    CALLER2: ?PR?DRAWRECTANGLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETPULSE?FIXEDPULSER
+    CALLER1: ?PR?DRAWSRTLINE?ABSTASK
+    CALLER2: ?PR?DRAWRECTANGLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SYSTEMDOWN?ABSTASK
+    CALLER1: ?PR?DRAWSRTLINE?ABSTASK
+    CALLER2: ?PR?DRAWRECTANGLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?PRINTF?PRINTF
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETTARGETCOORDINATE?TASK
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?SETSTEPMOTORDIS?TASK
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_GETWIRELENGTH?TASK
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_POW?POW
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?LOG?LOG
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?SQRT?SQRT
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_GETPULSERCOUNT?TASK
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_TWOPOINTDISTANCE?TASK
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETSTEPMOTORWITHPULSE?STEP_MOTOR
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETPULSE?FIXEDPULSER
+    CALLER1: ?PR?DRAWRECTANGLE?ABSTASK
+    CALLER2: ?PR?DRAWLINE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?PRINTF?PRINTF
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETTARGETCOORDINATE?TASK
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?SETSTEPMOTORDIS?TASK
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_GETWIRELENGTH?TASK
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_POW?POW
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?LOG?LOG
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?SQRT?SQRT
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETSTEPMOTORDIVERSION?STEP_MOTOR
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_GETPULSERCOUNT?TASK
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_TWOPOINTDISTANCE?TASK
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETSTEPMOTORWITHPULSE?STEP_MOTOR
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETPULSE?FIXEDPULSER
+    CALLER1: ?PR?DRAWLINE?ABSTASK
+    CALLER2: ?PR?PRINTCIRCLE?ABSTASK
+Program Size: data=69.5 xdata=1860 code=19407
+creating hex file from "悬挂运动控制系统"...
+"悬挂运动控制系统" - 0 Error(s), 93 Warning(s).
+compiling absTask.c...
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+..\SOFTWARE\ABS_TASK\ABSTASK.C(43): warning C206: 'waitingSystem': missing function-prototype
+..\SOFTWARE\ABS_TASK\ABSTASK.C(118): warning C206: 'resetSystem': missing function-prototype
+..\SOFTWARE\ABS_TASK\ABSTASK.C(153): error C231: 'resetSystem': redefinition
+..\SOFTWARE\ABS_TASK\ABSTASK.C(159): error C231: 'resetSystem': redefinition
+..\SOFTWARE\ABS_TASK\ABSTASK.C(161): error C231: 'waitingSystem': redefinition
+..\SOFTWARE\ABS_TASK\ABSTASK.C(168): error C231: 'waitingSystem': redefinition
+..\SOFTWARE\ABS_TASK\absTask.c - 4 Error(s), 4 Warning(s).
+compiling absTask.c...
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+..\SOFTWARE\ABS_TASK\ABSTASK.C(41): warning C206: 'waitingSystem': missing function-prototype
+..\SOFTWARE\ABS_TASK\ABSTASK.C(47): error C231: 'waitingSystem': redefinition
+..\SOFTWARE\ABS_TASK\ABSTASK.C(54): error C231: 'waitingSystem': redefinition
+..\SOFTWARE\ABS_TASK\absTask.c - 2 Error(s), 3 Warning(s).
+compiling absTask.c...
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+..\SOFTWARE\ABS_TASK\absTask.c - 0 Error(s), 2 Warning(s).
+compiling absTask.c...
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+../HARDWARE/BSP/STC15_EEPROM.h(54): warning C322: unknown identifier
+..\SOFTWARE\ABS_TASK\absTask.c - 0 Error(s), 2 Warning(s).

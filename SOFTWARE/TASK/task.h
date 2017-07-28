@@ -13,15 +13,21 @@
 
 #ifndef _TASK_H_
 #define _TASK_H_
-#include "../HARDWARE/BSP/config.h"
-#define LEFT_STEP_MOTOR   0
-#define RIGHT_STEP_MOTOR  1
+#include "../../HARDWARE/BSP/config.h"
+#include "../../HARDWARE/DEVICES/MOTOR/STEP_MOTOR/STEP_MOTOR.H"
+#include "../../HARDWARE/COMMON_HARDWARE/fixedPulser.h"
+#include "../../HARDWARE/BSP/delay.h"
+#include <math.h>
+#include "../HARDWARE/BSP/stc15_pwm.h"
+
+#define LEFT_STEP_MOTOR   STEP_MOTOR_1
+#define RIGHT_STEP_MOTOR  STEP_MOTOR_2
 
 #define LEFT_WIRE_LENGTH   0 //左边线长
 #define RIGHT_WIRE_LENGTH  1 //右边线长
 enum State//状态枚举
 {
-	STOP,RUNNING
+	STOP,WORKING
 };
 
 //State systemState=STOP;
@@ -42,7 +48,7 @@ typedef struct   //长度结构体
 	  
 	
 } Wire;
-static Wire g_StepMotorWireLen[2];  // 电机当前位置记录结构体
+static Wire g_StepMotorTargetWireLen[2],g_StepMotorCurrentWireLen[2];  // 电机当前位置记录结构体
 static Coordinate g_TargetCoordinate, g_CurrentCoordinate; // 电机当前位置记录结构体
 
 //利用上面两个结构体一同再构建一个系统信息结构体
@@ -56,15 +62,20 @@ typedef struct
 }Info;
 	
 static Info g_MotionSystemInfo; //悬挂运动控制系统信息结构体 	
+extern enum State getSystemState(void);
+extern void setSystemState(enum State state);
 
-                                                           
+static bit setWireLength(u8 wire);
+static float getWireLength(u8 wire,float x,float y);
+static bit setStepMotorDis(void);
+extern void MotionSystem_Init(void);                                                          
 extern Coordinate getCurrentCoordinate(void);
 extern bit setTargetCoordinate(float x, float y);
-static bit setWireLength(u8 wire);
-bit isSyetemRunning(void);
-bit isSystemStop(void);
-bit startSystem(void);
-bit stopSystem(void);
+extern bit setCurrentCoordinate(float x,float y);
+extern bit isSyetemRunning(void);
+extern bit isSystemStop(void);
+extern bit startSystem(void);
+extern bit stopSystem(void);
 
 
 #endif

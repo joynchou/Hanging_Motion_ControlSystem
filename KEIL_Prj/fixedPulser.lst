@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/20/2017 17:01:24 PAGE 1   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE FIXEDPULSER
@@ -11,198 +11,266 @@ line level    source
    1          /************************************************************
    2          * ×éÖ¯Ãû³Æ£º
    3          * ÎÄ¼þÃû³Æ: K:\µ¥Æ¬»úÏà¹Ø\µç×Ó´óÈü³ÌÐò¿ò¼Ü\HARDWARE\COMMON_HARDWARE\FIXEDPULSER.C
-   4          * ×÷Õß:   ÖÜ³¿Ñô  
-   5          * °æ±¾:  1.0  
+   4          * ×÷Õß:   ÖÜ³¿Ñô
+   5          * °æ±¾:  1.0
    6          * ÈÕÆÚ:     2017/07/18
-   7          * ÃèÊö: ÓÃÀ´²úÉú¹Ì¶¨Âö³åÊýµÄÆ÷¼þ
+   7          * ÃèÊö: ÓÃÀ´²úÉú¹Ì¶¨Âö³åÊýµÄÈí¼þ,×î¶à¶¨ÒåÁ½¸öÂö³å·¢ÉúÆ÷£¬PULSER_1Ê¹ÓÃ¶¨Ê±Æ÷3 p04£¬PULSER_2Ê¹ÓÃ¶¨Ê±Æ÷4  p06
    8          * ÀúÊ·ÐÞ¸Ä¼ÇÂ¼:
    9          * <×÷Õß> <Ê±¼ä> <°æ±¾ > <ÃèÊö>
-  10          * 
-  11          ***********************************************************/
-  12          
-  13          #include "fixedPulser.h"
-  14          #include "../BSP/STC15_PWM.h"
-  15          #include "../BSP/GPIO.H"
-  16          #include <limits.h>
-  17          #define PULSER_NUM  1 //¶¨ÒåÐèÒªÊ¹ÓÃ¶àÉÙ¸öÂö³å·¢ÉúÆ÷
-  18          
-  19          struct Pulser //Âö³å·¢ÉúÆ÷ÓÐ¹Ø²ÎÊýÊý¾Ý½á¹¹
-  20          {
-  21            u32 count;  //Âö³å¸öÊý
-  22            u16 Hz;     //Âö³åÆµÂÊ
-  23            u8 state;   //Âö³å·¢ÉúÆ÷µ±Ç°×´Ì¬
+  10          *  ÖÜ³¿Ñô 7/25  1.1  ¸ü¸ÄÁË¶¨Ê±Æ÷µÄ¶¨Ê±Ê±¼ä£¬ÓÉÔ­À´×î´óÄÜ²úÉú2500hzµÄÂö³å±ä³É¿ÉÒÔ²úÉú5000hzµÄÂö³å
+  11          * ÖÜ³ÉÓî 7/27  1.2   ÖØÐÂ¶¨ÒåÁËÂö³å·¢ÉúÆ÷µÄ
+  12          ***********************************************************/
+  13          
+  14          #include "fixedPulser.h"
+  15          #include "../BSP/STC15_PWM.h"
+  16          #include "../BSP/GPIO.H"
+  17          #include <limits.h>
+  18          #include <stdlib.h>
+  19          #include <stdio.h>
+  20          #include "../BSP/USART1.h"
+  21          #include "../BSP/timer.h"
+  22          #define PULSER_NUM  2 //¶¨ÒåÐèÒªÊ¹ÓÃ¶àÉÙ¸öÂö³å·¢ÉúÆ÷£¬×î¶à¿É²úÉúÁ½Â·²»Í¬ÆµÂÊµÄÂö³å
+  23          #define DEFAULT_PT  HIGH //Âö³å·¢ÉúÆ÷µÄÆðÊ¼µçÎ»
   24          
-  25          };
-  26          
-  27          static struct Pulser g_pulser[PULSER_NUM];  //Âö³å·¢ÉúÆ÷ÐÅÏ¢´æ´¢Êý×é
-  28          
-  29          bool setPulse(u8 pulser_num, u16 Hz, u32 count)
-  30          {
-  31   1        set_PWM_period(PWM_7, Hz);
-  32   1        g_pulser[pulser_num].Hz = Hz;
-  33   1        g_pulser[pulser_num].count = count;
-  34   1      
-  35   1        return 1;
-  36   1      }
-  37          bool openPulser(u8 pulser_num)
-  38          {
-  39   1        open_PWM_N(PWM_7);
-  40   1        g_pulser[pulser_num].state = ON;
-  41   1      
-  42   1        return 1;
-  43   1      }
-  44          bool closePulser(u8 pulser_num)
+  25          #define OPEN_TIMER3_CLKOUT() T4T3M |= 1
+  26          #define OPEN_TIMER4_CLKOUT() T4T3M |= (1 << 4)
+  27          #define CLOSE_TIMER3_CLKOUT() T4T3M &=(~ 1)
+  28          #define CLOSE_TIMER4_CLKOUT() T4T3M &=(~(1 << 4))
+  29          
+  30          
+  31          //#define DEFAULT_PT  LOW //
+  32          struct Pulser //Âö³å·¢ÉúÆ÷ÓÐ¹Ø²ÎÊýÊý¾Ý½á¹¹
+  33          {
+  34            u32 count;  //Âö³å¸öÊý
+  35            u16 Hz;     //Âö³åÆµÂÊ
+  36            u8 state;   //Âö³å·¢ÉúÆ÷µ±Ç°×´Ì¬
+  37          
+  38          };
+  39          
+  40          static struct Pulser g_pulser[PULSER_NUM];  //Âö³å·¢ÉúÆ÷ÐÅÏ¢´æ´¢Êý×é
+  41          static u16 tmp=0;//Èí¼þ¶¨Ê±Æ÷ÐèÒªÊ¹ÓÃµÄ±äÁ¿£¬Ð´ÔÚÍâÃæÊÇÎªÁË¼õÇáÖÐ¶ÏµÄ¼ÆËãÁ¿£¬Ôö¼Ó¶¨Ê±¾«¶È
+  42          static bit timer2UseBit=0;//ÊÇ·ñÐèÒªÊ¹ÓÃ¼ÆÊý±äÁ¿À´²úÉúµÍÓÚ¶¨Ê±Æ÷×îµÍ¿É²úÉúµÄÆµÂÊµÄ±êÖ¾Î»
+  43          static bit timer3UseBit=0;//ÊÇ·ñÐèÒªÊ¹ÓÃ¼ÆÊý±äÁ¿À´²úÉúµÍÓÚ¶¨Ê±Æ÷×îµÍ¿É²úÉúµÄÆµÂÊµÄ±êÖ¾Î»
+  44          bool setPulse(u8 pulser_num, u16 Hz, u32 count)
   45          {
-  46   1      
-  47   1        close_PWM_N(pulser_num + 5);
-  48   1      
-  49   1        g_pulser[pulser_num].state = OFF;
-  50   1        return 1;
-  51   1      
-  52   1      }
-  53          bool getPulserState(u8 pulser_num)
-  54          {
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/20/2017 17:01:24 PAGE 2   
+  46   1        u16 timerTmp=0;
+  47   1        u16 TIM_Value;
+  48   1        g_pulser[pulser_num].Hz = Hz;
+  49   1        g_pulser[pulser_num].count = count;
+  50   1        if (pulser_num == PULSER_1)
+  51   1        {
+  52   2          if (Hz > 20)//´óÓÚ20hzÖ±½ÓÊ¹ÓÃ¶¨Ê±Æ÷¸³Öµ
+  53   2          {
+  54   3            //PrintString1("hz >20\r\n");
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 2   
 
-  55   1      
-  56   1        return g_pulser[pulser_num].state;
-  57   1      
-  58   1      }
-  59          void PulserInit(void)//³õÊ¼»¯³ÌÐò
-  60          {
-  61   1        /************************************
-  62   1      Ó²¼þPWM ioÒý½Å
-  63   1      PWM_N| µÚÒ»×é| µÚ¶þ×é
-  64   1      PWM2 :P3.7 -> P2.7
-  65   1      PWM3 :P2.1 -> P4.5
-  66   1      PWM4 :P2.2 -> P4.4
-  67   1      PWM5 :P2.3 -> P4.2
-  68   1      PWM6 :P1.6 -> P0.7
-  69   1      PWM7 :P1.7 -> P0.6
-  70   1      ************************************/
-  71   1      
-  72   1      
-  73   1        GPIO_InitTypeDef    GPIO_InitStructure;     //½á¹¹¶¨Òå
-  74   1        PWM_InitTypeDef  PWM_InitStructure;
-  75   1        GPIO_InitStructure.Mode = GPIO_PullUp;       //Ö¸¶¨IOµÄÊäÈë»òÊä³ö·½Ê½,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,
-             -GPIO_OUT_PP
-  76   1      
-  77   1        GPIO_InitStructure.Pin = GPIO_Pin_6;    //Ö¸¶¨Òª³õÊ¼»¯µÄIO, GPIO_Pin_0 ~ GPIO_Pin_7, »ò²Ù×÷
-  78   1        GPIO_Inilize(GPIO_P1, &GPIO_InitStructure);  //³õÊ¼»¯
-  79   1        GPIO_InitStructure.Pin = GPIO_Pin_7;    //Ö¸¶¨Òª³õÊ¼»¯µÄIO, GPIO_Pin_0 ~ GPIO_Pin_7, »ò²Ù×÷
-  80   1        GPIO_Inilize(GPIO_P1, &GPIO_InitStructure);  //³õÊ¼»¯
-  81   1        P16 = 1;
-  82   1        P17 = 1;
-  83   1        set_PWM_duty(PWM_6, PWM_DEFAULT_DUTY); //Ê¹ÓÃÄ¬ÈÏ0.5µÄÕ¼¿Õ±È
-  84   1        set_PWM_duty(PWM_7, PWM_DEFAULT_DUTY); //Ê¹ÓÃÄ¬ÈÏ0.5µÄÕ¼¿Õ±È
+  55   3      
+  56   3            TIM_Value = (65536UL - ((MAIN_Fosc/12) / Hz/2));
+  57   3            timer2UseBit = 0;
+  58   3            INT_CLKO |= 0x04; //Êä³öÊ±ÖÓ
+  59   3            TH2 = (u8)(TIM_Value >> 8);
+  60   3            TL2 = (u8)TIM_Value;
+  61   3      
+  62   3          }
+  63   2          else//Ð¡ÓÚ20hzÔòÁíÍâ¼ÆËã
+  64   2          {
+  65   3            timer2UseBit = 1;
+  66   3          //  CLOSE_TIMER2_CLKOUT();
+  67   3          }
+  68   2        }
+  69   1        else
+  70   1        {
+  71   2          if (Hz > 20)
+  72   2          {
+  73   3            TIM_Value = (65536UL - ((MAIN_Fosc/12) / Hz/2));
+  74   3            timer3UseBit = 0;
+  75   3            T4T3M |= 1; //Êä³öÊ±ÖÓ
+  76   3            TH3 = (u8)(TIM_Value >> 8);
+  77   3            TL3 = (u8)TIM_Value;
+  78   3      
+  79   3          }
+  80   2          else
+  81   2          {
+  82   3            timer3UseBit = 1;
+  83   3          }
+  84   2        }
   85   1      
-  86   1        PWM_UNLOCK;
-  87   1        PWM_InitStructure.PWM_GOTO_ADC = DISABLE;            //ENABLE=¼ÆÊýÆ÷¹éÁãÊ± ´¥·¢ADC
-  88   1        PWM_InitStructure.PWM_V_INIT = PWM_LOW;             //PWM_HIGHT=³õÊ¼¸ßµçÆ½  PWM_LOW=³õÊ¼µÍµçÆ½
-  89   1        PWM_InitStructure.PWM_0ISR_EN = DISABLE;           //ENABLE=Ê¹ÄÜPWM¼ÆÊýÆ÷¹éÁãÖÐ¶Ï  DISABLE=¹Ø±ÕPWM¼ÆÊýÆ÷¹
-             -éÁãÖÐ¶Ï µ« CBIFÈÔÈ»»á±»Ó²¼þÖÃÎ»
-  90   1        PWM_InitStructure.PWM_OUT_EN = ENABLE;               //ENABLE=PWMÍ¨µÀxµÄ¶Ë¿ÚÎªPWM²¨ÐÎÊä³ö¿Ú ÊÜPWM²¨ÐÎ·¢Éú
-             -Æ÷¿ØÖÆ
-  91   1        PWM_InitStructure.PWM_UNUSUAL_EN = DISABLE;         //ENABLE=Ê¹ÄÜPWMµÄÍâ²¿Òì³£¼ì²â¹¦ÄÜ
-  92   1        PWM_InitStructure.PWM_UNUSUAL_OUT = DISABLE;       //ENABLE=·¢ÉúÒì³£Ê±£¬PWM¶ÔÓ¦µÄÊä³ö¿Ú»á±ä³É ¸ß×èÊäÈëÄ£Ê
-             -½
-  93   1        PWM_InitStructure.PWM_UNUSUAL_ISR_EN = DISABLE;      //ENABLE=Ê¹ÄÜÒì³£¼ì²âÖÐ¶Ï DISABLE=¹Ø±ÕÒì³£¼ì²âÖÐ¶Ï µ
-             -«FDIFÈÔÈ»»á±»Ó²¼þÖÃÎ»
-  94   1        PWM_InitStructure.PWM_UNUSUAL_CMP0_EN = DISABLE;     //ENABLE=Òì³£¼ì²âÔ´Îª±È½ÏÆ÷µÄÊä³ö µ±±È½Ï½á¹ûÎª¸ßÊ± ´
-             -¥·¢PWMÒì³£
-  95   1        PWM_InitStructure.PWM_UNUSUAL_P24_EN = DISABLE;      //ENABLE=Òì³£¼ì²âÔ´ÎªP24/PWMFLT µ±P24=1 ´¥·¢PWMÒì³£
-  96   1        PWM_InitStructure.PWM_CLOCK = PWM_Clock_NT;          //PWM_Clock_NT=PWMµÄÊ±ÖÓÔ´ÊÇÏµÍ³Ê±ÖÓ¾­·ÖÆµºóµÄÊ±ÖÓ  
-             -PWM_Clock_Timer2_OF=PWMµÄÊ±ÖÓÔ´ÊÇTMER2µÄÒç³öÂö³å
-  97   1        PWM_InitStructure.PWM_CLOCK_DIV = 15;              //µ±PWM_CLOCK=PWM_Clock_NTÊ± PWMµÄÊ±ÖÓÔ´ÊÇÏµÍ³Ê±ÖÓ/(PS
-             -[3:0]+1)
-  98   1        PWM_InitStructure.PWM_SELECTx_IO = PWM_SELECT_N;     //PWM_SELECT_N=PWMµÚÒ»Ñ¡ÔñIO¿Ú PWM_SELECT_N_2=PWMµÚ¶
-             -þÑ¡ÔñIO¿Ú
-  99   1        PWM_InitStructure.PWM_ISRx_EN = ENABLE;           //ENABLE=Ê¹ÄÜPWMxÖÐ¶Ï Ê¹ÄÜµÚÒ»·­×ª»òµÚ¶þ·­×ªÖÐ¶Ï
- 100   1        PWM_InitStructure.PWM_T1x_EN = DISABLE;           //ENABLE=Ê¹ÄÜµÚÒ»·­×ªÖÐ¶Ï
- 101   1        PWM_InitStructure.PWM_T2x_EN = ENABLE;          //ENABLE=Ê¹ÄÜµÚ¶þ·­×ªÖÐ¶Ï
- 102   1        PWM_InitStructure.PWM_EN = DISABLE;                //ENABLE=PWMÊ¹ÄÜ ÔÚÆäËûPWM²ÎÊýÉèÖÃºÃºó×îºóÉèÖÃ Èç¹û±»¹
-             -Ø±ÕºóÔÚ´ò¿ª£¬ÔòPWM¼ÆÊýÆ÷ÖØÐÂ´Ó0¼ÆÊý
- 103   1      
- 104   1        PWM_Inilize(PWM_6, &PWM_InitStructure);
- 105   1        PWM_Inilize(PWM_7, &PWM_InitStructure);
- 106   1      
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/20/2017 17:01:24 PAGE 3   
+  86   1        return 1;
+  87   1      }
+  88          bool openPulser(u8 pulser_num)
+  89          {
+  90   1        g_pulser[pulser_num].state = ON;
+  91   1      
+  92   1        if (pulser_num==PULSER_1) //pulser2
+  93   1        {
+  94   2          Timer2_Run();
+  95   2        //  PrintString1("pulser 1 is start\n");
+  96   2      
+  97   2        }
+  98   1        else   //pulser1
+  99   1        {
+ 100   2          Timer3_Run();
+ 101   2        }
+ 102   1      
+ 103   1        return OK;
+ 104   1      }
+ 105          bool closePulser(u8 pulser_num)
+ 106          {
+ 107   1        if (pulser_num==PULSER_1)//pulser2
+ 108   1        {
+ 109   2          Timer2_Stop();
+ 110   2      
+ 111   2      
+ 112   2        }
+ 113   1        else //pulser1
+ 114   1        {
+ 115   2          Timer3_Stop();
+ 116   2      
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 3   
 
- 107   1        PWM_LOCK;
- 108   1        setPWM_DIV(PWM_6, 16);
- 109   1        setPWM_DIV(PWM_7, 16);
- 110   1      }
- 111          
- 112          static u32 g_PWM_7tmp = 0;//¼ÆÊý±äÁ¿
- 113          static u32 g_PWM_6tmp = 0;//¼ÆÊý±äÁ¿
- 114          static u32 g_PWM_5tmp = 0;//¼ÆÊý±äÁ¿
- 115          static u32 g_PWM_4tmp = 0;//¼ÆÊý±äÁ¿
- 116          static u32 g_PWM_3tmp = 0;//¼ÆÊý±äÁ¿
- 117          static u32 g_PWM_2tmp = 0;//¼ÆÊý±äÁ¿
- 118          
- 119          /***************£¡ÒÔÏÂÎªË½ÓÐº¯Êý£¬²»½¨Òé¸ü¸Ä£¡********************************/
- 120          static void PWM_Routine(void) interrupt 22   //ÖÐ¶ÏÖ´ÐÐ³ÌÐò£¬ÓÃÀ´¼¸ÂÊÂö³åµÄ¸öÊý²¢¼°Ê±¹Ø±Õ·¢ÉúÆ÷
- 121          {
- 122   1        //  PWMIF &= (~(1 << 6));  //Èí¼þÇåÁã±êÖ¾Î»
- 123   1        if (PWMIF ^ 5 == 1)//PWM_7
- 124   1        {
- 125   2          PWMIF &= (~(1 << 5));  //Èí¼þÇåÁã±êÖ¾Î»
- 126   2      
- 127   2          if (g_PWM_7tmp++ >= g_pulser[PULSER_1].count)
- 128   2          {
- 129   3            g_pulser[PULSER_1].count = 0;
- 130   3            close_PWM_N(PWM_7);
- 131   3          }
- 132   2        }
- 133   1        else if (PWMIF ^ 4 == 1)//PWM_6
- 134   1        {
- 135   2          PWMIF &= (~(1 << 4));  //Èí¼þÇåÁã±êÖ¾Î»
- 136   2          if (g_PWM_6tmp++ >= g_pulser[PULSER_2].count)
- 137   2          {
- 138   3            g_pulser[PULSER_2].count = 0;
- 139   3            close_PWM_N(PWM_6);
- 140   3          }
- 141   2        }
- 142   1        else if (PWMIF ^ 3 == 1)
- 143   1        {
- 144   2          PWMIF &= (~(1 << 3));  //Èí¼þÇåÁã±êÖ¾Î»
- 145   2        }
- 146   1        else if (PWMIF ^ 2 == 1)
- 147   1        {
- 148   2          PWMIF &= (~(1 << 2));  //Èí¼þÇåÁã±êÖ¾Î»
- 149   2      
- 150   2        }
- 151   1        else if (PWMIF ^ 1 == 1)
- 152   1        {
- 153   2          PWMIF &= (~(1 << 1));  //Èí¼þÇåÁã±êÖ¾Î»
- 154   2        }
- 155   1        else if (PWMIF ^ 0 == 1)
- 156   1        {
- 157   2          PWMIF &= (~(1 << 1));  //Èí¼þÇåÁã±êÖ¾Î»
- 158   2        }
- 159   1        else
- 160   1        {
- 161   2      
- 162   2        }
- 163   1      
- 164   1      }
- 165          
- 166          //static void PWMFD_Routine(void) interrupt 23
- 167          //{
- 168          //
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/20/2017 17:01:24 PAGE 4   
+ 117   2        }
+ 118   1        g_pulser[pulser_num].state = OFF;
+ 119   1        return OK;
+ 120   1      
+ 121   1      }
+ 122          bool getPulserState(u8 pulser_num)
+ 123          {
+ 124   1      
+ 125   1        return g_pulser[pulser_num].state;
+ 126   1      
+ 127   1      }
+ 128          void PulserInit(void)//³õÊ¼»¯³ÌÐò
+ 129          {
+ 130   1        //PULSER_1 Ê¹ÓÃP30 PULSER_2 Ê¹ÓÃP04
+ 131   1      
+ 132   1        GPIO_InitTypeDef    GPIO_InitStructure;     //½á¹¹¶¨Òå
+ 133   1        GPIO_InitStructure.Mode = GPIO_PullUp;       //Ö¸¶¨IOµÄÊäÈë»òÊä³ö·½Ê½,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,
+             -GPIO_OUT_PP
+ 134   1        GPIO_InitStructure.Pin = GPIO_Pin_0 ;    //Ö¸¶¨Òª³õÊ¼»¯µÄIO, GPIO_Pin_0 ~ GPIO_Pin_7, »ò²Ù×÷!!!!!!!GPIO³õ
+             -Ê¼»¯Ê¹ÓÃ°´Î»»ò²»ÊÇÂß¼­»ò£¬Ö®Ç°ÒòÎªÕâ¸ö±»¿ÓÁË
+ 135   1        GPIO_Inilize(GPIO_P3, &GPIO_InitStructure);  //³õÊ¼»¯
+ 136   1        GPIO_InitStructure.Pin = GPIO_Pin_4 ;    //Ö¸¶¨Òª³õÊ¼»¯µÄIO, GPIO_Pin_0 ~ GPIO_Pin_7, »ò²Ù×÷!!!!!!!GPIO³õ
+             -Ê¼»¯Ê¹ÓÃ°´Î»»ò²»ÊÇÂß¼­»ò£¬Ö®Ç°ÒòÎªÕâ¸ö±»¿ÓÁË
+ 137   1        GPIO_Inilize(GPIO_P0, &GPIO_InitStructure);  //³õÊ¼»¯
+ 138   1        g_pulser[PULSER_1].state = OFF;
+ 139   1        g_pulser[PULSER_2].state = OFF;
+ 140   1      #ifdef DEBUG
+                PrintString1("two pulser was initialized");
+              #endif
+ 143   1      }
+ 144          
+ 145          
+ 146          /***************£¡ÒÔÏÂÎªË½ÓÐº¯Êý£¬²»½¨Òé¸ü¸Ä£¡********************************/
+ 147          
+ 148          /********************* Timer3ÖÐ¶Ïº¯Êý£¬ÓÃÓÚ²úÉúÖ¸¶¨Âö³å************************/
+ 149          //200us²úÉúÒ»´ÎÖÐ¶Ï£¬
+ 150          static u16 pulser1Tmp=0;
+ 151          static u16 count1Tmp=0;
+ 152          //static void Pulser_1Int(void) interrupt TIMER2_VECTOR   //2.5ms²úÉúÒ»´ÎÖÐ¶Ï
+ 153          //{
+ 154          //  //PrintString1("into timer inte\n");
+ 155          ////  if (timer2UseBit == 1)//Èç¹ûÉèÖÃµÄÆµÂÊÐ¡ÓÚ20hzÔÙÊ¹ÓÃ¼ÆÊýÆ÷ÀÛ¼ÓµÄ°ì·¨²úÉú
+ 156          ////  {
+ 157          ////    if (++pulser1Tmp >= tmp)
+ 158          
+ 159          ////    {
+ 160          ////      //  PrintString1("p15 state changed\n");
+ 161          
+ 162          ////      pulser1Tmp = 0;
+ 163          ////      if (count1Tmp++ <= g_pulser[PULSER_1].count)
+ 164          ////      {
+ 165          ////        P30 = ~P30;
+ 166          
+ 167          ////        //  PrintString1("p15 state is changed\n");
+ 168          ////      }
+ 169          ////      else
+ 170          ////      {
+ 171          ////        closePulser(PULSER_1);
+ 172          ////        count1Tmp = 0;
+ 173          
+ 174          ////      }
+ 175          ////    }
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 4   
 
- 169          //}
+ 176          ////  }
+ 177          ////  else//Èç¹ûÆµÂÊ´óÓÚ20ÔòÖ±½ÓÓÃ¸ßËÙÂö³å²úÉú
+ 178          //  {
+ 179          //    if (++count1Tmp >= g_pulser[PULSER_1].count*2)
+ 180          //    {
+ 181          //      count1Tmp = 0;
+ 182          //      closePulser(PULSER_1);
+ 183          //    }
+ 184          //  }
+ 185          static void Pulser_1Int(void) interrupt TIMER2_VECTOR   //2.5ms²úÉúÒ»´ÎÖÐ¶Ï
+ 186          {
+ 187   1        if ((++pulser1Tmp) >= 2*g_pulser[PULSER_1].count)
+ 188   1        {
+ 189   2          closePulser(PULSER_1);
+ 190   2          pulser1Tmp = 0;
+ 191   2        }
+ 192   1        
+ 193   1      }
+ 194          static u16 pulser2Tmp=0;
+ 195          static u16 count2Tmp=0;
+ 196          
+ 197          static void Pulser_2Int(void) interrupt TIMER3_VECTOR   //2.5ms²úÉúÒ»´ÎÖÐ¶Ï
+ 198          {
+ 199   1        if ((++pulser2Tmp) >= 2*g_pulser[PULSER_2].count)
+ 200   1        {
+ 201   2          closePulser(PULSER_2);
+ 202   2          pulser2Tmp = 0;
+ 203   2        }
+ 204   1        
+ 205   1      }
+ 206          
+ 207          
+ 208          //static u32 g_PWM_7tmp = 0;//¼ÆÊý±äÁ¿
+ 209          ////ÖÐ¶ÏÖ´ÐÐ³ÌÐò£¬ÓÃÀ´¼ÇÂ¼Âö³åµÄ¸öÊý²¢¼°Ê±¹Ø±Õ·¢ÉúÆ÷
+ 210          //static void PWM_Routine(void) interrupt 22   
+ 211          //{
+ 212          
+ 213          //  if (PWMIF ^ 5 == 1)//PWM_7µÚ¶þ·´×ªÖÐ¶Ï
+ 214          //  {
+ 215          
+ 216          //    PWMIF &= (~(1 << 5));  //Èí¼þÇåÁã±êÖ¾Î»
+ 217          //  //  PrintString1(" pwm7 count++\n");
+ 218          
+ 219          //    if (g_PWM_7tmp++ >= g_pulser[PULSER_1].count)
+ 220          //    {
+ 221          //      //      PrintString1("pwm7 temp >= count\n");
+ 222          //      g_PWM_7tmp = 0;
+ 223          //      closePulser(PULSER_1); //µ½ÁËÖ¸¶¨µÄÂö³åÊýºó¾Í¹Ø±ÕÂö³å·¢ÉúÆ÷
+ 224          
+ 225          //    }
+ 226          
+ 227          //  }
+ 228          //  //ÏÖÔÚÑ¡ÔñÊ¹ÓÃ¶¨Ê±Æ÷Ä£ÄâÒ»Â·Âö³å·¢ÉúÆ÷ÁË
+ 229          //  //  if (PWMIF ^ 4 == 1)//PWM_6
+ 230          //  //  {
+ 231          //  //    PWMIF &= (~(1 << 4));  //Èí¼þÇåÁã±êÖ¾Î»
+ 232          //  ////      PrintString1("pwm6 count++\n");
+ 233          //  //    if (g_PWM_6tmp++ >= g_pulser[PULSER_2].count)
+ 234          //  //    {
+ 235          //  //      //          PrintString1(" pwm6 temp >= count\n");
+ 236          //  //      g_PWM_6tmp = 0;
+ 237          //  //      closePulser(PULSER_2);
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 5   
+
+ 238          //  //      close_PWM_ALL();
+ 239          //  //    }
+ 240          //  //
+ 241          //  //  }
+ 242          //}
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    513    ----
+   CODE SIZE        =    604    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     31      27
+   XDATA SIZE       =     24      13
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =      2    ----
 END OF MODULE INFORMATION.
 
 

@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   SERVO                                                                07/20/2017 10:02:37 PAGE 1   
+C51 COMPILER V8.05a   SERVO                                                                07/24/2017 10:17:30 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE SERVO
@@ -11,157 +11,164 @@ line level    source
    1          #include "SERVO.h"
    2          #include "../../../BSP/STC15_PWM.H"
    3          #include "../../../BSP/GPIO.H"
-   4          
-   5          /**********************************
-   6          * 文件名称：舵机控制
-   7          * 作者：夏志强
-   8          * 版本：1.0
-   9          * 日期：2017/07/08
-  10          * 描述：
-  11          * 1.0：编写了舵机的主要控制函数，包括：舵机开关控制、舵机角度读取与设定
-  12          ************************************/
-  13          
-  14          typedef struct
-  15          {
-  16            float Set_angle;//舵机旋转角度
-  17            unsigned char state;//舵机状态
-  18            float Pulse_Width_L;//舵机最低脉冲宽度
-  19            float Pulse_Width_H;//舵机最高脉冲宽度
-  20            float Str_DIV;//舵机时间精度
-  21            unsigned int Str_N;//舵机划分
-  22            float Current_angle;//当前舵机角度
-  23            float Str_MAX_angle;//舵机最大旋转角度
-  24            float Str_ACC_angle;//舵机角度精度
-  25            unsigned int Str_state;//舵机开关
-  26            float Actual_Pulse_Width;//实际脉宽
-  27          }StrMotor;
-  28          
-  29          static StrMotor str_motor[SERVO_NUM]; //需要使用多少个舵机
-  30          
-  31          
-  32          /**********************************************
-  33           *函数：Inti_Str_Motor(float,float,float,unsigned int)
-  34           *描述：对舵机进行初始化
-  35           *输入：
-  36           *1.pl为最低可接收的脉冲宽度，单位为ms                  
-  37           *2.ph为最高可接收的脉冲宽度，单位为ms                 
-  38           *3.n为脉冲分级
-  39           *输出：无
-  40           *返回值：void
-  41           *其他说明：
-  42           **********************************************/
-  43          void Init_Str_Motor(u8 MOTOR,float pl,float ph,float ma,unsigned int n)
-  44          {
-  45   1         GPIO_InitTypeDef    GPIO_InitStructure;     //结构定义
-  46   1          PWM_InitTypeDef  PWM_InitStructure;
-  47   1          GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_O
-             -D,GPIO_OUT_PP
-  48   1          GPIO_InitStructure.Pin  = GPIO_Pin_7 ;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
-  49   1          GPIO_Inilize(GPIO_P3,&GPIO_InitStructure);  //初始化
-  50   1      //      GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OU
+   4          #include "../../../BSP/USART1.h"
+   5          #include <stdlib.h>
+   6          #include <stdio.h>
+   7          
+   8          
+   9          /**********************************
+  10          * 文件名称：舵机控制
+  11          * 作者：夏志强
+  12          * 版本：1.0
+  13          * 日期：2017/07/08
+  14          * 描述：
+  15          * 1.0：编写了舵机的主要控制函数，包括：舵机开关控制、舵机角度读取与设定
+  16          ************************************/
+  17          
+  18          typedef struct
+  19          {
+  20            float Set_angle;//舵机旋转角度
+  21            unsigned char state;//舵机状态
+  22            float Pulse_Width_L;//舵机最低脉冲宽度
+  23            float Pulse_Width_H;//舵机最高脉冲宽度
+  24            float Str_DIV;//舵机时间精度
+  25            unsigned int Str_N;//舵机划分
+  26            float Current_angle;//当前舵机角度
+  27            float Str_MAX_angle;//舵机最大旋转角度
+  28            float Str_ACC_angle;//舵机角度精度
+  29            unsigned int Str_state;//舵机开关
+  30            float Actual_Pulse_Width;//实际脉宽
+  31          }StrMotor;
+  32          
+  33          static StrMotor str_motor[SERVO_NUM]; //需要使用多少个舵机
+  34          
+  35          
+  36          /**********************************************
+  37           *函数：Inti_Str_Motor(float,float,float,unsigned int)
+  38           *描述：对舵机进行初始化
+  39           *输入：
+  40           *1.pl为最低可接收的脉冲宽度，单位为ms
+  41           *2.ph为最高可接收的脉冲宽度，单位为ms
+  42           *3.n为脉冲分级
+  43           *输出：无
+  44           *返回值：void
+  45           *其他说明：
+  46           **********************************************/
+  47          void Init_Str_Motor(u8 MOTOR, float pl, float ph, float ma, unsigned int n)
+  48          {
+  49   1        u8 initInfo[10];
+  50   1        GPIO_InitTypeDef    GPIO_InitStructure;     //结构定义
+  51   1        PWM_InitTypeDef  PWM_InitStructure;
+  52   1        GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,
+             -GPIO_OUT_PP
+  53   1        GPIO_InitStructure.Pin = GPIO_Pin_7;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
+C51 COMPILER V8.05a   SERVO                                                                07/24/2017 10:17:30 PAGE 2   
+
+  54   1        GPIO_Inilize(GPIO_P3, &GPIO_InitStructure);  //初始化
+  55   1      //      GPIO_InitStructure.Mode = GPIO_PullUp;       //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OU
              -T_OD,GPIO_OUT_PP
-  51   1      //    GPIO_InitStructure.Pin  = GPIO_Pin_1 ;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
-  52   1      //    GPIO_Inilize(GPIO_P2,&GPIO_InitStructure);  //初始化
-C51 COMPILER V8.05a   SERVO                                                                07/20/2017 10:02:37 PAGE 2   
+  56   1      //    GPIO_InitStructure.Pin  = GPIO_Pin_1 ;    //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7, 或操作
+  57   1      //    GPIO_Inilize(GPIO_P2,&GPIO_InitStructure);  //初始化
+  58   1      
+  59   1        P37 = 1;
+  60   1        //    P21=1;
+  61   1        PWM_UNLOCK;
+  62   1        PWM_InitStructure.PWM_GOTO_ADC = DISABLE;
+  63   1        PWM_InitStructure.PWM_V_INIT = PWM_LOW;
+  64   1        PWM_InitStructure.PWM_0ISR_EN = DISABLE;
+  65   1        PWM_InitStructure.PWM_OUT_EN = ENABLE;
+  66   1        PWM_InitStructure.PWM_UNUSUAL_EN = DISABLE;
+  67   1        PWM_InitStructure.PWM_UNUSUAL_OUT = DISABLE;
+  68   1        PWM_InitStructure.PWM_UNUSUAL_ISR_EN = DISABLE;
+  69   1        PWM_InitStructure.PWM_UNUSUAL_CMP0_EN = DISABLE;
+  70   1        PWM_InitStructure.PWM_UNUSUAL_P24_EN = DISABLE;
+  71   1        PWM_InitStructure.PWM_CLOCK = PWM_Clock_NT;
+  72   1        PWM_InitStructure.PWM_CLOCK_DIV = 15;
+  73   1        PWM_InitStructure.PWM_SELECTx_IO = PWM_SELECT_N;
+  74   1        PWM_InitStructure.PWM_ISRx_EN = DISABLE;
+  75   1        PWM_InitStructure.PWM_T1x_EN = DISABLE;
+  76   1        PWM_InitStructure.PWM_T2x_EN = DISABLE;
+  77   1        PWM_InitStructure.PWM_EN = DISABLE;
+  78   1        PWM_Inilize(MOTOR, &PWM_InitStructure);
+  79   1      
+  80   1        PWM_LOCK;
+  81   1        setPWM_DIV(MOTOR, 16);
+  82   1        set_PWM_period(MOTOR, 50);
+  83   1        str_motor[MOTOR].Pulse_Width_L = pl;
+  84   1        str_motor[MOTOR].Pulse_Width_H = ph;
+  85   1        str_motor[MOTOR].Str_MAX_angle = ma;
+  86   1        str_motor[MOTOR].Str_N = n;
+  87   1        str_motor[MOTOR].Str_DIV = (str_motor[MOTOR].Pulse_Width_H - str_motor[MOTOR].Pulse_Width_L) / str_motor[
+             -MOTOR].Str_N;//计算舵机的最小精度，单位为ms
+  88   1        str_motor[MOTOR].Str_ACC_angle = str_motor[MOTOR].Str_MAX_angle / (float)str_motor[MOTOR].Str_N;
+  89   1        str_motor[MOTOR].Current_angle = 0;
+  90   1        sprintf(initInfo, "servo %d was initialized \r\n", MOTOR + 1);
+  91   1        PrintString1(initInfo);
+  92   1      }
+  93          
+  94          /**********************************************
+  95           *函数：set_STR_angle(float)
+  96           *描述：设定舵机角度
+  97           *输入：
+  98           *1.angle为设定的角度，浮点型
+  99           *输出：无
+ 100           *返回值：void
+ 101           *其他说明：
+ 102           **********************************************/
+ 103          void set_STR_angle(u8 MOTOR, float angle)
+ 104          {
+ 105   1        float str_duty;
+ 106   1        str_motor[MOTOR].Set_angle = angle;
+ 107   1        str_motor[MOTOR].Actual_Pulse_Width = ((angle / str_motor[MOTOR].Str_ACC_angle) * str_motor[MOTOR].Str_DI
+             -V) + str_motor[MOTOR].Pulse_Width_L;
+ 108   1        //  if(str_motor[MOTOR].Actual_Pulse_Width >= str_motor[MOTOR].Pulse_Width_H)
+ 109   1        //  {
+ 110   1        //    set_PWM_duty(MOTOR,0.125f);
+ 111   1        //  }
+ 112   1        //   else if(str_motor[MOTOR].Actual_Pulse_Width <= str_motor[MOTOR].Pulse_Width_L)
+C51 COMPILER V8.05a   SERVO                                                                07/24/2017 10:17:30 PAGE 3   
 
-  53   1      
-  54   1          P37=1;
-  55   1      //    P21=1;
-  56   1          PWM_UNLOCK;
-  57   1          PWM_InitStructure.PWM_GOTO_ADC=DISABLE;
-  58   1          PWM_InitStructure.      PWM_V_INIT= PWM_LOW;
-  59   1          PWM_InitStructure.      PWM_0ISR_EN=  DISABLE;
-  60   1          PWM_InitStructure.      PWM_OUT_EN=ENABLE;
-  61   1          PWM_InitStructure.     PWM_UNUSUAL_EN= DISABLE;
-  62   1          PWM_InitStructure.     PWM_UNUSUAL_OUT=  DISABLE;
-  63   1          PWM_InitStructure.     PWM_UNUSUAL_ISR_EN=DISABLE;
-  64   1          PWM_InitStructure.     PWM_UNUSUAL_CMP0_EN=DISABLE;
-  65   1          PWM_InitStructure.     PWM_UNUSUAL_P24_EN=DISABLE;
-  66   1          PWM_InitStructure.       PWM_CLOCK=PWM_Clock_NT;
-  67   1          PWM_InitStructure.       PWM_CLOCK_DIV=15;
-  68   1          PWM_InitStructure.       PWM_SELECTx_IO=PWM_SELECT_N;
-  69   1          PWM_InitStructure.     PWM_ISRx_EN=  DISABLE;
-  70   1          PWM_InitStructure.       PWM_T1x_EN=   DISABLE;
-  71   1          PWM_InitStructure.       PWM_T2x_EN=    DISABLE;
-  72   1          PWM_InitStructure.       PWM_EN=  DISABLE;
-  73   1          PWM_Inilize(MOTOR,&PWM_InitStructure) ;
-  74   1      
-  75   1          PWM_LOCK;
-  76   1          setPWM_DIV(MOTOR,16);
-  77   1          set_PWM_period(MOTOR,50);
-  78   1          str_motor[MOTOR].Pulse_Width_L = pl;
-  79   1          str_motor[MOTOR].Pulse_Width_H = ph;
-  80   1          str_motor[MOTOR].Str_MAX_angle = ma;
-  81   1          str_motor[MOTOR].Str_N = n;
-  82   1          str_motor[MOTOR].Str_DIV = (str_motor[MOTOR].Pulse_Width_H - str_motor[MOTOR].Pulse_Width_L) / str_motor
-             -[MOTOR].Str_N;//计算舵机的最小精度，单位为ms
-  83   1          str_motor[MOTOR].Str_ACC_angle = str_motor[MOTOR].Str_MAX_angle / (float)str_motor[MOTOR].Str_N;
-  84   1          str_motor[MOTOR].Current_angle = 0;
-  85   1      }
-  86          
-  87          /**********************************************
-  88           *函数：set_STR_angle(float)
-  89           *描述：设定舵机角度
-  90           *输入：
-  91           *1.angle为设定的角度，浮点型                 
-  92           *输出：无
-  93           *返回值：void
-  94           *其他说明：
-  95           **********************************************/
-  96          void set_STR_angle(u8 MOTOR,float angle)
-  97          {
-  98   1          float str_duty;
-  99   1          str_motor[MOTOR].Set_angle = angle;
- 100   1          str_motor[MOTOR].Actual_Pulse_Width = ( (angle / str_motor[MOTOR].Str_ACC_angle) * str_motor[MOTOR].Str_
-             -DIV )+str_motor[MOTOR].Pulse_Width_L ;
- 101   1      //  if(str_motor[MOTOR].Actual_Pulse_Width >= str_motor[MOTOR].Pulse_Width_H)
- 102   1      //  {
- 103   1      //    set_PWM_duty(MOTOR,0.125f);
- 104   1      //  }
- 105   1      //   else if(str_motor[MOTOR].Actual_Pulse_Width <= str_motor[MOTOR].Pulse_Width_L)
- 106   1      //  {
- 107   1      //    set_PWM_duty(MOTOR,0.025f);
- 108   1      //  }
- 109   1      //  else
- 110   1        {
- 111   2          str_duty =  str_motor[MOTOR].Actual_Pulse_Width  / 20;
- 112   2          set_PWM_duty(MOTOR,str_duty);
-C51 COMPILER V8.05a   SERVO                                                                07/20/2017 10:02:37 PAGE 3   
-
- 113   2        }
- 114   1          str_motor[MOTOR].Current_angle = str_motor[MOTOR].Set_angle;
- 115   1      }
- 116          
- 117          /**********************************************
- 118           *函数：read_STR_angle()
- 119           *描述：读取舵机角度
- 120           *输入：void                
- 121           *输出：舵机当前角度
- 122           *返回值：float
- 123           *其他说明：
- 124           **********************************************/
- 125          float read_STR_angle(u8 MOTOR)
- 126          {
- 127   1          return str_motor[MOTOR].Current_angle;
- 128   1      }
- 129          bit open_STR(u8 MOTOR)
- 130          { 
- 131   1        open_PWM_N(MOTOR);
- 132   1        str_motor[MOTOR].Str_state = ON;
- 133   1        return 1;
- 134   1      }
- 135          bit close_STR(u8 MOTOR)
- 136          {
- 137   1        close_PWM_N(MOTOR);
- 138   1        str_motor[MOTOR].Str_state = OFF;
- 139   1        return 1;
- 140   1      }
+ 113   1        //  {
+ 114   1        //    set_PWM_duty(MOTOR,0.025f);
+ 115   1        //  }
+ 116   1        //  else
+ 117   1        {
+ 118   2          str_duty = str_motor[MOTOR].Actual_Pulse_Width / 20;
+ 119   2          set_PWM_duty(MOTOR, str_duty);
+ 120   2        }
+ 121   1        str_motor[MOTOR].Current_angle = str_motor[MOTOR].Set_angle;
+ 122   1      }
+ 123          
+ 124          /**********************************************
+ 125           *函数：read_STR_angle()
+ 126           *描述：读取舵机角度
+ 127           *输入：void
+ 128           *输出：舵机当前角度
+ 129           *返回值：float
+ 130           *其他说明：
+ 131           **********************************************/
+ 132          float read_STR_angle(u8 MOTOR)
+ 133          {
+ 134   1        return str_motor[MOTOR].Current_angle;
+ 135   1      }
+ 136          bit open_STR(u8 MOTOR)
+ 137          {
+ 138   1        open_PWM_N(MOTOR);
+ 139   1        str_motor[MOTOR].Str_state = ON;
+ 140   1        return 1;
+ 141   1      }
+ 142          bit close_STR(u8 MOTOR)
+ 143          {
+ 144   1        close_PWM_N(MOTOR);
+ 145   1        str_motor[MOTOR].Str_state = OFF;
+ 146   1        return 1;
+ 147   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    835    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     74      44
+   CODE SIZE        =    875    ----
+   CONSTANT SIZE    =     28    ----
+   XDATA SIZE       =     74      54
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

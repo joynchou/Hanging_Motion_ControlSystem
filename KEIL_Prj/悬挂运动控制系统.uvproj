@@ -147,7 +147,7 @@
             <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>0</TargetSelection>
+          <TargetSelection>-1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\SOFTWARE\TASK\mode.c</FilePath>
             </File>
+            <File>
+              <FileName>direction.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SOFTWARE\TASK\direction.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -458,11 +463,6 @@
         <Group>
           <GroupName>ALGORITHM</GroupName>
           <Files>
-            <File>
-              <FileName>PID.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\SOFTWARE\ALGORITHM\PID\PID.c</FilePath>
-            </File>
             <File>
               <FileName>FILTER.C</FileName>
               <FileType>1</FileType>
@@ -555,39 +555,9 @@
               <FilePath>..\HARDWARE\DEVICES\LED\LED.c</FilePath>
             </File>
             <File>
-              <FileName>MOTOR.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\MOTOR\DC_MOTOR\MOTOR.C</FilePath>
-            </File>
-            <File>
-              <FileName>SERVO.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\MOTOR\SERVO\SERVO.C</FilePath>
-            </File>
-            <File>
               <FileName>STEP_MOTOR.C</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\DEVICES\MOTOR\STEP_MOTOR\STEP_MOTOR.C</FilePath>
-            </File>
-            <File>
-              <FileName>RELAY.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\COMMON_DEVICES\RELAY\RELAY.C</FilePath>
-            </File>
-            <File>
-              <FileName>ANGLE.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\SENSOR\ANGLE\ANGLE.C</FilePath>
-            </File>
-            <File>
-              <FileName>LCD1602.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\DISPLAY\1602\LCD1602.c</FilePath>
-            </File>
-            <File>
-              <FileName>74HC595.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DEVICES\COMMON_DEVICES\74H\74HC595.C</FilePath>
             </File>
             <File>
               <FileName>LCD5510_V2.C</FileName>
@@ -610,11 +580,6 @@
           <GroupName>BSP</GroupName>
           <Files>
             <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\BSP\ADC.c</FilePath>
-            </File>
-            <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\BSP\delay.c</FilePath>
@@ -623,11 +588,6 @@
               <FileName>GPIO.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\BSP\GPIO.c</FilePath>
-            </File>
-            <File>
-              <FileName>PCA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\BSP\PCA.c</FilePath>
             </File>
             <File>
               <FileName>stc15_pwm.c</FileName>
@@ -643,11 +603,6 @@
               <FileName>USART1.C</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\BSP\USART1.C</FilePath>
-            </File>
-            <File>
-              <FileName>stc15_eeprom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\BSP\stc15_eeprom.c</FilePath>
             </File>
           </Files>
         </Group>

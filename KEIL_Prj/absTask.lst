@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   ABSTASK                                                              07/20/2017 17:01:23 PAGE 1   
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE ABSTASK
@@ -12,27 +12,253 @@ line level    source
    2          #include <rtx51tny.h>                 /* RTX-51 tiny functions & defines      */
    3          #include <stdio.h>
    4          #include <stdlib.h>
-   5          #include "../TASK/setup.h"
-   6          #include "../../HARDWARE/DEVICES/BUTTON/BUTTON.H"
-   7          #include "../../HARDWARE/DEVICES/LED/LED.H"
-   8          #include "../../HARDWARE/BSP/USART1.H"
-   9          #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
-  10          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
-  11          #include "../COMMON_SOFTWARE/STORAGE/STORAGE.h"
+   5          #include <math.h>
+   6          #include "../TASK/setup.h"
+   7          #include "../../HARDWARE/DEVICES/BUTTON/BUTTON.H"
+   8          #include "../../HARDWARE/DEVICES/LED/LED.H"
+   9          #include "../../HARDWARE/BSP/USART1.H"
+  10          #include "../HARDWARE/DEVICES/SENSOR/ANGLE/ANGLE.h"
+  11          #include "../COMMON_SOFTWARE/DATA_SCOPE/DataScope_DP.h"
+  12          #include "../COMMON_SOFTWARE/STORAGE/STORAGE.h"
 *** WARNING C322 IN LINE 54 OF ../HARDWARE/BSP/STC15_EEPROM.h: unknown identifier
 *** WARNING C322 IN LINE 54 OF ../HARDWARE/BSP/STC15_EEPROM.h: unknown identifier
-  12          
-  13          void taskStart() _task_ 0
-  14          { 
-  15   1        setup();
-  16   1        blink(4);
-  17   1      }
+  13          #include "../TASK/task.h"
+  14          #define DX 0.1f
+  15          
+  16          #define   LEFT_MOTOR_STATE_UPDATE 1
+  17          #define   RIGHT_MOTOR_STATE_UPDATE 2
+  18          #define   SYSTEM_STATE_UPDATE  3
+  19          float initialX = 7.5f;
+  20          float initialY = 20;
+  21          u8 str[26];
+  22          Coordinate currentCodnat;
+  23          
+  24          
+  25          void taskStart() _task_ 0
+  26          {
+  27   1        setup();
+  28   1        blink(2);
+  29   1          setCurrentCoordinate(initialX, initialY);
+  30   1        os_create_task(LEFT_MOTOR_STATE_UPDATE);
+  31   1        os_create_task(RIGHT_MOTOR_STATE_UPDATE);
+  32   1        os_create_task(SYSTEM_STATE_UPDATE);
+  33   1        os_create_task(8);
+  34   1        os_delete_task(0);
+  35   1      
+  36   1      }
+  37          void waitingSystem(void)//等待系统上一个坐标到达，此任务会堵塞当前进程
+  38          {
+  39   1      wait:
+  40   1        if (getSystemState() == (enum State)WORKING)
+  41   1        {
+  42   2          os_wait(K_TMO, 5, 0);
+  43   2          goto wait;
+  44   2        }
+  45   1      }
+  46          
+  47          void resetSystem()//复位系统
+  48          {
+  49   1        setTargetCoordinate(initialX, initialY);
+  50   1        waitingSystem();
+  51   1        startSystem();
+  52   1      
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 2   
+
+  53   1      
+  54   1      }
+  55          
+  56          void systemUp(float dis)
+  57          {
+  58   1        currentCodnat = getCurrentCoordinate();
+  59   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y + dis);
+  60   1        waitingSystem();
+  61   1        startSystem();
+  62   1      
+  63   1      }
+  64          void systemDown(float dis)
+  65          {
+  66   1        currentCodnat = getCurrentCoordinate();
+  67   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y - dis);
+  68   1        waitingSystem();
+  69   1        startSystem();
+  70   1      
+  71   1      }
+  72          void systemLeft(float dis)
+  73          {
+  74   1        currentCodnat = getCurrentCoordinate();
+  75   1        setTargetCoordinate(currentCodnat.x - dis, currentCodnat.y);
+  76   1        waitingSystem();
+  77   1        startSystem();
+  78   1      
+  79   1      }
+  80          void systemRight(float dis)
+  81          {
+  82   1        currentCodnat = getCurrentCoordinate();
+  83   1        setTargetCoordinate(currentCodnat.x + dis, currentCodnat.y);
+  84   1        waitingSystem();
+  85   1        startSystem();
+  86   1      
+  87   1      }
+  88          
+  89          void drawLoopSrtLine(void)
+  90          {
+  91   1        u16 i = 0;
+  92   1        for (;;)
+  93   1        {
+  94   2          for (i = 0; i < 100; i++)
+  95   2          {
+  96   3            systemUp(DX);
+  97   3          }
+  98   2          for (i = 0; i < 100; i++)
+  99   2          {
+ 100   3            systemDown(DX);
+ 101   3          }
+ 102   2      
+ 103   2        }
+ 104   1      }
+ 105          void drawLoopRectangle(void) 
+ 106          {
+ 107   1        u8 length = 6;
+ 108   1        for (;;)
+ 109   1        {
+ 110   2          systemUp(length);
+ 111   2          systemRight(length);
+ 112   2          systemDown(length);
+ 113   2          systemLeft(length);
+ 114   2        }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 3   
+
+ 115   1      
+ 116   1      }
+ 117          void drawLine() 
+ 118          {
+ 119   1        static float x = 0, y = 0;
+ 120   1        int tmp = 0;
+ 121   1          for (tmp = 0; tmp < 14; tmp++)
+ 122   1          {
+ 123   2            sprintf(str, "(%f,%f) is arrival\n", x, y);
+ 124   2            PrintString1(str);
+ 125   2            x += 1;
+ 126   2            y = 2 * x;
+ 127   2      
+ 128   2            setTargetCoordinate(x, y);
+ 129   2            waitingSystem();
+ 130   2            startSystem();//开启系统
+ 131   2      
+ 132   2            
+ 133   2          }
+ 134   1      
+ 135   1          resetSystem();
+ 136   1      
+ 137   1      
+ 138   1      }
+ 139          
+ 140          void drawCircle(float x, float y)
+ 141          {
+ 142   1        int tmp = 0;
+ 143   1        float X = initialX;
+ 144   1        float Y = initialY;  //初始坐标
+ 145   1        float subdivide = 1024.0f;//画圆的细分值
+ 146   1        float angle = 360;
+ 147   1      
+ 148   1      
+ 149   1          for (tmp = 0; tmp <= subdivide; tmp++)
+ 150   1          {
+ 151   2            sprintf(str, "(%f,%f) is arrival,tmp = %d \n", X, Y, tmp);
+ 152   2            PrintString1(str);
+ 153   2      
+ 154   2            angle -= 360.0f / subdivide;
+ 155   2            X = x + 5 * cos(angle*(0.01745f));
+ 156   2            Y = y + 5 * sin(angle*(0.01745f));
+ 157   2            setTargetCoordinate(X, Y);
+ 158   2            waitingSystem();
+ 159   2            startSystem();
+ 160   2      
+ 161   2      
+ 162   2          }
+ 163   1          resetSystem();
+ 164   1      
+ 165   1        
+ 166   1      
+ 167   1      }
+ 168          void systemTest() _task_ 8
+ 169          {
+ 170   1        for (;;)
+ 171   1        {
+ 172   2          drawCircle(14, 30);
+ 173   2          
+ 174   2        }
+ 175   1      
+ 176   1      }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 4   
+
+ 177          
+ 178          
+ 179           void leftStepMotorStateUpdate() _task_ LEFT_MOTOR_STATE_UPDATE//左电机状态更新进程
+ 180          {
+ 181   1        for (;;)
+ 182   1        {
+ 183   2          if (getPulserState(PULSER_1) == ON)//如果左电机脉冲打开，则认为左电机正在工作
+ 184   2          {
+ 185   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) RUNNING);
+ 186   3            //  PrintString1("left stepMotor is running \r\n");
+ 187   3      
+ 188   3          }
+ 189   2          else
+ 190   2          {
+ 191   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) LOCKED);
+ 192   3            //  PrintString1("left stepMotor is locked \r\n");
+ 193   3      
+ 194   3          }
+ 195   2          os_wait(K_TMO, 1, 0);
+ 196   2        }
+ 197   1      }
+ 198          void rightStepMotorStateUpdate()  _task_  RIGHT_MOTOR_STATE_UPDATE//右电机状态更新进程
+ 199          {
+ 200   1        for (;;)
+ 201   1        {
+ 202   2          if (getPulserState(RIGHT_STEP_MOTOR) == ON)//如果右电机脉冲打开，则认为右电机正在工作
+ 203   2          {
+ 204   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState) RUNNING);
+ 205   3            //    PrintString1("right stepMotor is running \r\n");
+ 206   3          }
+ 207   2          else
+ 208   2          {
+ 209   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState)LOCKED);
+ 210   3            //PrintString1("right stepMotor is locked \r\n");
+ 211   3          }
+ 212   2          os_wait(K_TMO, 1, 0);
+ 213   2        }
+ 214   1      }
+ 215          void systemStateUpdate() _task_  SYSTEM_STATE_UPDATE//系统状态更新进程
+ 216          {
+ 217   1        for (;;)
+ 218   1        {
+ 219   2          if ((getStepMotorState(LEFT_STEP_MOTOR) == (enum StepMotorState)RUNNING || getStepMotorState(RIGHT_STEP_
+             -MOTOR) == (enum StepMotorState)RUNNING))//如果系统还没有到达目标坐标
+ 220   2          {
+ 221   3            setSystemState((enum State)WORKING);
+ 222   3            //  PrintString1("system is working \r\n");
+ 223   3          }
+ 224   2          else
+ 225   2          {
+ 226   3            //  PrintString1("system is stopped \r\n");
+ 227   3            setSystemState((enum State)STOP);
+ 228   3      
+ 229   3          }
+ 230   2          os_wait(K_TMO, 3, 0);
+ 231   2      
+ 232   2        }
+ 233   1      }
+ 234          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =      8    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     49    ----
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 5   
+
+   CODE SIZE        =   1455    ----
+   CONSTANT SIZE    =     50    ----
+   XDATA SIZE       =    107      47
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

@@ -1,5 +1,9 @@
 #include "LCD5510_V2.H"
 #include "../../../BSP/GPIO.h"
+#include "../../../BSP/USART1.h"
+#include <stdlib.h>
+#include <stdio.h>
+
 
  extern unsigned char code Font_code[][6] = {
 {0x00,0x00,0x00,0x00,0x00,0x00},// (0)
@@ -264,7 +268,7 @@ void LCD5510_Init(void)
 {  
 	GPIO_InitTypeDef    GPIO_InitStructure;     //设置管脚
     GPIO_InitStructure.Mode = GPIO_PullUp;
-   	GPIO_InitStructure.Pin = GPIO_Pin_0||GPIO_Pin_1||GPIO_Pin_2||GPIO_Pin_3||GPIO_Pin_4;    //lcd5110
+   	GPIO_InitStructure.Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4;    //lcd5110
 	GPIO_Inilize(GPIO_P5, &GPIO_InitStructure);  
 	LCD_reset_hard;				//硬件复位
 //	LCD_reset_soft;				//软件复位
@@ -279,6 +283,7 @@ void LCD5510_Init(void)
 	LCD_write_cmd(Y_Page_Addr);	//起始页地址0
 	LCD_write_cmd(X_Col_Addr);	//起始列地址0
 	LCD_clr_scr();				//清全屏
+	PrintString1("LCD5110 was initialized \r\n");
 }
 
 /*--------------------------------------------------------------*/
