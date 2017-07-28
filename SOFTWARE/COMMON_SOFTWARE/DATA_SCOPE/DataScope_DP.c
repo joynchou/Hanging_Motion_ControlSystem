@@ -40,13 +40,12 @@ unsigned char DataScope_OutPut_Buffer[42] = {0};       //串口发送缓冲区
  * 返回值:
  * 其他说明:
  *************************************************/
- void sendScopeData(float Data, u8 channel)
+ void sendScopeData( u8 channe_num)
  {
 	 u8 a; //
 
-	 DataScope_Get_Channel_Data(Data, channel);
 
-	 for (a = 0; a < DataScope_Data_Generate(channel); a++)
+	 for (a = 0; a < DataScope_Data_Generate(channe_num); a++)
 	 {
 		 TX1_write2buff(DataScope_OutPut_Buffer[a]); //发送一通道数据到串口示波器
 	 }

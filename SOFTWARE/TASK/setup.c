@@ -21,6 +21,7 @@
 #include "../../HARDWARE/DEVICES/MOTOR/STEP_MOTOR/STEP_MOTOR.h"
 #include "../../HARDWARE/DEVICES/DISPLAY/LCD5110/LCD5510_V2.H"
 #include "../../HARDWARE/COMMON_HARDWARE/fixedPulser.h"
+#include "direction.h"
 
 
 
@@ -59,6 +60,7 @@ void setup(void)
 	timerInit();  //定时器初始化
 	Board_LED_Init();
 	MotionSystem_Init();
+	TrackingSystem_Init();
 	
 	//test();  //测试
 

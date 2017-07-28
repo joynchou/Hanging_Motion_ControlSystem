@@ -25,8 +25,8 @@
 #define  BOARD_WIDTH   30	//板子的宽度  ，单位厘米
 #define  BEARING_DIA   4.05f	//旋转轴承的直径，单位厘米
 #define	 PI  3.1415f   //pi的值
-#define  ACCURACY  0.1f //精度定义  每次步进的脉冲数
-#define  MOVING_SPEED  1300   //系统移动速度定义
+//#define  ACCURACY  0.1f //精度定义  每次步进的脉冲数
+#define  MOVING_SPEED  1300   //系统移动速度定义 ,不要超过1400，也不要低于100
 
 
 
@@ -47,22 +47,6 @@ void setSystemState(enum State state)
 {
 	g_MotionSystemInfo.systemState = state;
 }
-//bit isSyetemRunning(void)
-//{
-//	return g_MotionSystemInfo.systemState == WORKING;
-//}
-//************************************
-// Method:    isSystemStop
-// FullName:  isSystemStop
-// Access:    public 
-// Returns:   bit
-// Qualifier: 返回当前系统是否已经停止移动
-// Parameter: void
-//************************************
-//bit isSystemStop(void)
-//{
-//	return g_MotionSystemInfo.systemState == STOP;
-//}
 //************************************
 // Method:    startSystem
 // FullName:  startSystem
@@ -182,7 +166,7 @@ static u16 getPulserCount(float distance)
 {
 	return (u16)((distance * 360 * 16) / (PI*BEARING_DIA*1.8f));
 }
-//设置电机旋转距离，从而改变线长度,并开启脉冲发生器
+//设置电机旋转距离，从而改变线长度
 //此函数适合使用微分的办法来画出需要的形状，如直线或者圆之类的，但不适合将dx dy设置的太大，否则会有很大的误差
 //其中一个原因是软件模拟的脉冲发生器的固有误差
 //所以此方法很适合用微分来减小误差
@@ -211,26 +195,29 @@ static bit setStepMotorDis(void)
 	//计算当前线长
 	currentLeftWireLength = getWireLength(LEFT_WIRE_LENGTH, g_MotionSystemInfo.g_CurrentCoordinate.x, g_MotionSystemInfo.g_CurrentCoordinate.y);
 	currentRightWireLength = getWireLength(RIGHT_WIRE_LENGTH, g_MotionSystemInfo.g_CurrentCoordinate.x, g_MotionSystemInfo.g_CurrentCoordinate.y);
+#ifdef DEBUG
+
 	sprintf(str, "currentLeftWireLength is %f\r\n", currentLeftWireLength);
 	//PrintString1(str);
 	sprintf(str, "currentRightWireLength is %f\r\n", currentRightWireLength);
 	//PrintString1(str);
+#endif
 
 
 
-
-	//计算目标线长
+   //计算目标线长
 	targetLeftWireLength = getWireLength(LEFT_WIRE_LENGTH, g_MotionSystemInfo.g_TargetCoordinate.x, g_MotionSystemInfo.g_TargetCoordinate.y);
 	targetRightWireLength = getWireLength(RIGHT_WIRE_LENGTH, g_MotionSystemInfo.g_TargetCoordinate.x, g_MotionSystemInfo.g_TargetCoordinate.y);
+#ifdef DEBUG
 	sprintf(str, "targetLeftWireLength is %f\r\n", targetLeftWireLength);
 	//PrintString1(str);
 	sprintf(str, "targetRightWireLength is %f\r\n", targetRightWireLength);
 	//PrintString1(str);
+#endif
 
 
 
-
-	//计算微分值
+   //计算微分值
 	D_leftWireLength = fabs(targetLeftWireLength - currentLeftWireLength);
 	D_rightWireLength = fabs(targetRightWireLength - currentRightWireLength);
 	sprintf(str, "D_leftWireLength is %f\r\n", D_leftWireLength);
@@ -292,13 +279,15 @@ static bit setStepMotorDis(void)
 		//PrintString1(str);
 
 	K = (float)rightMotorPulse / leftMotorPulse;//右电机和左电机路程之比
+#ifdef DEBUG
+
 	sprintf(str, "leftmotorPulse is %d\r\n", leftMotorPulse);
 	//PrintString1(str);
 	sprintf(str, "rightmotorPulse is %d\r\n", rightMotorPulse);
 	//PrintString1(str);
 	sprintf(str, "K is %f\r\n", K);
 	PrintString1(str);
-
+#endif
 	//根据已经定好的左电机速度计算出右电机相应的速度
 	rightStepMotorSpeed = (u16)(MOVING_SPEED * K);
 	//防止右电机速度超出最大速度，如果超出，则将设定速度附给右电机，左电机速度减小，左电机和右电机的速度比还是不变
@@ -311,10 +300,14 @@ static bit setStepMotorDis(void)
 	{
 		leftStepMotorSpeed = MOVING_SPEED;
 	}
+#ifdef DEBUG
+
 	sprintf(str, "rightStepmotorSpeed is %d \r\n", rightStepMotorSpeed);
 	PrintString1(str);
 	sprintf(str, "leftStepmotorSpeed is %d \r\n", leftStepMotorSpeed);
 	PrintString1(str);
+#endif
+
 	//通过直接算出需要的脉冲数来驱动步进电机
 	setStepMotorWithPulse(LEFT_STEP_MOTOR, leftMotorPulse, leftStepMotorSpeed);
 	setStepMotorWithPulse(RIGHT_STEP_MOTOR, rightMotorPulse, rightStepMotorSpeed);

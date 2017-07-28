@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\SOFTWARE\TASK\mode.c</FilePath>
             </File>
+            <File>
+              <FileName>direction.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SOFTWARE\TASK\direction.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

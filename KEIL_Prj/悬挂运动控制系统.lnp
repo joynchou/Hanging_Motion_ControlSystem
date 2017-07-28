@@ -11,11 +11,13 @@
 ".\LED.obj",
 ".\STEP_MOTOR.obj",
 ".\LCD5510_V2.obj",
+".\ANGLE.obj",
 ".\fixedPulser.obj",
 ".\delay.obj",
 ".\GPIO.obj",
 ".\stc15_pwm.obj",
 ".\timer.obj",
-".\USART1.obj" 
+".\USART1.obj",
+".\ADC.obj" 
 TO "悬挂运动控制系统" Rtx51Tiny 
 RAMSIZE(256) 

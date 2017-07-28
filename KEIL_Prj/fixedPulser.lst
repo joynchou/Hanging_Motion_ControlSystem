@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 1   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/28/2017 10:00:20 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE FIXEDPULSER
@@ -18,7 +18,7 @@ line level    source
    8          * 历史修改记录:
    9          * <作者> <时间> <版本 > <描述>
   10          *  周晨阳 7/25  1.1  更改了定时器的定时时间，由原来最大能产生2500hz的脉冲变成可以产生5000hz的脉冲
-  11          * 周成宇 7/27  1.2   重新定义了脉冲发生器的
+  11          *  周晨阳 7/27  1.2   重新定义了脉冲发生器的产生方式，使用两个定时器来产生两路脉冲，最小可以产生16hz的脉冲
   12          ***********************************************************/
   13          
   14          #include "fixedPulser.h"
@@ -62,7 +62,7 @@ line level    source
   52   2          if (Hz > 20)//大于20hz直接使用定时器赋值
   53   2          {
   54   3            //PrintString1("hz >20\r\n");
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 2   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/28/2017 10:00:20 PAGE 2   
 
   55   3      
   56   3            TIM_Value = (65536UL - ((MAIN_Fosc/12) / Hz/2));
@@ -126,7 +126,7 @@ line level    source
  114   1        {
  115   2          Timer3_Stop();
  116   2      
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 3   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/28/2017 10:00:20 PAGE 3   
 
  117   2        }
  118   1        g_pulser[pulser_num].state = OFF;
@@ -190,7 +190,7 @@ line level    source
  173          
  174          ////      }
  175          ////    }
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 4   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/28/2017 10:00:20 PAGE 4   
 
  176          ////  }
  177          ////  else//如果频率大于20则直接用高速脉冲产生
@@ -254,7 +254,7 @@ line level    source
  235          //  //      //          PrintString1(" pwm6 temp >= count\n");
  236          //  //      g_PWM_6tmp = 0;
  237          //  //      closePulser(PULSER_2);
-C51 COMPILER V8.05a   FIXEDPULSER                                                          07/27/2017 17:39:04 PAGE 5   
+C51 COMPILER V8.05a   FIXEDPULSER                                                          07/28/2017 10:00:20 PAGE 5   
 
  238          //  //      close_PWM_ALL();
  239          //  //    }

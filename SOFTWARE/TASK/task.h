@@ -72,8 +72,6 @@ extern void MotionSystem_Init(void);
 extern Coordinate getCurrentCoordinate(void);
 extern bit setTargetCoordinate(float x, float y);
 extern bit setCurrentCoordinate(float x,float y);
-extern bit isSyetemRunning(void);
-extern bit isSystemStop(void);
 extern bit startSystem(void);
 extern bit stopSystem(void);
 

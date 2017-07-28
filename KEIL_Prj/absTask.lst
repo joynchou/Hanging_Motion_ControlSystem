@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 1   
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE ABSTASK
@@ -23,242 +23,695 @@ line level    source
 *** WARNING C322 IN LINE 54 OF ../HARDWARE/BSP/STC15_EEPROM.h: unknown identifier
 *** WARNING C322 IN LINE 54 OF ../HARDWARE/BSP/STC15_EEPROM.h: unknown identifier
   13          #include "../TASK/task.h"
-  14          #define DX 0.1f
-  15          
-  16          #define   LEFT_MOTOR_STATE_UPDATE 1
-  17          #define   RIGHT_MOTOR_STATE_UPDATE 2
-  18          #define   SYSTEM_STATE_UPDATE  3
-  19          float initialX = 7.5f;
-  20          float initialY = 20;
-  21          u8 str[26];
-  22          Coordinate currentCodnat;
-  23          
-  24          
-  25          void taskStart() _task_ 0
-  26          {
-  27   1        setup();
-  28   1        blink(2);
-  29   1          setCurrentCoordinate(initialX, initialY);
-  30   1        os_create_task(LEFT_MOTOR_STATE_UPDATE);
-  31   1        os_create_task(RIGHT_MOTOR_STATE_UPDATE);
-  32   1        os_create_task(SYSTEM_STATE_UPDATE);
-  33   1        os_create_task(8);
-  34   1        os_delete_task(0);
-  35   1      
-  36   1      }
-  37          void waitingSystem(void)//等待系统上一个坐标到达，此任务会堵塞当前进程
-  38          {
-  39   1      wait:
-  40   1        if (getSystemState() == (enum State)WORKING)
-  41   1        {
-  42   2          os_wait(K_TMO, 5, 0);
-  43   2          goto wait;
-  44   2        }
-  45   1      }
-  46          
-  47          void resetSystem()//复位系统
-  48          {
-  49   1        setTargetCoordinate(initialX, initialY);
-  50   1        waitingSystem();
-  51   1        startSystem();
-  52   1      
-C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 2   
+  14          #include "../TASK/direction.h"
+  15          #define DX 0.08f
+  16          
+  17          #define   LEFT_MOTOR_STATE_UPDATE 1
+  18          #define   RIGHT_MOTOR_STATE_UPDATE 2
+  19          #define   SYSTEM_STATE_UPDATE  3
+  20          #define   SYSTEM_GATE_STATE_UPDATE 4
+  21          #define   SYSTEM_GATE_ADC_UPDATE  5
+  22          
+  23          #define FORWARD_LEFT 0
+  24          #define FORWARD_RIGHT 1
+  25          #define FORWARD_UP 2
+  26          #define FORWARD_DOWN 3
+  27          
+  28          #define DEFUALT_HEAD  FORWARD_UP
+  29          #define DEBUG
+  30          
+  31          u8 currentHead= DEFUALT_HEAD;
+  32          u8 lastTimeHead= DEFUALT_HEAD;
+  33          float initialX =5;
+  34          float initialY = 20;
+  35          u8 str[26];
+  36          Coordinate currentCodnat;
+  37          
+  38          
+  39          void taskStart() _task_ 0
+  40          {
+  41   1        setup();
+  42   1        blink(2);
+  43   1        setCurrentCoordinate(initialX, initialY);
+  44   1      
+  45   1        os_create_task(LEFT_MOTOR_STATE_UPDATE);
+  46   1        os_create_task(RIGHT_MOTOR_STATE_UPDATE);
+  47   1        os_create_task(SYSTEM_STATE_UPDATE);
+  48   1        os_create_task(SYSTEM_GATE_ADC_UPDATE);
+  49   1        os_create_task(SYSTEM_GATE_STATE_UPDATE);
+  50   1      
+  51   1        os_create_task(6);
+  52   1        os_delete_task(0);
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 2   
 
   53   1      
   54   1      }
   55          
-  56          void systemUp(float dis)
+  56          void waitingSystem(void)//等待系统上一个坐标到达，此任务会堵塞当前进程
   57          {
-  58   1        currentCodnat = getCurrentCoordinate();
-  59   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y + dis);
-  60   1        waitingSystem();
-  61   1        startSystem();
-  62   1      
-  63   1      }
-  64          void systemDown(float dis)
-  65          {
-  66   1        currentCodnat = getCurrentCoordinate();
-  67   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y - dis);
-  68   1        waitingSystem();
-  69   1        startSystem();
-  70   1      
-  71   1      }
-  72          void systemLeft(float dis)
-  73          {
-  74   1        currentCodnat = getCurrentCoordinate();
-  75   1        setTargetCoordinate(currentCodnat.x - dis, currentCodnat.y);
-  76   1        waitingSystem();
-  77   1        startSystem();
-  78   1      
-  79   1      }
-  80          void systemRight(float dis)
-  81          {
-  82   1        currentCodnat = getCurrentCoordinate();
-  83   1        setTargetCoordinate(currentCodnat.x + dis, currentCodnat.y);
-  84   1        waitingSystem();
-  85   1        startSystem();
-  86   1      
-  87   1      }
-  88          
-  89          void drawLoopSrtLine(void)
-  90          {
-  91   1        u16 i = 0;
-  92   1        for (;;)
-  93   1        {
-  94   2          for (i = 0; i < 100; i++)
-  95   2          {
-  96   3            systemUp(DX);
-  97   3          }
-  98   2          for (i = 0; i < 100; i++)
-  99   2          {
- 100   3            systemDown(DX);
- 101   3          }
- 102   2      
- 103   2        }
- 104   1      }
- 105          void drawLoopRectangle(void) 
- 106          {
- 107   1        u8 length = 6;
- 108   1        for (;;)
- 109   1        {
- 110   2          systemUp(length);
- 111   2          systemRight(length);
- 112   2          systemDown(length);
- 113   2          systemLeft(length);
- 114   2        }
-C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 3   
+  58   1      wait:
+  59   1        if (getSystemState() == (enum State)WORKING)
+  60   1        {
+  61   2          os_wait(K_TMO, 5, 0);
+  62   2          goto wait;
+  63   2        }
+  64   1      }
+  65          
+  66          void resetSystem()//复位系统
+  67          {
+  68   1        setTargetCoordinate(initialX, initialY);
+  69   1        waitingSystem();
+  70   1        startSystem();
+  71   1      
+  72   1      
+  73   1      }
+  74          
+  75          void systemUp(float dis)
+  76          {
+  77   1        currentCodnat = getCurrentCoordinate();
+  78   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y + dis);
+  79   1        waitingSystem();
+  80   1        startSystem();
+  81   1      
+  82   1      }
+  83          void systemDown(float dis)
+  84          {
+  85   1        currentCodnat = getCurrentCoordinate();
+  86   1        setTargetCoordinate(currentCodnat.x, currentCodnat.y - dis);
+  87   1        waitingSystem();
+  88   1        startSystem();
+  89   1      
+  90   1      }
+  91          void systemLeft(float dis)
+  92          {
+  93   1        currentCodnat = getCurrentCoordinate();
+  94   1        setTargetCoordinate(currentCodnat.x - dis, currentCodnat.y);
+  95   1        waitingSystem();
+  96   1        startSystem();
+  97   1      
+  98   1      }
+  99          void systemRight(float dis)
+ 100          {
+ 101   1        currentCodnat = getCurrentCoordinate();
+ 102   1        setTargetCoordinate(currentCodnat.x + dis, currentCodnat.y);
+ 103   1        waitingSystem();
+ 104   1        startSystem();
+ 105   1      
+ 106   1      }
+ 107          
+ 108          void drawLoopSrtLine(void)
+ 109          {
+ 110   1        u16 i = 0;
+ 111   1        for (;;)
+ 112   1        {
+ 113   2          for (i = 0; i < 100; i++)
+ 114   2          {
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 3   
 
- 115   1      
- 116   1      }
- 117          void drawLine() 
- 118          {
- 119   1        static float x = 0, y = 0;
- 120   1        int tmp = 0;
- 121   1          for (tmp = 0; tmp < 14; tmp++)
- 122   1          {
- 123   2            sprintf(str, "(%f,%f) is arrival\n", x, y);
- 124   2            PrintString1(str);
- 125   2            x += 1;
- 126   2            y = 2 * x;
- 127   2      
- 128   2            setTargetCoordinate(x, y);
- 129   2            waitingSystem();
- 130   2            startSystem();//开启系统
- 131   2      
- 132   2            
- 133   2          }
+ 115   3            systemUp(DX);
+ 116   3          }
+ 117   2          for (i = 0; i < 100; i++)
+ 118   2          {
+ 119   3            systemDown(DX);
+ 120   3          }
+ 121   2      
+ 122   2        }
+ 123   1      }
+ 124          void drawLoopRectangle(void)
+ 125          {
+ 126   1        u8 length = 6;
+ 127   1        for (;;)
+ 128   1        {
+ 129   2          systemUp(length);
+ 130   2          systemRight(length);
+ 131   2          systemDown(length);
+ 132   2          systemLeft(length);
+ 133   2        }
  134   1      
- 135   1          resetSystem();
- 136   1      
- 137   1      
- 138   1      }
- 139          
- 140          void drawCircle(float x, float y)
- 141          {
- 142   1        int tmp = 0;
- 143   1        float X = initialX;
- 144   1        float Y = initialY;  //初始坐标
- 145   1        float subdivide = 1024.0f;//画圆的细分值
- 146   1        float angle = 360;
- 147   1      
- 148   1      
- 149   1          for (tmp = 0; tmp <= subdivide; tmp++)
- 150   1          {
- 151   2            sprintf(str, "(%f,%f) is arrival,tmp = %d \n", X, Y, tmp);
- 152   2            PrintString1(str);
- 153   2      
- 154   2            angle -= 360.0f / subdivide;
- 155   2            X = x + 5 * cos(angle*(0.01745f));
- 156   2            Y = y + 5 * sin(angle*(0.01745f));
- 157   2            setTargetCoordinate(X, Y);
- 158   2            waitingSystem();
- 159   2            startSystem();
- 160   2      
- 161   2      
- 162   2          }
- 163   1          resetSystem();
- 164   1      
- 165   1        
- 166   1      
- 167   1      }
- 168          void systemTest() _task_ 8
- 169          {
- 170   1        for (;;)
- 171   1        {
- 172   2          drawCircle(14, 30);
- 173   2          
- 174   2        }
- 175   1      
- 176   1      }
-C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 4   
+ 135   1      }
+ 136          void drawLine()
+ 137          {
+ 138   1        static float x = 0, y = 0;
+ 139   1        int tmp = 0;
+ 140   1        for (tmp = 0; tmp < 14; tmp++)
+ 141   1        {
+ 142   2          sprintf(str, "(%f,%f) is arrival\n", x, y);
+ 143   2          PrintString1(str);
+ 144   2          x += 1;
+ 145   2          y = 2 * x;
+ 146   2      
+ 147   2          setTargetCoordinate(x, y);
+ 148   2          waitingSystem();
+ 149   2          startSystem();//开启系统
+ 150   2      
+ 151   2      
+ 152   2        }
+ 153   1      
+ 154   1        resetSystem();
+ 155   1      
+ 156   1      
+ 157   1      }
+ 158          
+ 159          bool readLeft()//读逆时针旋转90°的方向上的传感器
+ 160          {
+ 161   1        switch (currentHead)
+ 162   1        {
+ 163   2        case FORWARD_UP:
+ 164   2        {
+ 165   3          if (readGate(LEFT_GATE))
+ 166   3          {
+ 167   4            return 1;
+ 168   4          }
+ 169   3        };
+ 170   2        break;
+ 171   2        case FORWARD_DOWN:
+ 172   2        {
+ 173   3          if (readGate(RIGHT_GATE))
+ 174   3          {
+ 175   4            return 1;
+ 176   4          }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 4   
 
- 177          
- 178          
- 179           void leftStepMotorStateUpdate() _task_ LEFT_MOTOR_STATE_UPDATE//左电机状态更新进程
- 180          {
- 181   1        for (;;)
- 182   1        {
- 183   2          if (getPulserState(PULSER_1) == ON)//如果左电机脉冲打开，则认为左电机正在工作
- 184   2          {
- 185   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) RUNNING);
- 186   3            //  PrintString1("left stepMotor is running \r\n");
- 187   3      
- 188   3          }
- 189   2          else
- 190   2          {
- 191   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) LOCKED);
- 192   3            //  PrintString1("left stepMotor is locked \r\n");
- 193   3      
- 194   3          }
- 195   2          os_wait(K_TMO, 1, 0);
- 196   2        }
- 197   1      }
- 198          void rightStepMotorStateUpdate()  _task_  RIGHT_MOTOR_STATE_UPDATE//右电机状态更新进程
- 199          {
- 200   1        for (;;)
- 201   1        {
- 202   2          if (getPulserState(RIGHT_STEP_MOTOR) == ON)//如果右电机脉冲打开，则认为右电机正在工作
- 203   2          {
- 204   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState) RUNNING);
- 205   3            //    PrintString1("right stepMotor is running \r\n");
- 206   3          }
- 207   2          else
- 208   2          {
- 209   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState)LOCKED);
- 210   3            //PrintString1("right stepMotor is locked \r\n");
- 211   3          }
- 212   2          os_wait(K_TMO, 1, 0);
- 213   2        }
- 214   1      }
- 215          void systemStateUpdate() _task_  SYSTEM_STATE_UPDATE//系统状态更新进程
- 216          {
- 217   1        for (;;)
- 218   1        {
- 219   2          if ((getStepMotorState(LEFT_STEP_MOTOR) == (enum StepMotorState)RUNNING || getStepMotorState(RIGHT_STEP_
+ 177   3        };
+ 178   2        break;
+ 179   2        case FORWARD_RIGHT:
+ 180   2        {
+ 181   3          if (readGate(UP_GATE))
+ 182   3          {
+ 183   4            return 1;
+ 184   4          }
+ 185   3        };
+ 186   2        break;
+ 187   2        case FORWARD_LEFT:
+ 188   2        {
+ 189   3          if (readGate(DOWN_GATE))
+ 190   3          {
+ 191   4            return 1;
+ 192   4          }
+ 193   3        };
+ 194   2        break;
+ 195   2        default:
+ 196   2          break;
+ 197   2      
+ 198   2        }
+ 199   1      }
+ 200          
+ 201          void turnLeft()//逆时针旋转90°
+ 202          {
+ 203   1        switch (currentHead)
+ 204   1        {
+ 205   2        case FORWARD_UP:
+ 206   2        {
+ 207   3          systemLeft(DX);
+ 208   3        };
+ 209   2        break;
+ 210   2        case FORWARD_DOWN:
+ 211   2        {
+ 212   3          systemRight(DX);
+ 213   3        };
+ 214   2        break;
+ 215   2        case FORWARD_RIGHT:
+ 216   2        {
+ 217   3          systemUp(DX);
+ 218   3        };
+ 219   2        break;
+ 220   2        case FORWARD_LEFT:
+ 221   2        {
+ 222   3        //  systemDown(DX);
+ 223   3        };
+ 224   2        break;
+ 225   2        default:
+ 226   2          break;
+ 227   2      
+ 228   2        }
+ 229   1      }
+ 230          
+ 231          bool readRight()//读顺时针旋转90°方向的值
+ 232          {
+ 233   1        switch (currentHead)
+ 234   1        {
+ 235   2        case FORWARD_UP:
+ 236   2        {
+ 237   3          if (readGate(RIGHT_GATE))
+ 238   3          {
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 5   
+
+ 239   4            return 1;
+ 240   4          }
+ 241   3        };
+ 242   2        break;
+ 243   2        case FORWARD_DOWN:
+ 244   2        {
+ 245   3          if (readGate(LEFT_GATE))
+ 246   3          {
+ 247   4            return 1;
+ 248   4          }
+ 249   3        };
+ 250   2        break;
+ 251   2        case FORWARD_RIGHT:
+ 252   2        {
+ 253   3          if (readGate(DOWN_GATE))
+ 254   3          {
+ 255   4            return 1;
+ 256   4          }
+ 257   3        };
+ 258   2        break;
+ 259   2        case FORWARD_LEFT:
+ 260   2        {
+ 261   3          if (readGate(UP_GATE))
+ 262   3          {
+ 263   4            return 1;
+ 264   4          }
+ 265   3        };
+ 266   2        break;
+ 267   2        default:
+ 268   2          break;
+ 269   2      
+ 270   2        }
+ 271   1      }
+ 272          
+ 273          void turnRight()//顺时针旋转90°
+ 274          {
+ 275   1        switch (currentHead)
+ 276   1        {
+ 277   2        case FORWARD_UP:
+ 278   2        {
+ 279   3          systemRight(DX);
+ 280   3        };
+ 281   2        break;
+ 282   2        case FORWARD_DOWN:
+ 283   2        {
+ 284   3          systemLeft(DX);
+ 285   3        };
+ 286   2        break;
+ 287   2        case FORWARD_RIGHT:
+ 288   2        {
+ 289   3        //  systemDown(DX);
+ 290   3        };
+ 291   2        break;
+ 292   2        case FORWARD_LEFT:
+ 293   2        {
+ 294   3          systemUp(DX);
+ 295   3        };
+ 296   2        break;
+ 297   2        default:
+ 298   2          break;
+ 299   2      
+ 300   2        }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 6   
+
+ 301   1      }
+ 302          
+ 303          void goStraight()//方向为车头方向
+ 304          {
+ 305   1        switch (currentHead)
+ 306   1        {
+ 307   2        case FORWARD_UP:
+ 308   2        {
+ 309   3          systemUp(DX);
+ 310   3        };
+ 311   2        break;
+ 312   2        case FORWARD_DOWN:
+ 313   2        {
+ 314   3        //  systemDown(DX);
+ 315   3        };
+ 316   2        break;
+ 317   2        case FORWARD_RIGHT:
+ 318   2        {
+ 319   3          systemRight(DX);
+ 320   3        };
+ 321   2        break;
+ 322   2        case FORWARD_LEFT:
+ 323   2        {
+ 324   3          systemLeft(DX);
+ 325   3        };
+ 326   2        break;
+ 327   2        default:
+ 328   2          break;
+ 329   2      
+ 330   2        }
+ 331   1      
+ 332   1      }
+ 333          
+ 334          void drawCircle(float x, float y)
+ 335          {
+ 336   1        int tmp = 0;
+ 337   1        float X = initialX;
+ 338   1        float Y = initialY;  //初始坐标
+ 339   1        float subdivide = 1024.0f;//画圆的细分值
+ 340   1        float angle = 360;
+ 341   1      
+ 342   1      
+ 343   1        for (tmp = 0; tmp <= subdivide; tmp++)
+ 344   1        {
+ 345   2          sprintf(str, "(%f,%f) is arrival,tmp = %d \n", X, Y, tmp);
+ 346   2          PrintString1(str);
+ 347   2      
+ 348   2          angle -= 360.0f / subdivide;
+ 349   2          X = x + 5 * cos(angle*(0.01745f));
+ 350   2          Y = y + 5 * sin(angle*(0.01745f));
+ 351   2          setTargetCoordinate(X, Y);
+ 352   2          waitingSystem();
+ 353   2          startSystem();
+ 354   2      
+ 355   2      
+ 356   2        }
+ 357   1        resetSystem();
+ 358   1      
+ 359   1      
+ 360   1      
+ 361   1      }
+ 362          void Tracking(void) _task_ 9
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 7   
+
+ 363          {
+ 364   1        for(;;)
+ 365   1        
+ 366   1        {
+ 367   2          if (readGate(LEFT_GATE))
+ 368   2          {
+ 369   3            systemRight(DX);
+ 370   3      #ifdef DEBUG
+ 371   3            PrintString1("right\r\n");
+ 372   3      #endif // DEBUG
+ 373   3      
+ 374   3            
+ 375   3          }
+ 376   2          else if (readGate(RIGHT_GATE))
+ 377   2          {
+ 378   3            systemLeft(DX);
+ 379   3      #ifdef DEBUG
+ 380   3            PrintString1("left\r\n");
+ 381   3      #endif // DEBUG
+ 382   3      
+ 383   3          }
+ 384   2          else if (readGate(UP_GATE))
+ 385   2          {
+ 386   3            systemDown(DX);
+ 387   3      #ifdef DEBUG
+ 388   3            PrintString1("down\r\n");
+ 389   3      #endif // DEBUG
+ 390   3      
+ 391   3          }
+ 392   2          else if (readGate(DOWN_GATE))
+ 393   2          {
+ 394   3            systemUp(DX);
+ 395   3      #ifdef DEBUG
+ 396   3            PrintString1("up\r\n");
+ 397   3      #endif // DEBUG
+ 398   3      
+ 399   3          }
+ 400   2          else if (readGate(DOWN_GATE) && readGate(UP_GATE))
+ 401   2          {
+ 402   3            systemUp(DX);
+ 403   3      #ifdef DEBUG
+ 404   3            PrintString1("up\r\n");
+ 405   3      #endif // DEBUG
+ 406   3      
+ 407   3          }
+ 408   2          else if (readGate(LEFT_GATE) && readGate(RIGHT_GATE))
+ 409   2          {
+ 410   3            systemRight(DX);
+ 411   3      #ifdef DEBUG
+ 412   3            PrintString1("right\r\n");
+ 413   3      #endif // DEBUG
+ 414   3      
+ 415   3          }
+ 416   2          else if(readGate(UP_GATE)&&readGate(RIGHT_GATE))
+ 417   2          {
+ 418   3            systemDown(DX);
+ 419   3            systemLeft(DX);
+ 420   3      #ifdef DEBUG
+ 421   3            PrintString1("down and left\r\n");
+ 422   3      #endif // DEBUG
+ 423   3      
+ 424   3          }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 8   
+
+ 425   2          else if(readGate(UP_GATE)&&readGate(LEFT_GATE))
+ 426   2          {
+ 427   3            systemDown(DX);
+ 428   3            systemRight(DX);
+ 429   3      #ifdef DEBUG
+ 430   3            PrintString1("down and right\r\n");
+ 431   3      #endif // DEBUG
+ 432   3      
+ 433   3          }
+ 434   2          else if (readGate(DOWN_GATE) && readGate(RIGHT_GATE))
+ 435   2          {
+ 436   3            systemUp(DX);
+ 437   3            systemLeft(DX);
+ 438   3      #ifdef DEBUG
+ 439   3            PrintString1("up and left\r\n");
+ 440   3      #endif // DEBUG
+ 441   3      
+ 442   3          }
+ 443   2          else if (readGate(LEFT_GATE) && readGate(DOWN_GATE))
+ 444   2          {
+ 445   3            systemRight(DX);
+ 446   3            systemUp(DX);
+ 447   3      #ifdef DEBUG
+ 448   3            PrintString1("right and up\r\n");
+ 449   3      #endif // DEBUG
+ 450   3      
+ 451   3          }
+ 452   2          else
+ 453   2          {
+ 454   3            systemUp(DX);
+ 455   3          }
+ 456   2          os_wait(K_TMO, 70, 0);
+ 457   2        }
+ 458   1        /*
+ 459   1        for (;;)
+ 460   1        {
+ 461   1          if (readLeft())//如果车头左边读到线，则车头方向逆时针旋转90°
+ 462   1          {
+ 463   1            turnLeft();
+ 464   1            lastTimeHead = currentHead;//更新上一次的车头方向
+ 465   1      
+ 466   1            switch (lastTimeHead)
+ 467   1            {
+ 468   1            case FORWARD_UP:
+ 469   1            {
+ 470   1              currentHead = FORWARD_LEFT;
+ 471   1            };
+ 472   1            break;
+ 473   1            case FORWARD_DOWN:
+ 474   1            {
+ 475   1              currentHead = FORWARD_RIGHT;
+ 476   1            };
+ 477   1            break;
+ 478   1            case FORWARD_LEFT:
+ 479   1            {
+ 480   1            //  currentHead = FORWARD_DOWN;
+ 481   1            };
+ 482   1            break;
+ 483   1            case FORWARD_RIGHT:
+ 484   1            {
+ 485   1              currentHead = FORWARD_UP;
+ 486   1            };
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 9   
+
+ 487   1            break;
+ 488   1            default:
+ 489   1              break;
+ 490   1            }
+ 491   1          }
+ 492   1          else if (readRight())//如果车头右边读到线，则车头方向顺时针旋转90°
+ 493   1          {
+ 494   1            turnRight();
+ 495   1            lastTimeHead = currentHead;//更新上一次的车头方向
+ 496   1      
+ 497   1            switch (lastTimeHead)
+ 498   1            {
+ 499   1            case FORWARD_UP:
+ 500   1            {
+ 501   1              currentHead = FORWARD_RIGHT;
+ 502   1            };
+ 503   1            break;
+ 504   1            case FORWARD_DOWN:
+ 505   1            {
+ 506   1              currentHead = FORWARD_LEFT;
+ 507   1            };
+ 508   1            break;
+ 509   1            case FORWARD_LEFT:
+ 510   1            {
+ 511   1              currentHead = FORWARD_UP;
+ 512   1            };
+ 513   1            break;
+ 514   1            case FORWARD_RIGHT:
+ 515   1            {
+ 516   1              currentHead = FORWARD_DOWN;
+ 517   1            };
+ 518   1            break;
+ 519   1            default:
+ 520   1              break;
+ 521   1            }
+ 522   1          }
+ 523   1          else //如果没有读到线，车头方向直走
+ 524   1          {
+ 525   1            goStraight();
+ 526   1          }
+ 527   1          os_wait(K_TMO, 70, 0);
+ 528   1        }
+ 529   1        */
+ 530   1      
+ 531   1      }
+ 532          void systemTest( ) _task_ 6
+ 533          {
+ 534   1        for (;;)
+ 535   1        {
+ 536   2          //drawCircle(14, 30);
+ 537   2              systemUp(5);
+ 538   2          systemRight(5);
+ 539   2          systemDown(5);
+ 540   2          systemLeft(5);
+ 541   2          //resetSystem();
+ 542   2      
+ 543   2        }
+ 544   1      
+ 545   1      }
+ 546          void printGateState(void) _task_ 7
+ 547          {
+ 548   1        for (;;)
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 10  
+
+ 549   1        {
+ 550   2          if (readGate(LEFT_GATE))
+ 551   2          {
+ 552   3            PrintString1("left gate is on\r\n");
+ 553   3          }
+ 554   2          else
+ 555   2          {
+ 556   3            PrintString1("left gate is off\r\n");
+ 557   3          }
+ 558   2          if (readGate(RIGHT_GATE))
+ 559   2          {
+ 560   3            PrintString1("right gate is on\r\n");
+ 561   3          }
+ 562   2          else
+ 563   2          {
+ 564   3            PrintString1("right gate is off\r\n");
+ 565   3          }
+ 566   2          if (readGate(UP_GATE))
+ 567   2          {
+ 568   3            PrintString1("up gate is on\r\n");
+ 569   3          }
+ 570   2          else
+ 571   2          {
+ 572   3            PrintString1("up gate is off\r\n");
+ 573   3          }
+ 574   2      
+ 575   2          if (readGate(DOWN_GATE))
+ 576   2          {
+ 577   3            PrintString1("down gate is on\r\n");
+ 578   3          }
+ 579   2          else
+ 580   2          {
+ 581   3            PrintString1("down gate is off\r\n");
+ 582   3          }
+ 583   2          os_wait(K_TMO, 10, 0);
+ 584   2      
+ 585   2        }
+ 586   1      
+ 587   1      }
+ 588          void printADCValue(void) _task_ 8
+ 589          {
+ 590   1        for (;;)
+ 591   1        {
+ 592   2          DataScope_Get_Channel_Data(readGate_ADC_Value(LEFT_GATE), 1);
+ 593   2          DataScope_Get_Channel_Data(readGate_ADC_Value(RIGHT_GATE), 2);
+ 594   2          DataScope_Get_Channel_Data(readGate_ADC_Value(UP_GATE), 3);
+ 595   2          DataScope_Get_Channel_Data(readGate_ADC_Value(DOWN_GATE), 4);
+ 596   2          sendScopeData(4);
+ 597   2      
+ 598   2      
+ 599   2          os_wait(K_TMO, 10, 0);
+ 600   2        }
+ 601   1      }
+ 602          void systemGateADC_ValueUpdate(void) _task_ SYSTEM_GATE_ADC_UPDATE
+ 603          {
+ 604   1        for (;;)
+ 605   1        {
+ 606   2          gateADC_ValueUpdate();
+ 607   2          os_wait(K_TMO, 20, 0);
+ 608   2        }
+ 609   1      }
+ 610          void systemGateStateUpdate(void) _task_ SYSTEM_GATE_STATE_UPDATE
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 11  
+
+ 611          {
+ 612   1        for (;;)
+ 613   1        {
+ 614   2          gateStateUpdate();
+ 615   2          os_wait(K_TMO, 20, 0);
+ 616   2        }
+ 617   1      }
+ 618          void leftStepMotorStateUpdate() _task_ LEFT_MOTOR_STATE_UPDATE//左电机状态更新进程
+ 619          {
+ 620   1        for (;;)
+ 621   1        {
+ 622   2          if (getPulserState(PULSER_1) == ON)//如果左电机脉冲打开，则认为左电机正在工作
+ 623   2          {
+ 624   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) RUNNING);
+ 625   3            //  PrintString1("left stepMotor is running \r\n");
+ 626   3      
+ 627   3          }
+ 628   2          else
+ 629   2          {
+ 630   3            setStepMotorState(LEFT_STEP_MOTOR, (enum StepMotorState) LOCKED);
+ 631   3            //  PrintString1("left stepMotor is locked \r\n");
+ 632   3      
+ 633   3          }
+ 634   2          os_wait(K_TMO, 1, 0);
+ 635   2        }
+ 636   1      }
+ 637          void rightStepMotorStateUpdate()  _task_  RIGHT_MOTOR_STATE_UPDATE//右电机状态更新进程
+ 638          {
+ 639   1        for (;;)
+ 640   1        {
+ 641   2          if (getPulserState(RIGHT_STEP_MOTOR) == ON)//如果右电机脉冲打开，则认为右电机正在工作
+ 642   2          {
+ 643   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState) RUNNING);
+ 644   3            //    PrintString1("right stepMotor is running \r\n");
+ 645   3          }
+ 646   2          else
+ 647   2          {
+ 648   3            setStepMotorState(RIGHT_STEP_MOTOR, (enum StepMotorState)LOCKED);
+ 649   3            //PrintString1("right stepMotor is locked \r\n");
+ 650   3          }
+ 651   2          os_wait(K_TMO, 1, 0);
+ 652   2        }
+ 653   1      }
+ 654          void systemStateUpdate() _task_  SYSTEM_STATE_UPDATE//系统状态更新进程
+ 655          {
+ 656   1        for (;;)
+ 657   1        {
+ 658   2          if ((getStepMotorState(LEFT_STEP_MOTOR) == (enum StepMotorState)RUNNING || getStepMotorState(RIGHT_STEP_
              -MOTOR) == (enum StepMotorState)RUNNING))//如果系统还没有到达目标坐标
- 220   2          {
- 221   3            setSystemState((enum State)WORKING);
- 222   3            //  PrintString1("system is working \r\n");
- 223   3          }
- 224   2          else
- 225   2          {
- 226   3            //  PrintString1("system is stopped \r\n");
- 227   3            setSystemState((enum State)STOP);
- 228   3      
- 229   3          }
- 230   2          os_wait(K_TMO, 3, 0);
- 231   2      
- 232   2        }
- 233   1      }
- 234          
+ 659   2          {
+ 660   3            setSystemState((enum State)WORKING);
+ 661   3            //  PrintString1("system is working \r\n");
+ 662   3          }
+ 663   2          else
+ 664   2          {
+ 665   3            //  PrintString1("system is stopped \r\n");
+ 666   3            setSystemState((enum State)STOP);
+ 667   3      
+ 668   3          }
+ 669   2          os_wait(K_TMO, 3, 0);
+ 670   2      
+ 671   2        }
+C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 21:19:49 PAGE 12  
+
+ 672   1      }
+ 673          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V8.05a   ABSTASK                                                              07/28/2017 08:56:27 PAGE 5   
-
-   CODE SIZE        =   1455    ----
-   CONSTANT SIZE    =     50    ----
-   XDATA SIZE       =    107      47
+   CODE SIZE        =   2239    ----
+   CONSTANT SIZE    =    285    ----
+   XDATA SIZE       =    109      47
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

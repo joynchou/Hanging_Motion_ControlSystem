@@ -564,6 +564,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\DEVICES\DISPLAY\LCD5110\LCD5510_V2.C</FilePath>
             </File>
+            <File>
+              <FileName>ANGLE.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\DEVICES\SENSOR\ANGLE\ANGLE.C</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -603,6 +608,11 @@
               <FileName>USART1.C</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\BSP\USART1.C</FilePath>
+            </File>
+            <File>
+              <FileName>ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\BSP\ADC.c</FilePath>
             </File>
           </Files>
         </Group>

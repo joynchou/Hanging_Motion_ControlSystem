@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   DIRECTION                                                            07/28/2017 09:23:29 PAGE 1   
+C51 COMPILER V8.05a   DIRECTION                                                            07/28/2017 20:53:07 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE DIRECTION
@@ -18,27 +18,151 @@ line level    source
    8          #include <math.h>
    9          #include <stdlib.h>
   10          #include <stdio.h>
-  11          #include "../HARDWARE/BSP/stc15_pwm.h"
-  12          #include "../HARDWARE/BSP/GPIO.h"
-  13          
-  14          
-  15          //寻线系统初始化
-  16          void TrackingSystem_Init(void)
-  17          {
-  18   1        GPIO_InitTypeDef photogateGPIO;
-  19   1        photogateGPIO.Mode = GPIO_PullUp;
-  20   1        photogateGPIO.Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2;
-  21   1        GPIO_Inilize(GPIO_P5, &photogateGPIO);
-  22   1        photogateGPIO.Pin = GPIO_Pin_0 ;
-  23   1        GPIO_Inilize(GPIO_P4, &photogateGPIO);
-  24   1      
-  25   1      }
+  11          #include "../../HARDWARE/BSP/GPIO.h"
+  12          #include "../../HARDWARE/BSP/ADC.h"
+  13          #include "../ALGORITHM/FILTER/FILTER.H"
+  14          static gateInfo  gateState[4];
+  15          
+  16          //寻线系统初始化
+  17          //************************************
+  18          // Method:    TrackingSystem_Init
+  19          // FullName:  TrackingSystem_Init
+  20          // Access:    public 
+  21          // Returns:   void
+  22          // Qualifier:
+  23          // Parameter: void
+  24          //************************************
+  25          void TrackingSystem_Init(void)
+  26          {
+  27   1        //GPIO_InitTypeDef photogateGPIO;
+  28   1        ADC_InitTypeDef photogateADC;
+  29   1        //photogateGPIO.Mode = GPIO_PullUp;
+  30   1        //photogateGPIO.Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2;
+  31   1        //GPIO_Inilize(GPIO_P5, &photogateGPIO);
+  32   1        //photogateGPIO.Pin = GPIO_Pin_0 ;
+  33   1        //GPIO_Inilize(GPIO_P4, &photogateGPIO);
+  34   1        photogateADC.ADC_Px =ADC_P10| ADC_P11| ADC_P12| ADC_P13;
+  35   1        photogateADC.ADC_Speed = ADC_90T;
+  36   1        photogateADC.ADC_Power = ENABLE;
+  37   1        photogateADC.ADC_AdjResult = ADC_RES_H8L2;
+  38   1        photogateADC.ADC_Polity = PolityLow;
+  39   1        photogateADC.ADC_Interrupt = DISABLE;
+  40   1        ADC_Inilize(&photogateADC);
+  41   1        //ADC_PowerControl(ENABLE);
+  42   1      
+  43   1      }
+  44          u16 readGate_ADC_Value(u8 gate)
+  45          {
+  46   1        return gateState[gate].ADC_Value;
+  47   1      }
+  48          //************************************
+  49          // Method:    readGate
+  50          // FullName:  readGate
+  51          // Access:    public 
+  52          // Returns:   u16
+  53          // Qualifier:
+  54          // Parameter: u8 gate
+C51 COMPILER V8.05a   DIRECTION                                                            07/28/2017 20:53:07 PAGE 2   
+
+  55          //************************************
+  56          u8  readGate(u8 gate)
+  57          {
+  58   1          return gateState[gate].state; 
+  59   1      }
+  60          //************************************
+  61          // Method:    gateADC_ValueUpdate
+  62          // FullName:  gateADC_ValueUpdate
+  63          // Access:    public 
+  64          // Returns:   void
+  65          // Qualifier: 更新adc的值并滤波
+  66          // Parameter: void
+  67          //************************************
+  68          void gateADC_ValueUpdate(void)
+  69          {
+  70   1        u8 tmp = 10;
+  71   1        u8 loopTmp = 0;
+  72   1        u16 valueTmp[10];
+  73   1        for (loopTmp = 0; loopTmp <tmp; loopTmp++)
+  74   1        {
+  75   2          valueTmp[loopTmp] = Get_ADC10bitResult(LEFT_GATE);
+  76   2        }
+  77   1        gateState[LEFT_GATE].ADC_Value =filter(valueTmp, tmp,1024,0);
+  78   1      
+  79   1      
+  80   1        for (loopTmp = 0; loopTmp < tmp; loopTmp++)
+  81   1        {
+  82   2          valueTmp[loopTmp] = Get_ADC10bitResult(RIGHT_GATE);
+  83   2        }
+  84   1        gateState[RIGHT_GATE].ADC_Value = filter(valueTmp, tmp, 1024, 0);
+  85   1      
+  86   1      
+  87   1        for (loopTmp = 0; loopTmp < tmp; loopTmp++)
+  88   1        {
+  89   2          valueTmp[loopTmp] = Get_ADC10bitResult(UP_GATE);
+  90   2        }
+  91   1        gateState[UP_GATE].ADC_Value = filter(valueTmp, tmp, 1024, 0);
+  92   1      
+  93   1      
+  94   1        for (loopTmp = 0; loopTmp < tmp; loopTmp++)
+  95   1        {
+  96   2          valueTmp[loopTmp] = Get_ADC10bitResult(DOWN_GATE);
+  97   2        }
+  98   1        gateState[DOWN_GATE].ADC_Value = filter(valueTmp, tmp, 1024, 0);
+  99   1      }
+ 100          //************************************
+ 101          // Method:    gateStateUpdate
+ 102          // FullName:  gateStateUpdate
+ 103          // Access:    public 
+ 104          // Returns:   void
+ 105          // Qualifier:
+ 106          // Parameter: void
+ 107          //************************************
+ 108          void gateStateUpdate(void)
+ 109          {
+ 110   1        if (readGate_ADC_Value(LEFT_GATE)>409)
+ 111   1        {
+ 112   2          gateState[LEFT_GATE].state = ON;
+ 113   2        }
+ 114   1        else
+ 115   1        {
+ 116   2          gateState[LEFT_GATE].state = OFF;
+C51 COMPILER V8.05a   DIRECTION                                                            07/28/2017 20:53:07 PAGE 3   
+
+ 117   2        }
+ 118   1        if (readGate_ADC_Value(RIGHT_GATE)>241)
+ 119   1        {
+ 120   2          gateState[RIGHT_GATE].state = ON;
+ 121   2        }
+ 122   1        else
+ 123   1        {
+ 124   2          gateState[RIGHT_GATE].state = OFF;
+ 125   2        }
+ 126   1      
+ 127   1        if (readGate_ADC_Value(UP_GATE)>322)
+ 128   1        {
+ 129   2          gateState[UP_GATE].state = ON;
+ 130   2        }
+ 131   1        else
+ 132   1        {
+ 133   2          gateState[UP_GATE].state = OFF;
+ 134   2        }
+ 135   1        if (readGate_ADC_Value(DOWN_GATE)>337)
+ 136   1        {
+ 137   2          gateState[DOWN_GATE].state = ON;
+ 138   2        }
+ 139   1        else
+ 140   1        {
+ 141   2          gateState[DOWN_GATE].state = OFF;
+ 142   2        }
+ 143   1      
+ 144   1        
+ 145   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     36    ----
+   CODE SIZE        =    517    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     57       2
+   XDATA SIZE       =     69      28
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
